@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mitik Hikayeler — Mitik mi, Bitik mi?</title>
-  <meta name="description" content="Antik tanrıların ve sözde mitik kahramanların bitik hikayeleri. Yiki'nin anlatımıyla interaktif, scrollytelling mitoloji arşivi.">
+  <meta name="description" content="Antik tanrıların ve sözde mitik kahramanların bitik hikayeleri. Yiki'nin anlatımıyla Awwwards seviyesinde scrollytelling mitoloji arşivi.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,16 +21,17 @@
           fontFamily: {
             cinzel: ['Cinzel', 'serif'],
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
           },
           colors: {
             mythic: {
               gold: '#E5C158',
               goldHover: '#F7D470',
               crimson: '#E63946',
-              dark: '#07080C',
-              surface: '#10121D',
-              card: '#161927',
-              border: '#24283E',
+              dark: '#050609',
+              surface: '#0E101A',
+              card: '#141724',
+              border: '#22263A',
               accent: '#3A86FF',
               textMuted: '#94A3B8'
             }
@@ -52,28 +53,28 @@
 
   <style>
     /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #07080C; }
-    ::-webkit-scrollbar-thumb { background: #24283E; border-radius: 4px; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #050609; }
+    ::-webkit-scrollbar-thumb { background: #22263A; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #E5C158; }
 
     /* Noise Texture Overlay */
     .bg-noise {
-      background-image: radial-gradient(rgba(229, 193, 88, 0.04) 1px, transparent 0);
+      background-image: radial-gradient(rgba(229, 193, 88, 0.035) 1px, transparent 0);
       background-size: 24px 24px;
     }
 
     /* Glow Effects */
-    .gold-glow { box-shadow: 0 0 40px -5px rgba(229, 193, 88, 0.25); }
-    .crimson-glow { box-shadow: 0 0 40px -5px rgba(230, 57, 70, 0.35); }
-    .text-glow { text-shadow: 0 0 25px rgba(229, 193, 88, 0.4); }
+    .gold-glow { box-shadow: 0 0 45px -5px rgba(229, 193, 88, 0.28); }
+    .crimson-glow { box-shadow: 0 0 45px -5px rgba(230, 57, 70, 0.35); }
+    .text-glow { text-shadow: 0 0 30px rgba(229, 193, 88, 0.45); }
 
     /* Floating Card Gradient Border */
     .mythic-border {
       position: relative;
-      background: linear-gradient(135deg, rgba(229, 193, 88, 0.3), rgba(230, 57, 70, 0.2), transparent 70%);
+      background: linear-gradient(135deg, rgba(229, 193, 88, 0.35), rgba(230, 57, 70, 0.2), transparent 70%);
       padding: 1px;
-      border-radius: 1rem;
+      border-radius: 1.25rem;
     }
 
     /* Responsive 16:9 Video Embed */
@@ -82,7 +83,7 @@
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      border-radius: 0.75rem;
+      border-radius: 0.85rem;
     }
     .video-responsive iframe {
       position: absolute;
@@ -96,7 +97,7 @@
     /* Scrollytelling Pinned Stage */
     .scrolly-container {
       position: relative;
-      height: 400vh;
+      height: 450vh;
     }
     .scrolly-sticky {
       position: sticky;
@@ -117,18 +118,33 @@
       object-fit: cover;
       opacity: 1;
       z-index: 1;
+      will-change: transform;
     }
 
     /* Cinematic Subtitle Glass Card */
     .cinematic-caption {
-      background: rgba(7, 8, 12, 0.8);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(229, 193, 88, 0.35);
+      background: rgba(8, 10, 16, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(229, 193, 88, 0.4);
+      border-radius: 1.5rem;
+      padding: 1.75rem 2.25rem;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Parallax Floating Quote Cards */
+    .parallax-card {
+      background: rgba(14, 16, 26, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(229, 193, 88, 0.25);
       border-radius: 1.25rem;
-      padding: 1.5rem 2rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease-out, border-color 0.3s ease;
+    }
+    .parallax-card:hover {
+      border-color: rgba(229, 193, 88, 0.7);
     }
 
     /* Side Mythic Progress Bar */
@@ -136,19 +152,19 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .side-nav-dot.active {
-      transform: scale(1.5);
+      transform: scale(1.6);
       background-color: #E5C158;
-      box-shadow: 0 0 12px #E5C158;
+      box-shadow: 0 0 16px #E5C158;
     }
 
     /* Ambient Cursor Light */
     #cursor-light {
       pointer-events: none;
       position: fixed;
-      width: 450px;
-      height: 450px;
+      width: 480px;
+      height: 480px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(229, 193, 88, 0.07) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(229, 193, 88, 0.08) 0%, transparent 70%);
       transform: translate(-50%, -50%);
       z-index: 999;
       transition: opacity 0.3s ease;
@@ -161,40 +177,45 @@
   <div id="cursor-light" class="hidden md:block"></div>
 
   <!-- ==================== MİTİK YAN TAKİP ÇUBUĞU ==================== -->
-  <div class="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-6 p-3 rounded-full bg-mythic-dark/70 backdrop-blur-md border border-mythic-border/70 shadow-2xl">
+  <div class="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-5 p-3 rounded-full bg-mythic-dark/80 backdrop-blur-md border border-mythic-border shadow-2xl">
     
-    <div class="absolute top-6 bottom-6 w-0.5 bg-mythic-border -z-10">
+    <div class="absolute top-6 bottom-6 w-0.5 bg-mythic-border/70 -z-10">
       <div id="side-tracker-fill" class="w-full bg-mythic-gold transition-all duration-150" style="height: 0%;"></div>
     </div>
 
     <button onclick="scrollToSection('#hero')" class="group relative flex items-center justify-center" title="Giriş">
-      <div id="dot-hero" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-500 group-hover:bg-mythic-gold active"></div>
-      <span class="absolute right-7 px-2.5 py-1 rounded bg-black/90 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Giriş</span>
+      <div id="dot-hero" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold active"></div>
+      <span class="absolute right-7 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Giriş</span>
     </button>
 
     <button onclick="scrollToSection('#scrolly-1')" class="group relative flex items-center justify-center" title="Altın Elma">
-      <div id="dot-scrolly-1" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-500 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-7 px-2.5 py-1 rounded bg-black/90 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Altın Elma</span>
+      <div id="dot-scrolly-1" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
+      <span class="absolute right-7 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Sahne 1: Altın Elma</span>
+    </button>
+
+    <button onclick="scrollToSection('#kopru')" class="group relative flex items-center justify-center" title="Aforizmalar">
+      <div id="dot-kopru" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
+      <span class="absolute right-7 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Mitik Aforizmalar</span>
     </button>
 
     <button onclick="scrollToSection('#scrolly-2')" class="group relative flex items-center justify-center" title="İkarus">
-      <div id="dot-scrolly-2" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-500 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-7 px-2.5 py-1 rounded bg-black/90 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">İkarus Düşüşü</span>
+      <div id="dot-scrolly-2" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
+      <span class="absolute right-7 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Sahne 2: İkarus Düşüşü</span>
     </button>
 
     <button onclick="scrollToSection('#yiki')" class="group relative flex items-center justify-center" title="Yiki Kimdir?">
-      <div id="dot-yiki" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-500 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-7 px-2.5 py-1 rounded bg-black/90 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Yiki Kimdir?</span>
+      <div id="dot-yiki" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
+      <span class="absolute right-7 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Yiki Kimdir?</span>
     </button>
 
     <button onclick="scrollToSection('#anket')" class="group relative flex items-center justify-center" title="Oylama">
-      <div id="dot-anket" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-500 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-7 px-2.5 py-1 rounded bg-black/90 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Mitik vs Bitik</span>
+      <div id="dot-anket" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
+      <span class="absolute right-7 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Mitik vs Bitik</span>
     </button>
 
     <button onclick="scrollToSection('#bolumler')" class="group relative flex items-center justify-center" title="Bölüm Arşivi">
-      <div id="dot-bolumler" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-500 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-7 px-2.5 py-1 rounded bg-black/90 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Bölüm Arşivi</span>
+      <div id="dot-bolumler" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
+      <span class="absolute right-7 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Bölüm Arşivi</span>
     </button>
 
   </div>
@@ -203,7 +224,6 @@
   <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-mythic-dark/90 backdrop-blur-md border-b border-mythic-border/60">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       
-      <!-- Brand Logo with New Drive Logo -->
       <a href="#" class="flex items-center gap-3.5 group">
         <div class="w-12 h-12 rounded-full bg-mythic-gold/10 border border-mythic-gold/40 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform shadow-lg">
           <img src="https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm" alt="Mitik Hikayeler Logo" class="w-full h-full object-cover">
@@ -214,16 +234,15 @@
         </div>
       </a>
 
-      <!-- Navigation Links -->
       <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
         <a href="#scrolly-1" class="hover:text-mythic-gold transition-colors">Altın Elma</a>
+        <a href="#kopru" class="hover:text-mythic-gold transition-colors">Aforizmalar</a>
         <a href="#scrolly-2" class="hover:text-mythic-gold transition-colors">İkarus Düşüşü</a>
         <a href="#yiki" class="hover:text-mythic-gold transition-colors">Yiki Kimdir?</a>
         <a href="#anket" class="hover:text-mythic-gold transition-colors">Oylama</a>
-        <a href="#bolumler" class="hover:text-mythic-gold transition-colors">Tüm Bölümler</a>
+        <a href="#bolumler" class="hover:text-mythic-gold transition-colors">Bölümler</a>
       </nav>
 
-      <!-- Social Media Icons -->
       <div class="flex items-center gap-3">
         <a href="https://instagram.com/mitikhikayeler" target="_blank" rel="noopener noreferrer" 
            class="w-9 h-9 rounded-full bg-mythic-surface border border-mythic-border hover:border-pink-500 hover:text-pink-400 flex items-center justify-center text-slate-300 transition-all" title="Instagram">
@@ -279,7 +298,6 @@
         </div>
       </div>
 
-      <!-- Hero Yiki Character Display -->
       <div class="md:col-span-4 flex justify-center">
         <div class="relative w-64 h-80 sm:w-72 sm:h-96 flex items-center justify-center">
           <div class="absolute inset-0 bg-gradient-to-t from-mythic-gold/20 via-transparent to-transparent rounded-full blur-2xl"></div>
@@ -299,7 +317,7 @@
         <source src="https://drive.google.com/uc?export=download&id=1g2nxwAjJqsBpBRQaWAP1xFGoQGKfbrNo" type="video/mp4">
       </video>
 
-      <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/85 via-transparent to-black/50 pointer-events-none"></div>
+      <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-transparent to-black/55 pointer-events-none"></div>
 
       <div class="relative z-20 max-w-2xl mx-auto px-6 w-full pb-20 pointer-events-none mt-auto">
         
@@ -331,8 +349,100 @@
     </div>
   </section>
 
+  <!-- ==================== İKİ VİDEO ARASI GEÇİŞ KÖPRÜSÜ ==================== -->
+  <section id="kopru" class="relative py-32 px-6 bg-gradient-to-b from-mythic-dark via-mythic-surface to-mythic-dark z-20 overflow-hidden border-t border-b border-mythic-border/50">
+    
+    <div class="absolute -top-12 -left-12 text-[220px] font-cinzel font-bold text-mythic-gold/[0.03] select-none pointer-events-none">Ω</div>
+    <div class="absolute -bottom-12 -right-12 text-[220px] font-cinzel font-bold text-mythic-crimson/[0.03] select-none pointer-events-none">Ψ</div>
+
+    <div class="max-w-6xl mx-auto space-y-24">
+      
+      <div class="text-center space-y-4 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-widest font-mono">
+          <i data-lucide="scroll" class="w-3.5 h-3.5"></i>
+          <span>Antik Tabletlerden Süzülen Gerçekler</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-100 leading-tight">
+          "TANRILARIN KİBRİ, <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-gold via-amber-300 to-mythic-crimson">
+            ÖLÜMLÜLERİN FATURASI"
+          </span>
+        </h2>
+        <p class="text-sm sm:text-base text-slate-400">
+          Aşağı kaydırdıkça mitolojik kahramanların perde arkasındaki absürt detaylarını keşfedin.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="parallax-card p-8 space-y-6 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-mythic-gold/10 border border-mythic-gold/30 flex items-center justify-center text-mythic-gold group-hover:scale-110 transition-transform">
+              <i data-lucide="quote" class="w-6 h-6"></i>
+            </div>
+            <p class="font-cinzel text-base sm:text-lg text-slate-100 leading-relaxed font-semibold">
+              “İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insandır.”
+            </p>
+          </div>
+          <div class="pt-4 border-t border-mythic-border/60 flex items-center justify-between text-xs text-mythic-gold font-mono">
+            <span>Hermes Trismegistus</span>
+            <span class="text-slate-500">Zümrüt Tablet</span>
+          </div>
+        </div>
+
+        <div class="parallax-card p-8 space-y-6 flex flex-col justify-between group border-mythic-crimson/30">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-mythic-crimson/10 border border-mythic-crimson/30 flex items-center justify-center text-mythic-crimson group-hover:scale-110 transition-transform">
+              <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+            </div>
+            <p class="font-cinzel text-base sm:text-lg text-slate-100 leading-relaxed font-semibold">
+              “Biri sana 'Şu kutuyu sakın açma' veya 'Güneşe yaklaşma' diyorsa, hemen ters yöne koş!”
+            </p>
+          </div>
+          <div class="pt-4 border-t border-mythic-border/60 flex items-center justify-between text-xs text-mythic-crimson font-mono">
+            <span>Profesör Yiki</span>
+            <span class="text-slate-500">Hayatta Kalma 101</span>
+          </div>
+        </div>
+
+        <div class="parallax-card p-8 space-y-6 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-mythic-accent/10 border border-mythic-accent/30 flex items-center justify-center text-mythic-accent group-hover:scale-110 transition-transform">
+              <i data-lucide="flame" class="w-6 h-6"></i>
+            </div>
+            <p class="font-cinzel text-base sm:text-lg text-slate-100 leading-relaxed font-semibold">
+              “Eğer bir devin gözünü kör edip kaçtıysan arkana dönüp adını bağırma. Poseidon unutmaz.”
+            </p>
+          </div>
+          <div class="pt-4 border-t border-mythic-border/60 flex items-center justify-between text-xs text-mythic-accent font-mono">
+            <span>Odysseus Faciası</span>
+            <span class="text-slate-500">10 Yıllık Sürgün</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="p-6 rounded-2xl bg-mythic-dark/90 border border-mythic-border flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4 text-center sm:text-left">
+          <div class="w-12 h-12 rounded-full bg-mythic-gold/15 flex items-center justify-center text-mythic-gold shrink-0">
+            <i data-lucide="sparkles" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h4 class="font-cinzel font-bold text-slate-100">Sıradaki Sahneye Hazır mısın?</h4>
+            <p class="text-xs text-slate-400">Bulutların arasından güneşe yükselip İkarus'un serbest düşüşüne tanık olun.</p>
+          </div>
+        </div>
+        <button onclick="scrollToSection('#scrolly-2')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shrink-0">
+          <span>İkarus Düşüşünü İzle</span>
+          <i data-lucide="arrow-down" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
   <!-- SCROLLYTELLING TÜNELİ 2: GÖKYÜZÜ VE İKARUS'UN DÜŞÜŞÜ -->
-  <section id="scrolly-2" class="scrolly-container bg-mythic-dark border-t border-mythic-border">
+  <section id="scrolly-2" class="scrolly-container bg-mythic-dark">
     <div class="scrolly-sticky">
       
       <video id="icarus-video" class="scrolly-video-element" muted playsinline preload="auto" poster="https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b">
@@ -340,7 +450,7 @@
         <source src="https://drive.google.com/uc?export=download&id=1JBW8SaSPUoRV7v9Rt1X7eQ8LTQYLjWNB" type="video/mp4">
       </video>
 
-      <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/85 via-transparent to-black/50 pointer-events-none"></div>
+      <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-transparent to-black/55 pointer-events-none"></div>
 
       <div class="relative z-20 max-w-2xl mx-auto px-6 w-full pb-20 pointer-events-none mt-auto">
         
@@ -746,13 +856,14 @@
   <script>
     lucide.createIcons();
 
-    // 1. LENIS SMOOTH SCROLL INITIALIZATION
+    // 1. LENIS SMOOTH SCROLL (MOMENTUM ENGINE)
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.3,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true
+      smoothWheel: true,
+      wheelMultiplier: 0.95
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -762,7 +873,7 @@
     gsap.ticker.lagSmoothing(0);
 
     function scrollToSection(selector) {
-      lenis.scrollTo(selector, { offset: 0, duration: 1.5 });
+      lenis.scrollTo(selector, { offset: 0, duration: 1.6 });
     }
 
     // 2. AMBIENT CURSOR GLOW
@@ -793,6 +904,7 @@
     const sections = [
       { id: 'hero', dot: 'dot-hero' },
       { id: 'scrolly-1', dot: 'dot-scrolly-1' },
+      { id: 'kopru', dot: 'dot-kopru' },
       { id: 'scrolly-2', dot: 'dot-scrolly-2' },
       { id: 'yiki', dot: 'dot-yiki' },
       { id: 'anket', dot: 'dot-anket' },
@@ -805,13 +917,12 @@
       const scrolled = (winScroll / height) * 100;
       if (sideTrackerFill) sideTrackerFill.style.height = `${scrolled}%`;
 
-      // Update active dot
       sections.forEach(sec => {
         const el = document.getElementById(sec.id);
         const dot = document.getElementById(sec.dot);
         if (el && dot) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.2) {
+          if (rect.top <= window.innerHeight * 0.55 && rect.bottom >= window.innerHeight * 0.2) {
             dot.classList.add('active');
           } else {
             dot.classList.remove('active');
@@ -820,8 +931,33 @@
       });
     });
 
-    // 5. SCROLLYTELLING ENGINE 1: GOLDEN APPLE (EXPANDED PACING & HOLD TIME)
+    // 5. SMOOTH INTERPOLATED VIDEO SCRUBBING ENGINE (60 FPS LERP)
+    let appleTargetTime = 0;
+    let icarusTargetTime = 0;
+
     const appleVideo = document.getElementById('apple-video');
+    const icarusVideo = document.getElementById('icarus-video');
+
+    function renderSmoothVideoLoop() {
+      if (appleVideo && appleVideo.duration) {
+        const diff = appleTargetTime - appleVideo.currentTime;
+        if (Math.abs(diff) > 0.01) {
+          appleVideo.currentTime += diff * 0.15;
+        }
+      }
+
+      if (icarusVideo && icarusVideo.duration) {
+        const diff = icarusTargetTime - icarusVideo.currentTime;
+        if (Math.abs(diff) > 0.01) {
+          icarusVideo.currentTime += diff * 0.15;
+        }
+      }
+
+      requestAnimationFrame(renderSmoothVideoLoop);
+    }
+    requestAnimationFrame(renderSmoothVideoLoop);
+
+    // SCROLLYTELLING 1: GOLDEN APPLE
     const s1Cap1 = document.getElementById('s1-cap-1');
     const s1Cap2 = document.getElementById('s1-cap-2');
     const s1Bar = document.getElementById('s1-bar');
@@ -830,17 +966,15 @@
       trigger: "#scrolly-1",
       start: "top top",
       end: "bottom bottom",
-      scrub: 1, // Smooth momentum scrub
+      scrub: 1,
       onUpdate: (self) => {
         const p = self.progress;
         if (s1Bar) s1Bar.style.width = `${p * 100}%`;
 
-        // Video scrubbing
         if (appleVideo && appleVideo.duration) {
-          appleVideo.currentTime = p * appleVideo.duration;
+          appleTargetTime = p * appleVideo.duration;
         }
 
-        // Pacing: Hold caption 1 until 50%, then switch cleanly
         if (p < 0.48) {
           if (s1Cap1) {
             s1Cap1.classList.remove('hidden', 'opacity-0');
@@ -848,11 +982,9 @@
           }
           if (s1Cap2) s1Cap2.classList.add('hidden', 'opacity-0');
         } else if (p >= 0.48 && p <= 0.55) {
-          // Transition zone
           if (s1Cap1) s1Cap1.style.opacity = `${(0.55 - p) * 14}`;
           if (s1Cap2) s1Cap2.classList.add('hidden', 'opacity-0');
         } else {
-          // Explosion zone
           if (s1Cap1) s1Cap1.classList.add('hidden', 'opacity-0');
           if (s1Cap2) {
             s1Cap2.classList.remove('hidden');
@@ -862,8 +994,7 @@
       }
     });
 
-    // 6. SCROLLYTELLING ENGINE 2: FALLING ICARUS (EXPANDED PACING & HOLD TIME)
-    const icarusVideo = document.getElementById('icarus-video');
+    // SCROLLYTELLING 2: FALLING ICARUS
     const s2Cap1 = document.getElementById('s2-cap-1');
     const s2Cap2 = document.getElementById('s2-cap-2');
     const s2Bar = document.getElementById('s2-bar');
@@ -872,13 +1003,13 @@
       trigger: "#scrolly-2",
       start: "top top",
       end: "bottom bottom",
-      scrub: 1, // Smooth momentum scrub
+      scrub: 1,
       onUpdate: (self) => {
         const p = self.progress;
         if (s2Bar) s2Bar.style.width = `${p * 100}%`;
 
         if (icarusVideo && icarusVideo.duration) {
-          icarusVideo.currentTime = p * icarusVideo.duration;
+          icarusTargetTime = p * icarusVideo.duration;
         }
 
         if (p < 0.50) {
@@ -898,6 +1029,21 @@
           }
         }
       }
+    });
+
+    // 6. PARALLAX CARDS ANIMATION
+    gsap.utils.toArray('.parallax-card').forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 60 + i * 20,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power2.out'
+      });
     });
 
     // 7. CANVAS PARTICLES
