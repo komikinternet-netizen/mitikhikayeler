@@ -61,15 +61,9 @@
     }
 
     /* Glow Effects */
-    .gold-glow {
-      box-shadow: 0 0 40px -5px rgba(229, 193, 88, 0.25);
-    }
-    .crimson-glow {
-      box-shadow: 0 0 40px -5px rgba(230, 57, 70, 0.35);
-    }
-    .text-glow {
-      text-shadow: 0 0 25px rgba(229, 193, 88, 0.4);
-    }
+    .gold-glow { box-shadow: 0 0 40px -5px rgba(229, 193, 88, 0.25); }
+    .crimson-glow { box-shadow: 0 0 40px -5px rgba(230, 57, 70, 0.35); }
+    .text-glow { text-shadow: 0 0 25px rgba(229, 193, 88, 0.4); }
 
     /* Floating Card Gradient Border */
     .mythic-border {
@@ -112,6 +106,15 @@
       justify-content: center;
     }
 
+    /* Video Scrubbing Element */
+    .scrolly-video-element {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+
     /* Ambient Cursor Light */
     #cursor-light {
       pointer-events: none;
@@ -135,10 +138,10 @@
   <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-mythic-dark/90 backdrop-blur-md border-b border-mythic-border/60">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       
-      <!-- Brand Logo -->
+      <!-- Brand Logo with Yiki Icon -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-full bg-mythic-gold/10 border border-mythic-gold/40 flex items-center justify-center text-mythic-gold group-hover:scale-110 transition-transform">
-          <i data-lucide="flame" class="w-5 h-5"></i>
+        <div class="w-11 h-11 rounded-full bg-mythic-gold/10 border border-mythic-gold/40 flex items-center justify-center overflow-hidden group-hover:scale-110 transition-transform">
+          <img src="https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf" alt="Yiki" class="w-full h-full object-contain">
         </div>
         <div class="flex flex-col">
           <span class="font-cinzel font-bold text-lg tracking-wider text-slate-100 group-hover:text-mythic-gold transition-colors">MİTİK HİKAYELER</span>
@@ -180,39 +183,42 @@
 
   <!-- HERO SECTION -->
   <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 z-10 bg-noise">
-    <div class="max-w-4xl mx-auto text-center space-y-8">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center text-center md:text-left">
       
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mythic-surface border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-widest animate-pulse">
-        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-        <span>Kozmik Simülasyonun Trajikomik Günlükleri</span>
+      <div class="md:col-span-8 space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mythic-surface border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-widest animate-pulse">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Kozmik Simülasyonun Trajikomik Günlükleri</span>
+        </div>
+
+        <h1 class="font-cinzel text-4xl sm:text-6xl font-extrabold tracking-tight leading-none text-glow">
+          KUSURSUZ ZAFERLER <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-gold via-amber-200 to-mythic-gold">
+            DEĞİL, EPİK REZALETLER
+          </span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-mythic-textMuted max-w-xl leading-relaxed">
+          Uykuda kafa kesip destan yazanlar, egosu yüzünden 10 yıl denizde sürüklenenler ve nifak elmasıyla patlayan antik egolar...
+        </p>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
+          <a href="#scrolly-1" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-mythic-gold to-amber-500 hover:from-mythic-goldHover hover:to-amber-400 text-mythic-dark font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-3 transition-all gold-glow">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>İnteraktif Hikayeyi Başlat</span>
+          </a>
+          <a href="#bolumler" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-mythic-surface hover:bg-mythic-card border border-mythic-border text-slate-200 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+            <i data-lucide="play-square" class="w-4 h-4 text-mythic-gold"></i>
+            <span>Tüm Bölümler</span>
+          </a>
+        </div>
       </div>
 
-      <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-none text-glow">
-        KUSURSUZ ZAFERLER <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-gold via-amber-200 to-mythic-gold">
-          DEĞİL, EPİK REZALETLER
-        </span>
-      </h1>
-
-      <p class="text-base sm:text-lg md:text-xl text-mythic-textMuted max-w-2xl mx-auto leading-relaxed">
-        Uykuda kafa kesip destan yazanlar, egosu yüzünden 10 yıl denizde sürüklenenler ve nifak elmasıyla patlayan antik egolar...
-      </p>
-
-      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#scrolly-1" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-mythic-gold to-amber-500 hover:from-mythic-goldHover hover:to-amber-400 text-mythic-dark font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-3 transition-all gold-glow">
-          <i data-lucide="sparkles" class="w-4 h-4"></i>
-          <span>İnteraktif Hikayeyi Başlat</span>
-        </a>
-        <a href="#bolumler" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-mythic-surface hover:bg-mythic-card border border-mythic-border text-slate-200 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
-          <i data-lucide="play-square" class="w-4 h-4 text-mythic-gold"></i>
-          <span>Tüm Bölümleri İzle</span>
-        </a>
-      </div>
-
-      <div class="pt-12 flex flex-col items-center gap-2 opacity-60">
-        <span class="text-xs uppercase tracking-widest text-slate-400 font-mono">AŞAĞI KAYDIRIN</span>
-        <div class="w-5 h-8 border-2 border-slate-500 rounded-full flex justify-center pt-1">
-          <div class="w-1 h-2 bg-mythic-gold rounded-full animate-bounce"></div>
+      <!-- Hero Yiki Character Display -->
+      <div class="md:col-span-4 flex justify-center">
+        <div class="relative w-64 h-80 sm:w-72 sm:h-96 flex items-center justify-center">
+          <div class="absolute inset-0 bg-gradient-to-t from-mythic-gold/20 via-transparent to-transparent rounded-full blur-2xl"></div>
+          <img src="https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH" alt="Yiki Kitaplı" class="relative z-10 w-full h-full object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.8)] hover:scale-105 transition-transform duration-500">
         </div>
       </div>
 
@@ -224,23 +230,28 @@
     <div class="scrolly-sticky">
       
       <div class="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden">
-        <div id="apple-stage" class="relative w-full h-full flex items-center justify-center bg-gradient-to-b from-[#07080C] via-[#101426] to-[#07080C] transition-transform duration-300">
-          
+        
+        <!-- Video Scrubber for Apple Video -->
+        <video id="apple-video" class="scrolly-video-element" muted playsinline preload="auto" poster="https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4">
+          <source src="elma.mp4" type="video/mp4">
+          <source src="https://drive.google.com/uc?export=download&id=1g2nxwAjJqsBpBRQaWAP1xFGoQGKfbrNo" type="video/mp4">
+        </video>
+
+        <div id="apple-stage" class="relative w-full h-full flex items-center justify-center bg-gradient-to-b from-[#07080C]/70 via-[#101426]/50 to-[#07080C]/80 pointer-events-none">
           <div id="golden-apple" class="relative z-10 flex flex-col items-center justify-center transition-all duration-300 transform scale-100">
-            <div class="w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-gradient-to-tr from-amber-600 via-yellow-400 to-amber-200 border-4 border-yellow-300 gold-glow flex items-center justify-center shadow-2xl relative cursor-pointer group">
-              <i data-lucide="sparkles" class="w-12 h-12 text-black/60 group-hover:rotate-45 transition-transform"></i>
+            <div class="w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-gradient-to-tr from-amber-600 via-yellow-400 to-amber-200 border-4 border-yellow-300 gold-glow flex items-center justify-center shadow-2xl relative">
+              <i data-lucide="sparkles" class="w-12 h-12 text-black/60"></i>
               <span class="absolute -top-3 px-3 py-0.5 rounded-full bg-black/80 border border-mythic-gold text-[10px] font-mono text-mythic-gold uppercase">Kallisti (En Güzele)</span>
             </div>
-            <div id="apple-shockwave" class="absolute w-2 h-2 rounded-full border-4 border-mythic-gold opacity-0 pointer-events-none transition-all duration-500"></div>
+            <div id="apple-shockwave" class="absolute w-2 h-2 rounded-full border-4 border-mythic-gold opacity-0 transition-all duration-500"></div>
           </div>
-
-          <div class="absolute w-[500px] h-[500px] rounded-full bg-mythic-gold/5 blur-3xl pointer-events-none"></div>
+          <div class="absolute w-[500px] h-[500px] rounded-full bg-mythic-gold/5 blur-3xl"></div>
         </div>
       </div>
 
       <div class="relative z-20 max-w-2xl mx-auto px-6 text-center pointer-events-none">
         <div id="s1-cap-1" class="space-y-4 opacity-100 transition-all duration-500">
-          <span class="px-3 py-1 rounded bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs font-mono uppercase">Sahne 1: Yiki Sahneye Girer</span>
+          <span class="px-3 py-1 rounded bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs font-mono uppercase">Sahne 1: Yiki Altın Elmayı Uzatır</span>
           <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-100">"EN GÜZELE..."</h2>
           <p class="text-sm sm:text-base text-slate-300 max-w-lg mx-auto">
             Yiki altın elmayı size doğru uzatıyor. Antik çağın en büyük entrikası başlıyor: Bir elma yüzünden koskoca Truva patlayacak!
@@ -256,7 +267,7 @@
         </div>
       </div>
 
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 text-[11px] font-mono text-slate-400">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 text-[11px] font-mono text-slate-400 z-30">
         <span>KAYDIRMA İLERLEMESİ</span>
         <div class="w-24 h-1.5 bg-mythic-border rounded-full overflow-hidden">
           <div id="s1-bar" class="w-0 h-full bg-mythic-gold transition-all"></div>
@@ -271,7 +282,14 @@
     <div class="scrolly-sticky">
       
       <div class="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden">
-        <div id="sky-stage" class="relative w-full h-full flex items-center justify-center bg-gradient-to-b from-[#0B1528] via-[#1A233D] to-[#07080C]">
+        
+        <!-- Video Scrubber for Icarus Video -->
+        <video id="icarus-video" class="scrolly-video-element" muted playsinline preload="auto" poster="https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b">
+          <source src="ikarus.mp4" type="video/mp4">
+          <source src="https://drive.google.com/uc?export=download&id=1JBW8SaSPUoRV7v9Rt1X7eQ8LTQYLjWNB" type="video/mp4">
+        </video>
+
+        <div id="sky-stage" class="relative w-full h-full flex items-center justify-center bg-gradient-to-b from-[#0B1528]/70 via-[#1A233D]/50 to-[#07080C]/80 pointer-events-none">
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(229,193,88,0.15),transparent_70%)] pointer-events-none"></div>
 
           <div id="falling-icarus" class="relative z-10 flex flex-col items-center justify-center transition-all duration-300 transform -translate-y-48 scale-75 opacity-80">
@@ -301,7 +319,7 @@
         </div>
       </div>
 
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 text-[11px] font-mono text-slate-400">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 text-[11px] font-mono text-slate-400 z-30">
         <span>GÖKYÜZÜ İLERLEMESİ</span>
         <div class="w-24 h-1.5 bg-mythic-border rounded-full overflow-hidden">
           <div id="s2-bar" class="w-0 h-full bg-amber-400 transition-all"></div>
@@ -311,52 +329,99 @@
     </div>
   </section>
 
-  <!-- YIKI CHARACTER PROFILE -->
+  <!-- YIKI CHARACTER SHOWCASE & GALLERY -->
   <section id="yiki" class="py-24 px-6 relative z-10 bg-mythic-surface border-t border-mythic-border">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+    <div class="max-w-6xl mx-auto space-y-12">
       
-      <div class="mythic-border text-center">
-        <div class="bg-mythic-card p-8 rounded-[15px] space-y-4">
-          <div class="w-40 h-40 mx-auto rounded-2xl bg-gradient-to-br from-mythic-gold/20 via-mythic-crimson/20 to-mythic-surface border-2 border-mythic-gold/50 flex items-center justify-center relative overflow-hidden shadow-2xl">
-            <img id="yiki-avatar-img" src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&auto=format&fit=crop&q=80" alt="Yiki" class="w-full h-full object-cover">
-            <div class="absolute bottom-1 right-1 px-2 py-0.5 rounded bg-black/80 text-[10px] font-mono text-mythic-gold">YİKİ</div>
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+        <div class="mythic-border text-center">
+          <div class="bg-mythic-card p-6 rounded-[15px] space-y-4">
+            <div class="w-44 h-52 mx-auto rounded-2xl bg-gradient-to-br from-mythic-gold/15 via-mythic-crimson/10 to-mythic-surface border border-mythic-gold/40 flex items-center justify-center relative overflow-hidden shadow-2xl p-2">
+              <img id="yiki-main-pose" src="https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4" alt="Yiki Kendinden Emin" class="w-full h-full object-contain">
+            </div>
+            <div>
+              <h3 class="font-cinzel text-xl font-bold text-slate-100">PROFESÖR YİKİ</h3>
+              <span class="text-xs text-mythic-gold font-mono">Kırmızı Tanuki / Rakun</span>
+            </div>
+            <p class="text-xs text-slate-400 italic">
+              "Akdeniz’in tozlu arşivlerinden sokak edebiyatına... Herkesin bir hikayesi vardır ama benim derdim mitik mi bitik mi olduğunu sorgulamak."
+            </p>
           </div>
-          <div>
-            <h3 class="font-cinzel text-xl font-bold text-slate-100">PROFESÖR YİKİ</h3>
-            <span class="text-xs text-mythic-gold font-mono">Kırmızı Tanuki / Rakun</span>
+        </div>
+
+        <div class="md:col-span-2 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs font-semibold tracking-wider uppercase">
+            Kanalın Anlatıcısı
           </div>
-          <p class="text-xs text-slate-400 italic">
-            "Akdeniz’in tozlu arşivlerinden sokak edebiyatına... Herkesin bir hikayesi vardır ama benim derdim mitik mi bitik mi olduğunu sorgulamak."
+          <h2 class="font-cinzel text-3xl sm:text-4xl font-bold leading-tight">
+            SARKASTİK BİR PROFESÖR İLE <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-gold to-amber-300">
+              KOZMİK GERÇEKLİKLER
+            </span>
+          </h2>
+          <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+            Yiki; kırmızı esprili profesör gözlükleri, keskin dili ve trajikomik gerçeklikle antik tabletlerin tozunu alan çizgi karakterimiz. Kahraman masallarını bir kenara bırakıp işin mutfağındaki rezaletleri ortaya döküyor.
           </p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
+            <div class="p-3.5 rounded-xl bg-mythic-dark border border-mythic-border text-center">
+              <span class="block text-[11px] font-mono text-mythic-gold">TARZ</span>
+              <span class="text-xs font-bold text-slate-200">Sarkastik & Filtresiz</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-mythic-dark border border-mythic-border text-center">
+              <span class="block text-[11px] font-mono text-mythic-gold">KÖKEN</span>
+              <span class="text-xs font-bold text-slate-200">Akdeniz Arşivleri</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-mythic-dark border border-mythic-border text-center">
+              <span class="block text-[11px] font-mono text-mythic-gold">GÖREV</span>
+              <span class="text-xs font-bold text-slate-200">Mitik vs Bitik</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="md:col-span-2 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs font-semibold tracking-wider uppercase">
-          Kanalın Anlatıcısı
+      <!-- Yiki Interactive Pose Gallery -->
+      <div class="pt-8 border-t border-mythic-border/50">
+        <div class="text-center space-y-2 mb-8">
+          <span class="text-xs font-mono text-mythic-gold uppercase tracking-widest">MİMİK VE JEST ARŞİVİ</span>
+          <h3 class="font-cinzel text-xl font-bold text-slate-200">Yiki'nin Tepkilerini Değiştirin</h3>
         </div>
-        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold leading-tight">
-          SARKASTİK BİR PROFESÖR İLE <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-gold to-amber-300">
-            KOZMİK GERÇEKLİKLER
-          </span>
-        </h2>
-        <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
-          Yiki; kırmızı esprili profesör gözlükleri, keskin dili ve trajikomik gerçeklikle antik tabletlerin tozunu alan çizgi karakterimiz. Kahraman masallarını bir kenara bırakıp işin mutfağındaki rezaletleri ortaya döküyor.
-        </p>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
-          <div class="p-3.5 rounded-xl bg-mythic-dark border border-mythic-border text-center">
-            <span class="block text-[11px] font-mono text-mythic-gold">TARZ</span>
-            <span class="text-xs font-bold text-slate-200">Sarkastik & Filtresiz</span>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+          
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH')">
+            <div class="h-28 flex items-center justify-center">
+              <img src="https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH" alt="Kitaplı" class="h-full object-contain group-hover:scale-110 transition-transform">
+            </div>
+            <span class="text-[11px] font-mono text-slate-300 block">Sarkastik & Kitaplı</span>
           </div>
-          <div class="p-3.5 rounded-xl bg-mythic-dark border border-mythic-border text-center">
-            <span class="block text-[11px] font-mono text-mythic-gold">KÖKEN</span>
-            <span class="text-xs font-bold text-slate-200">Akdeniz Arşivleri</span>
+
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf')">
+            <div class="h-28 flex items-center justify-center">
+              <img src="https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf" alt="Gülüyor" class="h-full object-contain group-hover:scale-110 transition-transform">
+            </div>
+            <span class="text-[11px] font-mono text-slate-300 block">Keyifli & Gülüyor</span>
           </div>
-          <div class="p-3.5 rounded-xl bg-mythic-dark border border-mythic-border text-center">
-            <span class="block text-[11px] font-mono text-mythic-gold">GÖREV</span>
-            <span class="text-xs font-bold text-slate-200">Mitik vs Bitik</span>
+
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b')">
+            <div class="h-28 flex items-center justify-center">
+              <img src="https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b" alt="Şaşırmış" class="h-full object-contain group-hover:scale-110 transition-transform">
+            </div>
+            <span class="text-[11px] font-mono text-slate-300 block">Şaşırmış & Endişeli</span>
           </div>
+
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI')">
+            <div class="h-28 flex items-center justify-center">
+              <img src="https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI" alt="Reverans" class="h-full object-contain group-hover:scale-110 transition-transform">
+            </div>
+            <span class="text-[11px] font-mono text-slate-300 block">Reverans & Minnet</span>
+          </div>
+
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT')">
+            <div class="h-28 flex items-center justify-center">
+              <img src="https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT" alt="Eller Belde" class="h-full object-contain group-hover:scale-110 transition-transform">
+            </div>
+            <span class="text-[11px] font-mono text-slate-300 block">Eller Belde & Trip</span>
+          </div>
+
         </div>
       </div>
 
@@ -465,7 +530,7 @@
     </div>
   </section>
 
-  <!-- ALL EPISODES & PLAYLIST EMBED SECTION -->
+  <!-- ALL EPISODES & PLAYLIST SECTION -->
   <section id="bolumler" class="py-24 px-6 relative z-10 bg-mythic-surface">
     <div class="max-w-6xl mx-auto space-y-12">
       
@@ -482,7 +547,7 @@
         </a>
       </div>
 
-      <!-- MAIN PLAYLIST EMBED PLAYER -->
+      <!-- Main Playlist Embed Player -->
       <div class="mythic-border gold-glow mb-12">
         <div class="bg-mythic-card p-4 sm:p-6 rounded-[15px] space-y-4">
           <div class="flex items-center justify-between text-xs text-slate-300">
@@ -495,7 +560,7 @@
         </div>
       </div>
 
-      <!-- ALL ORDERED EPISODES GRID (0 to 7) -->
+      <!-- Episode Grid (0 to 7) -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Ep 0: Fragman -->
@@ -633,6 +698,7 @@
   <script>
     lucide.createIcons();
 
+    // Cursor Glow
     const cursorLight = document.getElementById('cursor-light');
     window.addEventListener('mousemove', (e) => {
       if (cursorLight) {
@@ -641,9 +707,22 @@
       }
     });
 
+    // Pose Switcher Function
+    function changeYikiPose(url) {
+      const mainPose = document.getElementById('yiki-main-pose');
+      if (mainPose) {
+        mainPose.style.opacity = '0';
+        setTimeout(() => {
+          mainPose.src = url;
+          mainPose.style.opacity = '1';
+        }, 150);
+      }
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     // SCROLLYTELLING ENGINE 1: GOLDEN APPLE
+    const appleVideo = document.getElementById('apple-video');
     const appleEl = document.getElementById('golden-apple');
     const appleShockwave = document.getElementById('apple-shockwave');
     const s1Cap1 = document.getElementById('s1-cap-1');
@@ -659,6 +738,12 @@
         const p = self.progress;
         if (s1Bar) s1Bar.style.width = `${p * 100}%`;
 
+        // Video scrubbing
+        if (appleVideo && appleVideo.duration) {
+          appleVideo.currentTime = p * appleVideo.duration;
+        }
+
+        // Overlay animation
         if (appleEl) {
           const scale = 1 + p * 2.2;
           appleEl.style.transform = `scale(${scale}) rotate(${p * 25}deg)`;
@@ -685,6 +770,7 @@
     });
 
     // SCROLLYTELLING ENGINE 2: FALLING ICARUS
+    const icarusVideo = document.getElementById('icarus-video');
     const icarusEl = document.getElementById('falling-icarus');
     const s2Cap1 = document.getElementById('s2-cap-1');
     const s2Cap2 = document.getElementById('s2-cap-2');
@@ -698,6 +784,10 @@
       onUpdate: (self) => {
         const p = self.progress;
         if (s2Bar) s2Bar.style.width = `${p * 100}%`;
+
+        if (icarusVideo && icarusVideo.duration) {
+          icarusVideo.currentTime = p * icarusVideo.duration;
+        }
 
         if (icarusEl) {
           const yPos = (p * 500) - 150;
