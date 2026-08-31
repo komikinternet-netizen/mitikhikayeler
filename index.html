@@ -110,25 +110,27 @@
       justify-content: center;
     }
 
-    /* Full-Screen Pure Video */
-    .scrolly-video-element {
+    /* 60/120 FPS High Performance Canvas Element */
+    .scrolly-canvas {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 1;
       z-index: 1;
-      will-change: transform;
     }
 
-    /* Canvas for WebP Sequence */
-    .scrolly-canvas-element {
+    /* Video Fallback */
+    .scrolly-video-fallback {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: 2;
-      display: none;
+      z-index: 0;
+      opacity: 1;
     }
 
     /* Cinematic Subtitle Glass Card */
@@ -244,10 +246,10 @@
   <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-mythic-dark/90 backdrop-blur-md border-b border-mythic-border/60">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       
-      <!-- Brand Logo -->
+      <!-- Brand Logo (Local + Fallback) -->
       <a href="#" class="flex items-center gap-3.5 group">
         <div class="w-12 h-12 rounded-full bg-mythic-gold/10 border border-mythic-gold/40 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform shadow-lg">
-          <img src="https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm" alt="Mitik Hikayeler Logo" class="w-full h-full object-cover">
+          <img src="logo.png" onerror="this.src='https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm'" alt="Mitik Hikayeler Logo" class="w-full h-full object-cover">
         </div>
         <div class="flex flex-col">
           <span class="font-cinzel font-bold text-lg tracking-wider text-slate-100 group-hover:text-mythic-gold transition-colors">MİTİK HİKAYELER</span>
@@ -323,22 +325,22 @@
       <div class="md:col-span-4 flex justify-center">
         <div class="relative w-64 h-80 sm:w-72 sm:h-96 flex items-center justify-center">
           <div class="absolute inset-0 bg-gradient-to-t from-mythic-gold/20 via-transparent to-transparent rounded-full blur-2xl"></div>
-          <img src="https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH" alt="Yiki Kitaplı" class="relative z-10 w-full h-full object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.8)] hover:scale-105 transition-transform duration-500">
+          <img src="düz-sarkastik-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH'" alt="Yiki Kitaplı" class="relative z-10 w-full h-full object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.8)] hover:scale-105 transition-transform duration-500">
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- SCROLLYTELLING 1: YİKİ VE ALTIN ELMA (PATLAMA ANI) -->
+  <!-- ==================== SCROLLYTELLING 1: YİKİ VE ALTIN ELMA (CANVAS + VIDEO DUAL ENGINE) ==================== -->
   <section id="scrolly-1" class="scrolly-container bg-mythic-dark">
     <div class="scrolly-sticky">
       
-      <!-- Canvas WebP Renderer -->
-      <canvas id="apple-canvas" class="scrolly-canvas-element"></canvas>
+      <!-- Canvas WebP 60/120 FPS Engine (Reads from elma_frames/ezgif-frame-001.webp ... 120) -->
+      <canvas id="apple-canvas" class="scrolly-canvas"></canvas>
 
       <!-- Video Fallback -->
-      <video id="apple-video" class="scrolly-video-element" muted playsinline preload="auto" poster="https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4">
+      <video id="apple-video" class="scrolly-video-fallback" muted playsinline preload="auto">
         <source src="elma.mp4" type="video/mp4">
         <source src="https://drive.google.com/uc?export=download&id=1g2nxwAjJqsBpBRQaWAP1xFGoQGKfbrNo" type="video/mp4">
       </video>
@@ -435,7 +437,7 @@
           </div>
         </div>
 
-        <!-- Ep 2: Theogonia (Doğru Oynatma Listesi / Uzun Video) -->
+        <!-- Ep 2: Theogonia -->
         <div class="bg-mythic-card rounded-2xl overflow-hidden border border-mythic-border hover:border-mythic-gold/50 transition-all p-4 space-y-3">
           <div class="video-responsive">
             <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1&index=3" title="2. Bölüm: Theogonia" allowfullscreen></iframe>
@@ -512,15 +514,15 @@
     </div>
   </section>
 
-  <!-- ==================== SCROLLYTELLING 2: İKARUS DÜŞÜŞÜ ==================== -->
+  <!-- ==================== SCROLLYTELLING 2: İKARUS DÜŞÜŞÜ (CANVAS + VIDEO DUAL ENGINE) ==================== -->
   <section id="scrolly-2" class="scrolly-container bg-mythic-dark">
     <div class="scrolly-sticky">
       
-      <!-- Canvas WebP Renderer -->
-      <canvas id="icarus-canvas" class="scrolly-canvas-element"></canvas>
+      <!-- Canvas WebP 60/120 FPS Engine (Reads from ikarus_frames/ezgif-frame-001.webp ... 100) -->
+      <canvas id="icarus-canvas" class="scrolly-canvas"></canvas>
 
       <!-- Video Fallback -->
-      <video id="icarus-video" class="scrolly-video-element" muted playsinline preload="auto" poster="https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b">
+      <video id="icarus-video" class="scrolly-video-fallback" muted playsinline preload="auto">
         <source src="ikarus.mp4" type="video/mp4">
         <source src="https://drive.google.com/uc?export=download&id=1JBW8SaSPUoRV7v9Rt1X7eQ8LTQYLjWNB" type="video/mp4">
       </video>
@@ -574,7 +576,6 @@
         </h2>
       </div>
 
-      <!-- Parallax Cards Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <div class="parallax-card p-8 space-y-6 flex flex-col justify-between group">
@@ -737,7 +738,7 @@
         <div class="mythic-border text-center">
           <div class="bg-mythic-card p-6 rounded-[15px] space-y-4">
             <div class="w-44 h-52 mx-auto rounded-2xl bg-gradient-to-br from-mythic-gold/15 via-mythic-crimson/10 to-mythic-surface border border-mythic-gold/40 flex items-center justify-center relative overflow-hidden shadow-2xl p-2">
-              <img id="yiki-main-pose" src="https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4" alt="Yiki Kendinden Emin" class="w-full h-full object-contain">
+              <img id="yiki-main-pose" src="düz-kendindenemin-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4'" alt="Yiki Kendinden Emin" class="w-full h-full object-contain">
             </div>
             <div>
               <h3 class="font-cinzel text-xl font-bold text-slate-100">PROFESÖR YİKİ</h3>
@@ -787,37 +788,37 @@
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
           
-          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH')">
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('düz-sarkastik-kitapli.png', 'https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH')">
             <div class="h-28 flex items-center justify-center">
-              <img src="https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH" alt="Kitaplı" class="h-full object-contain group-hover:scale-110 transition-transform">
+              <img src="düz-sarkastik-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH'" alt="Kitaplı" class="h-full object-contain group-hover:scale-110 transition-transform">
             </div>
             <span class="text-[11px] font-mono text-slate-300 block">Sarkastik & Kitaplı</span>
           </div>
 
-          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf')">
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('düz-gülüyor-keyifli.png', 'https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf')">
             <div class="h-28 flex items-center justify-center">
-              <img src="https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf" alt="Gülüyor" class="h-full object-contain group-hover:scale-110 transition-transform">
+              <img src="düz-gülüyor-keyifli.png" onerror="this.src='https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf'" alt="Gülüyor" class="h-full object-contain group-hover:scale-110 transition-transform">
             </div>
             <span class="text-[11px] font-mono text-slate-300 block">Keyifli & Gülüyor</span>
           </div>
 
-          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b')">
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('düz-sasirmiş-endişeli-kitapli-kitabıişaretediyor.png', 'https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b')">
             <div class="h-28 flex items-center justify-center">
-              <img src="https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b" alt="Şaşırmış" class="h-full object-contain group-hover:scale-110 transition-transform">
+              <img src="düz-sasirmiş-endişeli-kitapli-kitabıişaretediyor.png" onerror="this.src='https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b'" alt="Şaşırmış" class="h-full object-contain group-hover:scale-110 transition-transform">
             </div>
             <span class="text-[11px] font-mono text-slate-300 block">Şaşırmış & Endişeli</span>
           </div>
 
-          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI')">
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('düz-reverans-ellerminnettar.png', 'https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI')">
             <div class="h-28 flex items-center justify-center">
-              <img src="https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI" alt="Reverans" class="h-full object-contain group-hover:scale-110 transition-transform">
+              <img src="düz-reverans-ellerminnettar.png" onerror="this.src='https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI'" alt="Reverans" class="h-full object-contain group-hover:scale-110 transition-transform">
             </div>
             <span class="text-[11px] font-mono text-slate-300 block">Reverans & Minnet</span>
           </div>
 
-          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT')">
+          <div class="bg-mythic-card p-3 rounded-xl border border-mythic-border hover:border-mythic-gold/50 transition-all text-center space-y-2 group cursor-pointer" onclick="changeYikiPose('düz-sarkastik-ellerbelde.png', 'https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT')">
             <div class="h-28 flex items-center justify-center">
-              <img src="https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT" alt="Eller Belde" class="h-full object-contain group-hover:scale-110 transition-transform">
+              <img src="düz-sarkastik-ellerbelde.png" onerror="this.src='https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT'" alt="Eller Belde" class="h-full object-contain group-hover:scale-110 transition-transform">
             </div>
             <span class="text-[11px] font-mono text-slate-300 block">Eller Belde & Trip</span>
           </div>
@@ -845,7 +846,6 @@
         </p>
       </div>
 
-      <!-- Merch Items Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <!-- Product 1: T-Shirt -->
@@ -979,7 +979,7 @@
       
       <div class="flex items-center gap-3">
         <div class="w-11 h-11 rounded-full bg-mythic-gold/10 border border-mythic-gold/40 flex items-center justify-center overflow-hidden">
-          <img src="https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm" alt="Mitik Hikayeler Logo" class="w-full h-full object-cover">
+          <img src="logo.png" onerror="this.src='https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm'" alt="Mitik Hikayeler Logo" class="w-full h-full object-cover">
         </div>
         <div>
           <h3 class="font-cinzel font-bold text-lg text-slate-100">MİTİK HİKAYELER</h3>
@@ -1008,7 +1008,7 @@
     </div>
   </footer>
 
-  <!-- ==================== JAVASCRIPT & ENGINES ==================== -->
+  <!-- ==================== JAVASCRIPT & ADVANCED CANVAS ENGINE ==================== -->
   <script>
     lucide.createIcons();
 
@@ -1042,12 +1042,13 @@
     });
 
     // 3. POSE SWITCHER
-    function changeYikiPose(url) {
+    function changeYikiPose(localUrl, fallbackUrl) {
       const mainPose = document.getElementById('yiki-main-pose');
       if (mainPose) {
         mainPose.style.opacity = '0';
         setTimeout(() => {
-          mainPose.src = url;
+          mainPose.src = localUrl;
+          mainPose.onerror = () => { mainPose.src = fallbackUrl; };
           mainPose.style.opacity = '1';
         }, 150);
       }
@@ -1055,7 +1056,7 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // 4. SIDE NAVIGATOR PROGRESS & ACTIVE STATE TRACKING
+    // 4. SIDE NAVIGATOR PROGRESS TRACKING
     const sideTrackerFill = document.getElementById('side-tracker-fill');
     const sections = [
       { id: 'hero', dot: 'dot-hero' },
@@ -1087,25 +1088,84 @@
       });
     });
 
-    // 5. SMOOTH INTERPOLATED VIDEO & CANVAS SCRUBBING (60 FPS LERP)
+    // 5. CANVAS WEBP SEQUENCE + LERP VIDEO HYBRID ENGINE (60/120 FPS)
+    function setupCanvasSequence(canvasId, videoId, folderPath, prefix, totalFrames) {
+      const canvas = document.getElementById(canvasId);
+      const video = document.getElementById(videoId);
+      if (!canvas) return null;
+
+      const ctx = canvas.getContext('2d');
+      const images = [];
+      let loadedCount = 0;
+      let isCanvasReady = false;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Preload Ezgif WebP Sequence (ezgif-frame-001.webp format)
+      for (let i = 1; i <= totalFrames; i++) {
+        const img = new Image();
+        const frameNum = String(i).padStart(3, '0');
+        img.src = `${folderPath}/${prefix}-${frameNum}.webp`;
+        img.onload = () => {
+          loadedCount++;
+          if (loadedCount > 10 && !isCanvasReady) {
+            isCanvasReady = true;
+            if (video) video.style.display = 'none';
+            canvas.style.display = 'block';
+            drawFrame(0);
+          }
+        };
+        images.push(img);
+      }
+
+      function drawFrame(progress) {
+        if (images.length > 0) {
+          const frameIndex = Math.min(totalFrames - 1, Math.max(0, Math.floor(progress * (totalFrames - 1))));
+          const activeImg = images[frameIndex];
+          if (activeImg && activeImg.complete && activeImg.naturalWidth > 0) {
+            const hRatio = canvas.width / activeImg.width;
+            const vRatio = canvas.height / activeImg.height;
+            const ratio = Math.max(hRatio, vRatio);
+            const centerShiftX = (canvas.width - activeImg.width * ratio) / 2;
+            const centerShiftY = (canvas.height - activeImg.height * ratio) / 2;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(activeImg, 0, 0, activeImg.width, activeImg.height, centerShiftX, centerShiftY, activeImg.width * ratio, activeImg.height * ratio);
+            return true;
+          }
+        }
+        return false;
+      }
+
+      return { drawFrame, isReady: () => isCanvasReady };
+    }
+
+    // Initialize 120 frames for elma, 100 frames for ikarus
+    const appleSequence = setupCanvasSequence('apple-canvas', 'apple-video', 'elma_frames', 'ezgif-frame', 120);
+    const icarusSequence = setupCanvasSequence('icarus-canvas', 'icarus-video', 'ikarus_frames', 'ezgif-frame', 100);
+
+    // Fallback Lerp Video Loop
     let appleTargetTime = 0;
     let icarusTargetTime = 0;
-
     const appleVideo = document.getElementById('apple-video');
     const icarusVideo = document.getElementById('icarus-video');
 
     function renderSmoothVideoLoop() {
-      if (appleVideo && appleVideo.duration) {
+      if (appleVideo && appleVideo.duration && (!appleSequence || !appleSequence.isReady())) {
         const diff = appleTargetTime - appleVideo.currentTime;
         if (Math.abs(diff) > 0.01) {
-          appleVideo.currentTime += diff * 0.15;
+          appleVideo.currentTime += diff * 0.18;
         }
       }
 
-      if (icarusVideo && icarusVideo.duration) {
+      if (icarusVideo && icarusVideo.duration && (!icarusSequence || !icarusSequence.isReady())) {
         const diff = icarusTargetTime - icarusVideo.currentTime;
         if (Math.abs(diff) > 0.01) {
-          icarusVideo.currentTime += diff * 0.15;
+          icarusVideo.currentTime += diff * 0.18;
         }
       }
 
@@ -1127,8 +1187,9 @@
         const p = self.progress;
         if (s1Bar) s1Bar.style.width = `${p * 100}%`;
 
-        if (appleVideo && appleVideo.duration) {
-          appleTargetTime = p * appleVideo.duration;
+        // Canvas frame render or video target
+        if (!appleSequence || !appleSequence.drawFrame(p)) {
+          if (appleVideo && appleVideo.duration) appleTargetTime = p * appleVideo.duration;
         }
 
         if (p < 0.48) {
@@ -1164,8 +1225,8 @@
         const p = self.progress;
         if (s2Bar) s2Bar.style.width = `${p * 100}%`;
 
-        if (icarusVideo && icarusVideo.duration) {
-          icarusTargetTime = p * icarusVideo.duration;
+        if (!icarusSequence || !icarusSequence.drawFrame(p)) {
+          if (icarusVideo && icarusVideo.duration) icarusTargetTime = p * icarusVideo.duration;
         }
 
         if (p < 0.50) {
@@ -1281,15 +1342,3 @@
   </script>
 </body>
 </html>
-"""
-
-with open(os.path.join(site_dir, "index.html"), "w", encoding="utf-8") as f:
-    f.write(final_html)
-
-print("Ultimate Master index.html created.")
-EOF
-python3 /working_dir/c_886c51c7cfc27c9a/generate_ultimate_master_site.py
-}}
-http://googleusercontent.com/youtube_content/1
-http://googleusercontent.com/youtube_content/2
-http://googleusercontent.com/youtube_content/3
