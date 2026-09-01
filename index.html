@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mitik Hikayeler — Helenistik Mermer & Antik Rezaletler</title>
-  <meta name="description" content="Kusursuz zaferler değil, epik rezaletler. Yiki'nin anlatımıyla beyaz mermer Helenistik editoryal mitoloji arşivi.">
+  <meta name="description" content="Kusursuz zaferler değil, epik rezaletler. Yiki'nin anlatımıyla beyaz mermer Helenistik editoryal scrollytelling deneyimi.">
 
   <!-- Google Fonts: Cinzel, Plus Jakarta Sans & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,7 +93,7 @@
     .bg-marble-texture {
       background-color: #F8F9FC;
       background-image: 
-        radial-gradient(rgba(179, 138, 34, 0.06) 1px, transparent 0),
+        radial-gradient(rgba(179, 138, 34, 0.05) 1px, transparent 0),
         radial-gradient(circle at 100% 0%, rgba(226, 232, 240, 0.6) 0%, transparent 50%),
         radial-gradient(circle at 0% 100%, rgba(241, 245, 249, 0.8) 0%, transparent 50%);
       background-size: 32px 32px, 100% 100%, 100% 100%;
@@ -101,7 +101,7 @@
 
     /* Sculptural Marble Glass Card */
     .sculpture-card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(203, 213, 225, 0.8);
@@ -139,6 +139,17 @@
     .bracket-bl { position: absolute; bottom: -1px; left: -1px; width: 12px; height: 12px; border-bottom: 2px solid #B38A22; border-left: 2px solid #B38A22; }
     .bracket-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px; border-bottom: 2px solid #B38A22; border-right: 2px solid #B38A22; }
 
+    /* Pinned Scrolly Canvas Stage */
+    .scrolly-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
     /* Video Container */
     .video-responsive {
       position: relative;
@@ -155,6 +166,16 @@
       width: 100%;
       height: 100%;
       border: 0;
+    }
+
+    /* Side Mythic Progress Bar */
+    .side-nav-dot {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .side-nav-dot.active {
+      transform: scale(1.6);
+      background-color: #B38A22;
+      box-shadow: 0 0 16px rgba(179, 138, 34, 0.8);
     }
 
     /* Floating Ancient Greek Glyphs Stream in Marble Gray */
@@ -205,7 +226,7 @@
     </button>
   </div>
 
-  <!-- HELENISTIC MARBLE HEADER -->
+  <!-- ==================== HELENISTIC MARBLE HEADER ==================== -->
   <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-20 sm:h-24 flex items-center justify-between">
       
@@ -279,7 +300,7 @@
     </div>
   </div>
 
-  <!-- ACT I: MONUMENTAL HERO -->
+  <!-- ==================== ACT I: MONUMENTAL HERO ==================== -->
   <section id="hero" class="relative min-h-[90vh] flex items-center justify-center pt-32 pb-16 px-6 z-10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       
@@ -302,8 +323,8 @@
         </div>
 
         <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
-          <button onclick="scrollToSection('#vitrin')" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all shadow-xl group">
-            <span>En Son Yayını İzle</span>
+          <button onclick="scrollToSection('#stage-elma')" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all shadow-xl group">
+            <span>İnteraktif Sahneleri Başlat</span>
             <svg class="w-4 h-4 text-mythic-gold group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
           </button>
           <a href="bolumler.html" class="w-full sm:w-auto px-8 py-5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-semibold text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 transition-all shadow-sm">
@@ -355,7 +376,6 @@
         </a>
       </div>
 
-      <!-- 2-Column Split: Latest Release & Live Playlist Player -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- Left: Latest Episode Featured Player -->
@@ -412,70 +432,60 @@
     </div>
   </section>
 
-  <!-- ==================== ACT II: PEAR.NO STYLE STAGE 1 (ALTIN ELMA) ==================== -->
-  <section id="stage-elma" class="py-28 px-6 relative z-10">
-    <div class="max-w-7xl mx-auto space-y-12">
+  <!-- ==================== ACT II: PINNED SCROLLYTELLING 1 (ALTIN ELMA CANVAS SEQUENCES) ==================== -->
+  <section id="stage-elma" class="relative bg-slate-900 border-t border-slate-800" style="height: 350vh;">
+    <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-300/80 pb-8">
-        <div class="space-y-3">
-          <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.3em] font-bold">CH. 01 — NİFAK VE ELMA</span>
-          <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-900">"EN GÜZELE..." — TRUVA'YI PATLATAN ELMA</h2>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-600 max-w-md font-light leading-relaxed">
-          Nifak tanrıçası Eris masaya altın bir elma bıraktı. Üç tanrıça birbirine girdi, fatura koskoca Truva uygarlığına kesildi.
-        </p>
-      </div>
+      <!-- 60/120 FPS High-Performance WebP Canvas (elma_frames/ezgif-frame-001.webp ... 120) -->
+      <canvas id="apple-canvas" class="scrolly-canvas"></canvas>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/85 z-10 pointer-events-none"></div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Scrolly Overlay -->
+      <div class="relative z-20 max-w-6xl mx-auto px-6 w-full h-full flex flex-col justify-between py-24 pointer-events-none">
         
-        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between">
-          <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="bracket-tl"></div><div class="bracket-tr"></div>
-          <div class="space-y-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-mythic-goldBg text-mythic-gold text-[10px] font-mono uppercase tracking-widest font-bold">
-              01. KALLİSTİ
-            </div>
-            <h3 class="font-cinzel text-xl font-bold text-slate-900">Nifak Masaya Düştü</h3>
-            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
-              Düğüne davet edilmeyen Eris, üzerinde "En Güzele" yazan altın elmayı fırlattı. Hera, Athena ve Afrodit kavgaya tutuştu.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-slate-200 text-[11px] font-mono text-mythic-gold font-bold">
-            Ego Patlaması No. 1
-          </div>
+        <div class="flex items-center justify-between border-b border-slate-700/80 pb-4 text-slate-300">
+          <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.3em] font-bold">CH. 01 — NİFAK VE ELMA</span>
+          <span class="text-xs font-mono text-slate-400">TRUVA FACİASI</span>
         </div>
 
-        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-amber-400/50">
-          <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="bracket-tl"></div><div class="bracket-tr"></div>
-          <div class="space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center my-auto pointer-events-auto">
+          
+          <div id="elma-box-left" class="bg-white/90 backdrop-blur-xl border border-slate-300 p-8 sm:p-10 rounded-3xl space-y-4 shadow-2xl relative">
+            <div class="pillar-left"></div><div class="pillar-right"></div>
+            <div class="bracket-tl"></div><div class="bracket-tr"></div>
+            
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-amber-50 text-amber-800 text-[10px] font-mono uppercase tracking-widest font-bold">
-              02. RÜŞVET
+              KALLİSTİ PROTOKOLÜ
             </div>
-            <h3 class="font-cinzel text-xl font-bold text-slate-900">Paris'in Seçimi</h3>
+            <h2 class="font-cinzel text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+              "EN GÜZELE..."
+            </h2>
             <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
-              Hera krallık, Athena bilgelik vaat etti. Paris ise Afrodit'in "Helena'yı sana ayarlarım" rüşvetini seçti. Antik çağın en pahalı rüşveti!
+              Yiki altın elmayı size doğru uzatıyor. Nifak tanrıçası Eris masaya bıraktı ve antik çağın en büyük entrikası patladı: Bir elma yüzünden koskoca Truva kül olacak!
             </p>
           </div>
-          <div class="pt-4 border-t border-slate-200 text-[11px] font-mono text-amber-700 font-bold">
-            Trajik Tercih
+
+          <div id="elma-box-right" class="bg-white/90 backdrop-blur-xl border border-red-300 p-8 sm:p-10 rounded-3xl space-y-4 shadow-2xl relative">
+            <div class="pillar-left"></div><div class="pillar-right"></div>
+            <div class="bracket-tl"></div><div class="bracket-tr"></div>
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-red-50 text-mythic-crimson text-[10px] font-mono uppercase tracking-widest font-bold">
+              KOZMİK FATURA
+            </div>
+            <h3 class="font-cinzel text-2xl sm:text-3xl font-extrabold text-slate-900">
+              GÜÜÜÜM! KAOS PATLADI!
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
+              Hera krallık, Athena bilgelik vaat etti; Paris ise Afrodit'in rüşvetini kaptı. Fatura yine sokaktaki ölümlülere kesildi!
+            </p>
           </div>
+
         </div>
 
-        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-red-300">
-          <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="bracket-tl"></div><div class="bracket-tr"></div>
-          <div class="space-y-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-red-50 text-mythic-crimson text-[10px] font-mono uppercase tracking-widest font-bold">
-              03. FATURA
-            </div>
-            <h3 class="font-cinzel text-xl font-bold text-slate-900">GÜÜÜÜM! Kaos Patladı</h3>
-            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
-              10 yıllık savaş, binlerce gemi, tahta bir at ve yanan bir medeniyet... Faturayı yine sarayda oturanlar değil, halk ödedi.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-slate-200 text-[11px] font-mono text-mythic-crimson font-bold">
-            10 Yıllık Yıkım
+        <div class="flex items-center justify-between text-[11px] font-mono text-slate-300 border-t border-slate-700/80 pt-4">
+          <span>KAYDIRMAYA DEVAM EDİN</span>
+          <div class="w-32 h-1 bg-slate-700 rounded-full overflow-hidden">
+            <div id="elma-stage-bar" class="w-0 h-full bg-mythic-gold transition-all duration-75"></div>
           </div>
         </div>
 
@@ -484,56 +494,63 @@
     </div>
   </section>
 
-  <!-- ==================== ACT III: PEAR.NO STYLE STAGE 2 (İKARUS & AFORİZMALAR) ==================== -->
-  <section id="stage-ikarus" class="py-28 px-6 relative z-10 bg-slate-100/70 border-t border-slate-300/80">
-    <div class="max-w-7xl mx-auto space-y-12">
+  <!-- ==================== ACT III: PINNED SCROLLYTELLING 2 (İKARUS DÜŞÜŞÜ CANVAS SEQUENCES) ==================== -->
+  <section id="stage-ikarus" class="relative bg-slate-900 border-t border-slate-800" style="height: 350vh;">
+    <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-300/80 pb-8">
-        <div class="space-y-3">
-          <span class="text-xs font-mono text-amber-700 uppercase tracking-[0.3em] font-bold">CH. 02 — KİBİR VE DÜŞÜŞ</span>
-          <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-900">İKARUS'UN SERBEST DÜŞÜŞÜ</h2>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-600 max-w-md font-light leading-relaxed">
-          Güneşe fazla yaklaşınca balmumu eridi, tüyler saçıldı. Antik çağın en epik kibir dersi: Yerçekimi asla kaybetmez.
-        </p>
-      </div>
+      <!-- 60/120 FPS High-Performance WebP Canvas (ikarus_frames/ezgif-frame-001.webp ... 100) -->
+      <canvas id="icarus-canvas" class="scrolly-canvas"></canvas>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/85 z-10 pointer-events-none"></div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="relative z-20 max-w-6xl mx-auto px-6 w-full h-full flex flex-col justify-between py-24 pointer-events-none">
         
-        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between">
-          <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="bracket-tl"></div><div class="bracket-tr"></div>
-          <div class="space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-700/80 pb-4 text-slate-300">
+          <span class="text-xs font-mono text-amber-400 uppercase tracking-[0.3em] font-bold">CH. 02 — KİBİR VE YERÇEKİMİ</span>
+          <span class="text-xs font-mono text-slate-400">EGE DENİZİNE DÜŞÜŞ</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center my-auto pointer-events-auto">
+          
+          <div id="ikarus-card-1" class="bg-white/90 backdrop-blur-xl border border-slate-300 p-6 sm:p-8 rounded-3xl space-y-4 shadow-2xl relative">
+            <div class="pillar-left"></div><div class="pillar-right"></div>
+            <div class="bracket-tl"></div><div class="bracket-tr"></div>
+
             <div class="text-xs font-mono text-mythic-gold font-bold">HERMES TRİSMEGİSTUS</div>
             <p class="font-cinzel text-base sm:text-lg font-bold text-slate-900 leading-snug">
               “İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insandır.”
             </p>
+            <span class="text-[10px] font-mono text-slate-500 block">Zümrüt Tablet Arşivi</span>
           </div>
-          <span class="text-[10px] font-mono text-slate-500 block">Zümrüt Tablet Arşivi</span>
-        </div>
 
-        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-amber-400/50">
-          <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="bracket-tl"></div><div class="bracket-tr"></div>
-          <div class="space-y-3">
+          <div id="ikarus-card-2" class="bg-white/90 backdrop-blur-xl border border-amber-400/60 p-6 sm:p-8 rounded-3xl space-y-4 shadow-2xl relative">
+            <div class="pillar-left"></div><div class="pillar-right"></div>
+            <div class="bracket-tl"></div><div class="bracket-tr"></div>
+
             <div class="text-xs font-mono text-amber-700 font-bold">PROFESÖR YİKİ (KURAL #1)</div>
             <p class="font-cinzel text-base sm:text-lg font-bold text-slate-900 leading-snug">
               “Biri sana 'Güneşe yaklaşma' veya 'Kutuyu sakın açma' diyorsa, hemen ters yöne koş!”
             </p>
+            <span class="text-[10px] font-mono text-slate-500 block">Hayatta Kalma 101</span>
           </div>
-          <span class="text-[10px] font-mono text-slate-500 block">Hayatta Kalma 101</span>
-        </div>
 
-        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-red-300">
-          <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="bracket-tl"></div><div class="bracket-tr"></div>
-          <div class="space-y-3">
+          <div id="ikarus-card-3" class="bg-white/90 backdrop-blur-xl border border-red-300 p-6 sm:p-8 rounded-3xl space-y-4 shadow-2xl relative">
+            <div class="pillar-left"></div><div class="pillar-right"></div>
+            <div class="bracket-tl"></div><div class="bracket-tr"></div>
+
             <div class="text-xs font-mono text-mythic-crimson font-bold">ODYSSEUS HUBRİS DERSİ</div>
             <p class="font-cinzel text-base sm:text-lg font-bold text-slate-900 leading-snug">
               “Devin gözünü kör edip kaçtıysan arkana dönüp adını bağırma. Poseidon unutmaz.”
             </p>
+            <span class="text-[10px] font-mono text-slate-500 block">10 Yıllık Sürgün</span>
           </div>
-          <span class="text-[10px] font-mono text-slate-500 block">10 Yıllık Sürgün Faturası</span>
+
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] font-mono text-slate-300 border-t border-slate-700/80 pt-4">
+          <span>KAYDIRMAYA DEVAM EDİN</span>
+          <div class="w-32 h-1 bg-slate-700 rounded-full overflow-hidden">
+            <div id="ikarus-stage-bar" class="w-0 h-full bg-amber-400 transition-all duration-75"></div>
+          </div>
         </div>
 
       </div>
@@ -646,7 +663,7 @@
     </div>
   </section>
 
-  <!-- ==================== ACT V: YİKİ KARAKTER ÖZETİ ==================== -->
+  <!-- ==================== ACT V: YİKİ KARAKTER BİBLE BAĞLANTISI ==================== -->
   <section id="yiki" class="py-24 px-6 relative z-10 bg-slate-50 border-t border-slate-200">
     <div class="max-w-6xl mx-auto sculpture-card p-8 sm:p-12 rounded-3xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
       <div class="md:col-span-4 flex justify-center">
@@ -932,7 +949,7 @@
       <div class="space-y-4 pt-2">
         <a href="mailto:komikinternet@gmail.com" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-mythic-gold/50 transition-all group">
           <div class="w-10 h-10 rounded-xl bg-mythic-goldBg flex items-center justify-center text-mythic-gold">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+            <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
           </div>
           <div>
             <span class="text-[10px] font-mono text-slate-400 block">E-POSTA</span>
@@ -953,13 +970,13 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT ENGINE -->
+  <!-- ==================== JAVASCRIPT & SCROLLYTELLING ENGINE ==================== -->
   <script>
     lucide.createIcons();
 
-    // 1. LENIS MOMENTUM SCROLL (60/120 FPS)
+    // 1. LENIS SMOOTH MOMENTUM SCROLL (60/120 FPS FLUIDITY)
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
@@ -974,10 +991,56 @@
     gsap.ticker.lagSmoothing(0);
 
     function scrollToSection(selector) {
-      lenis.scrollTo(selector, { offset: -20, duration: 1.2 });
+      lenis.scrollTo(selector, { offset: -20, duration: 1.3 });
     }
 
-    // 2. CURSOR LOGIC
+    // 2. HIGH-PERFORMANCE WEBP CANVAS SEQUENCER
+    function setupWebpCanvas(canvasId, folderPath, prefix, totalFrames) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return null;
+
+      const ctx = canvas.getContext('2d');
+      const images = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      for (let i = 1; i <= totalFrames; i++) {
+        const img = new Image();
+        const num = String(i).padStart(3, '0');
+        img.src = `${folderPath}/${prefix}-${num}.webp`;
+        img.onload = () => {
+          if (i === 1) drawFrame(0);
+        };
+        images.push(img);
+      }
+
+      function drawFrame(progress) {
+        if (images.length === 0) return;
+        const index = Math.min(totalFrames - 1, Math.max(0, Math.floor(progress * (totalFrames - 1))));
+        const img = images[index];
+        if (img && img.complete && img.naturalWidth > 0) {
+          const hRatio = canvas.width / img.width;
+          const vRatio = canvas.height / img.height;
+          const ratio = Math.max(hRatio, vRatio);
+          const cx = (canvas.width - img.width * ratio) / 2;
+          const cy = (canvas.height - img.height * ratio) / 2;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, img.width * ratio, img.height * ratio);
+        }
+      }
+
+      return { drawFrame };
+    }
+
+    const appleCanvasSeq = setupWebpCanvas('apple-canvas', 'elma_frames', 'ezgif-frame', 120);
+    const icarusCanvasSeq = setupWebpCanvas('icarus-canvas', 'ikarus_frames', 'ezgif-frame', 100);
+
+    // 3. CURSOR LOGIC
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     let mouseX = 0, mouseY = 0;
@@ -1022,7 +1085,7 @@
       });
     });
 
-    // 3. MODAL & DRAWER
+    // 4. MODAL & DRAWER
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       if (menu) menu.classList.toggle('hidden');
@@ -1040,22 +1103,67 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // 4. GSAP REVEALS
-    gsap.utils.toArray('.sculpture-card').forEach((box) => {
-      gsap.from(box, {
-        scrollTrigger: {
-          trigger: box,
-          start: 'top 88%',
-          toggleActions: 'play none none reverse'
-        },
-        y: 35,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power2.out'
-      });
+    // 5. PINNED STAGE 1: ALTIN ELMA (CANVAS WEBP + SCROLLTRIGGER)
+    const elmaTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#stage-elma",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+        onUpdate: (self) => {
+          const p = self.progress;
+          if (appleCanvasSeq) appleCanvasSeq.drawFrame(p);
+          const bar = document.getElementById('elma-stage-bar');
+          if (bar) bar.style.width = `${p * 100}%`;
+        }
+      }
     });
 
-    // 5. PARALLAX DRIFT ON GREEK GLYPHS
+    elmaTl
+      .fromTo("#elma-box-left", 
+        { x: -100, opacity: 0, scale: 0.92 },
+        { x: 0, opacity: 1, scale: 1, duration: 1.5, ease: "power2.out" }
+      )
+      .fromTo("#elma-box-right",
+        { x: 100, opacity: 0, scale: 0.92 },
+        { x: 0, opacity: 1, scale: 1, duration: 1.5, ease: "power2.out" },
+        "+=0.5"
+      )
+      .to(["#elma-box-left", "#elma-box-right"], { y: -30, opacity: 0.35, duration: 1 }, "+=0.8");
+
+    // 6. PINNED STAGE 2: İKARUS (CANVAS WEBP + SCROLLTRIGGER)
+    const ikarusTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#stage-ikarus",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+        onUpdate: (self) => {
+          const p = self.progress;
+          if (icarusCanvasSeq) icarusCanvasSeq.drawFrame(p);
+          const bar = document.getElementById('ikarus-stage-bar');
+          if (bar) bar.style.width = `${p * 100}%`;
+        }
+      }
+    });
+
+    ikarusTl
+      .fromTo("#ikarus-card-1",
+        { y: 60, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" }
+      )
+      .fromTo("#ikarus-card-2",
+        { y: 60, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
+        "+=0.3"
+      )
+      .fromTo("#ikarus-card-3",
+        { y: 60, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
+        "+=0.3"
+      );
+
+    // 7. PARALLAX DRIFT ON GREEK GLYPHS
     gsap.utils.toArray('.glyph-float').forEach((glyph, i) => {
       gsap.to(glyph, {
         scrollTrigger: {
@@ -1070,7 +1178,7 @@
       });
     });
 
-    // 6. VOTING STATE
+    // 8. VOTING STATE
     const voteData = {
       perseus: { mitik: 12, bitik: 36 },
       odysseus: { mitik: 8, bitik: 42 },
