@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mitik Hikayeler — Antik Çağın Epik Rezaletleri</title>
-  <meta name="description" content="Kusursuz zaferler değil, epik rezaletler. Antik mitolojinin trajikomik gerçekleri Yiki'nin anlatımıyla ödüllü scrollytelling deneyimi.">
+  <title>Mitik Hikayeler — Helenistik Mermer & Antik Rezaletler</title>
+  <meta name="description" content="Kusursuz zaferler değil, epik rezaletler. Yiki'nin anlatımıyla beyaz mermer Helenistik editoryal mitoloji arşivi.">
 
   <!-- Google Fonts: Cinzel, Plus Jakarta Sans & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -24,19 +24,24 @@
             mono: ['"Space Grotesk"', 'monospace'],
           },
           colors: {
+            marble: {
+              50: '#FAFBFD',
+              100: '#F1F3F7',
+              200: '#E4E7EE',
+              300: '#D1D6E2',
+              400: '#9DA6B9',
+              600: '#475166',
+              800: '#1E2330',
+              900: '#0F121B',
+            },
             mythic: {
-              gold: '#E5C158',
-              goldLight: '#FDF0CD',
-              goldHover: '#F7D470',
-              crimson: '#E63946',
-              dark: '#060709',
-              darker: '#020305',
-              surface: '#0B0E17',
-              card: '#101422',
-              marble: '#151928',
-              border: 'rgba(229, 193, 88, 0.2)',
-              accent: '#3A86FF',
-              textMuted: '#8E99AC'
+              gold: '#B38A22',
+              goldHover: '#C99E2E',
+              goldBg: '#FBF5E6',
+              goldBorder: 'rgba(179, 138, 34, 0.35)',
+              crimson: '#D90429',
+              slateText: '#1E2330',
+              muted: '#64748B'
             }
           }
         }
@@ -55,11 +60,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
-    /* Custom Luxury Obsidian Scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #020305; }
-    ::-webkit-scrollbar-thumb { background: #22263A; border-radius: 2px; }
-    ::-webkit-scrollbar-thumb:hover { background: #E5C158; }
+    /* Custom Luxury Marble Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F1F3F7; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #B38A22; }
 
     /* Custom Cursor */
     .custom-cursor {
@@ -72,50 +77,50 @@
     #cursor-dot {
       width: 7px;
       height: 7px;
-      background-color: #E5C158;
+      background-color: #B38A22;
       border-radius: 50%;
-      box-shadow: 0 0 12px #E5C158;
+      box-shadow: 0 0 10px rgba(179, 138, 34, 0.6);
     }
     #cursor-ring {
       width: 36px;
       height: 36px;
-      border: 1px solid rgba(229, 193, 88, 0.45);
+      border: 1px solid rgba(179, 138, 34, 0.5);
       border-radius: 50%;
       transition: transform 0.08s ease-out;
     }
 
-    /* Ambient Background Noise & Glows */
-    .bg-noise {
-      background-image: radial-gradient(rgba(229, 193, 88, 0.035) 1px, transparent 0);
-      background-size: 32px 32px;
+    /* Ambient Marble Texture Noise */
+    .bg-marble-texture {
+      background-color: #F8F9FC;
+      background-image: 
+        radial-gradient(rgba(179, 138, 34, 0.06) 1px, transparent 0),
+        radial-gradient(circle at 100% 0%, rgba(226, 232, 240, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(241, 245, 249, 0.8) 0%, transparent 50%);
+      background-size: 32px 32px, 100% 100%, 100% 100%;
     }
-    .gold-glow { box-shadow: 0 0 50px -10px rgba(229, 193, 88, 0.22); }
-    .crimson-glow { box-shadow: 0 0 50px -10px rgba(230, 57, 70, 0.28); }
-    .text-glow { text-shadow: 0 0 35px rgba(229, 193, 88, 0.4); }
 
-    /* Roman Temple Architectural Glass Box */
-    .temple-box {
-      position: relative;
-      background: rgba(11, 14, 23, 0.9);
+    /* Sculptural Marble Glass Card */
+    .sculpture-card {
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(229, 193, 88, 0.25);
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(203, 213, 225, 0.8);
+      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.07), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
       transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .temple-box:hover {
-      border-color: rgba(229, 193, 88, 0.6);
-      box-shadow: 0 35px 70px -10px rgba(229, 193, 88, 0.15);
+    .sculpture-card:hover {
+      border-color: rgba(179, 138, 34, 0.6);
+      box-shadow: 0 30px 60px -15px rgba(179, 138, 34, 0.12), 0 0 0 1px rgba(255, 255, 255, 1) inset;
     }
 
-    /* Classical Roman Architectural Pillars */
+    /* Roman Ionic Pillar Accents */
     .pillar-left {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
       width: 4px;
-      background: linear-gradient(to bottom, #E5C158, transparent 20%, transparent 80%, #E5C158);
+      background: linear-gradient(to bottom, #B38A22, transparent 20%, transparent 80%, #B38A22);
       border-radius: 4px;
     }
     .pillar-right {
@@ -124,39 +129,26 @@
       bottom: 0;
       right: 0;
       width: 4px;
-      background: linear-gradient(to bottom, #E5C158, transparent 20%, transparent 80%, #E5C158);
+      background: linear-gradient(to bottom, #B38A22, transparent 20%, transparent 80%, #B38A22);
       border-radius: 4px;
     }
 
-    /* Classical Engraved Corner Brackets */
-    .corner-bracket-tl { position: absolute; top: -1px; left: -1px; width: 12px; height: 12px; border-top: 2px solid #E5C158; border-left: 2px solid #E5C158; }
-    .corner-bracket-tr { position: absolute; top: -1px; right: -1px; width: 12px; height: 12px; border-top: 2px solid #E5C158; border-right: 2px solid #E5C158; }
-    .corner-bracket-bl { position: absolute; bottom: -1px; left: -1px; width: 12px; height: 12px; border-bottom: 2px solid #E5C158; border-left: 2px solid #E5C158; }
-    .corner-bracket-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px; border-bottom: 2px solid #E5C158; border-right: 2px solid #E5C158; }
+    /* Classical Corner Brackets */
+    .bracket-tl { position: absolute; top: -1px; left: -1px; width: 12px; height: 12px; border-top: 2px solid #B38A22; border-left: 2px solid #B38A22; }
+    .bracket-tr { position: absolute; top: -1px; right: -1px; width: 12px; height: 12px; border-top: 2px solid #B38A22; border-right: 2px solid #B38A22; }
+    .bracket-bl { position: absolute; bottom: -1px; left: -1px; width: 12px; height: 12px; border-bottom: 2px solid #B38A22; border-left: 2px solid #B38A22; }
+    .bracket-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px; border-bottom: 2px solid #B38A22; border-right: 2px solid #B38A22; }
 
-    /* Video Facade (Instant 0ms Load, Zero Main-Thread Lag) */
-    .video-facade {
+    /* Video Container */
+    .video-responsive {
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      border-radius: 0.85rem;
-      background-color: #0B0E17;
-      cursor: pointer;
+      border-radius: 1rem;
+      box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.15);
     }
-    .video-facade img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    .video-facade:hover img {
-      transform: scale(1.04);
-    }
-    .video-facade iframe {
+    .video-responsive iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -164,46 +156,13 @@
       height: 100%;
       border: 0;
     }
-    .video-play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: rgba(230, 57, 70, 0.9);
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 0 25px rgba(230, 57, 70, 0.6);
-      z-index: 2;
-    }
-    .video-facade:hover .video-play-btn {
-      transform: translate(-50%, -50%) scale(1.15);
-      background: #E63946;
-      box-shadow: 0 0 35px rgba(230, 57, 70, 0.9);
-    }
 
-    /* Side Mythic Progress Bar */
-    .side-nav-dot {
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .side-nav-dot.active {
-      transform: scale(1.6);
-      background-color: #E5C158;
-      box-shadow: 0 0 16px #E5C158;
-    }
-
-    /* Floating Ancient Glyphs Stream */
+    /* Floating Ancient Greek Glyphs Stream in Marble Gray */
     .glyph-float {
       position: absolute;
       font-family: 'Cinzel', serif;
-      font-weight: 700;
-      color: rgba(229, 193, 88, 0.04);
+      font-weight: 800;
+      color: rgba(30, 41, 59, 0.035);
       user-select: none;
       pointer-events: none;
       will-change: transform;
@@ -221,268 +180,301 @@
     }
   </style>
 </head>
-<body class="bg-mythic-darker text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-mythic-gold selection:text-black">
+<body class="bg-marble-texture text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-mythic-gold selection:text-white">
 
   <!-- AWWWARDS CUSTOM CURSOR -->
   <div id="cursor-dot" class="custom-cursor hidden md:block"></div>
   <div id="cursor-ring" class="custom-cursor hidden md:block"></div>
 
-  <!-- Ambient Background Floating Ancient Greek Runes & Glyphs -->
+  <!-- Ambient Marble Greek Glyphs in Background -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
     <span class="glyph-float text-[260px] -top-10 -left-10" style="transform: rotate(-10deg);">Ω</span>
     <span class="glyph-float text-[220px] top-1/4 -right-10" style="transform: rotate(15deg);">Ψ</span>
     <span class="glyph-float text-[280px] top-2/3 -left-12" style="transform: rotate(-5deg);">Φ</span>
     <span class="glyph-float text-[200px] bottom-10 right-10" style="transform: rotate(20deg);">Δ</span>
-    <span class="glyph-float text-6xl top-1/3 left-1/4 opacity-30">ΚΑΛΛΙΣΤΗ</span>
-    <span class="glyph-float text-6xl top-3/4 right-1/4 opacity-30">ΥΒΡΙΣ</span>
-    <span class="glyph-float text-5xl top-1/2 left-1/12 opacity-25">ΧΑΟΣ</span>
-  </div>
-
-  <canvas id="mythic-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
-
-  <!-- MİTİK YAN TAKİP ÇUBUĞU -->
-  <div class="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center gap-6 p-3 rounded-full bg-mythic-dark/80 backdrop-blur-md border border-mythic-border shadow-2xl">
-    <div class="absolute top-6 bottom-6 w-0.5 bg-mythic-border/70 -z-10">
-      <div id="side-tracker-fill" class="w-full bg-mythic-gold transition-all duration-150" style="height: 0%;"></div>
-    </div>
-    <button onclick="scrollToSection('#hero')" class="group relative flex items-center justify-center" title="Giriş">
-      <div id="dot-hero" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold active"></div>
-      <span class="absolute right-8 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-2xl">Giriş</span>
-    </button>
-    <button onclick="scrollToSection('#stage-elma')" class="group relative flex items-center justify-center" title="Altın Elma">
-      <div id="dot-elma" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-8 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-2xl">Altın Elma</span>
-    </button>
-    <button onclick="scrollToSection('#bolumler')" class="group relative flex items-center justify-center" title="Bölümler">
-      <div id="dot-bolumler" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-8 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-2xl">Bölüm Arşivi</span>
-    </button>
-    <button onclick="scrollToSection('#stage-ikarus')" class="group relative flex items-center justify-center" title="İkarus">
-      <div id="dot-ikarus" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-8 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-2xl">İkarus & Aforizmalar</span>
-    </button>
-    <button onclick="scrollToSection('#anket')" class="group relative flex items-center justify-center" title="Halk Arenası">
-      <div id="dot-anket" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-8 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-2xl">Mitik vs Bitik</span>
-    </button>
-    <button onclick="scrollToSection('#yiki')" class="group relative flex items-center justify-center" title="Yiki Kimdir?">
-      <div id="dot-yiki" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-8 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-2xl">Yiki Kimdir?</span>
-    </button>
-    <button onclick="scrollToSection('#merch')" class="group relative flex items-center justify-center" title="Merch Atelier">
-      <div id="dot-merch" class="side-nav-dot w-2.5 h-2.5 rounded-full bg-slate-600 group-hover:bg-mythic-gold"></div>
-      <span class="absolute right-8 px-3 py-1 rounded-md bg-black/95 border border-mythic-gold/40 text-[10px] font-mono text-mythic-gold uppercase tracking-wider opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-2xl">Mitik Atelier</span>
-    </button>
+    <span class="glyph-float text-6xl top-1/3 left-1/4">ΚΑΛΛΙΣΤΗ</span>
+    <span class="glyph-float text-6xl top-3/4 right-1/4">ΥΒΡΙΣ</span>
+    <span class="glyph-float text-5xl top-1/2 left-1/12">ΧΑΟΣ</span>
   </div>
 
   <!-- FLOATING BİZE ULAŞIN BUTTON -->
   <div class="fixed left-6 bottom-6 z-50">
-    <button onclick="openContactModal()" class="flex items-center gap-3 px-5 py-3 rounded-full bg-mythic-surface/90 hover:bg-mythic-card border border-mythic-gold/40 text-mythic-gold text-xs font-mono font-bold uppercase tracking-wider shadow-2xl backdrop-blur-md transition-all hover:scale-105 gold-glow group">
+    <button onclick="openContactModal()" class="flex items-center gap-3 px-5 py-3 rounded-full bg-white/90 hover:bg-white border border-mythic-gold/40 text-mythic-gold text-xs font-mono font-bold uppercase tracking-wider shadow-2xl backdrop-blur-md transition-all hover:scale-105 group">
       <svg class="w-4 h-4 text-mythic-gold group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
       <span class="hidden sm:inline">Bize Ulaşın</span>
     </button>
   </div>
 
-  <!-- HEADER -->
-  <header class="fixed top-0 left-0 w-full z-40 transition-all duration-500 bg-mythic-darker/85 backdrop-blur-xl border-b border-mythic-border/40">
+  <!-- HELENISTIC MARBLE HEADER -->
+  <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-20 sm:h-24 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3.5 group">
-        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-mythic-gold/20 via-mythic-surface to-mythic-dark border border-mythic-gold/40 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500 shadow-xl">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3.5 group">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-mythic-goldBg border border-mythic-gold/40 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500 shadow-md">
           <img src="logo.png" onerror="this.src='https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm'" alt="Mitik Hikayeler Logo" class="w-full h-full object-cover">
         </div>
         <div class="flex flex-col">
-          <span class="font-cinzel font-bold text-base sm:text-lg tracking-[0.2em] text-slate-100 group-hover:text-mythic-gold transition-colors">MİTİK HİKAYELER</span>
-          <span class="text-[9px] tracking-[0.3em] text-mythic-gold/80 uppercase font-mono">Antik Çağın Epik Rezaletleri</span>
+          <span class="font-cinzel font-bold text-base sm:text-lg tracking-[0.2em] text-slate-900 group-hover:text-mythic-gold transition-colors">MİTİK HİKAYELER</span>
+          <span class="text-[9px] tracking-[0.3em] text-mythic-gold uppercase font-mono font-semibold">Helenistik Mermer Arşivi</span>
         </div>
       </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-10 text-xs font-mono tracking-widest text-slate-300 uppercase">
-        <a href="#stage-elma" class="hover:text-mythic-gold transition-colors py-2 relative group">
-          <span>01. Altın Elma</span>
-          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mythic-gold transition-all duration-300 group-hover:w-full"></span>
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-10 text-xs font-mono tracking-widest text-slate-600 uppercase font-semibold">
+        <a href="#vitrin" class="hover:text-mythic-gold transition-colors py-2">01. Canlı Vitrin</a>
+        <a href="#stage-elma" class="hover:text-mythic-gold transition-colors py-2">02. Altın Elma</a>
+        <a href="#stage-ikarus" class="hover:text-mythic-gold transition-colors py-2">03. İkarus</a>
+        <a href="#anket" class="hover:text-mythic-gold transition-colors py-2">04. Oylama</a>
+        <a href="bolumler.html" class="text-mythic-gold hover:text-amber-700 transition-colors py-2 flex items-center gap-1.5 font-bold">
+          <span>05. Bölümler (8)</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
         </a>
-        <a href="#bolumler" class="hover:text-mythic-gold transition-colors py-2 relative group">
-          <span>02. Bölümler</span>
-          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mythic-gold transition-all duration-300 group-hover:w-full"></span>
-        </a>
-        <a href="#stage-ikarus" class="hover:text-mythic-gold transition-colors py-2 relative group">
-          <span>03. İkarus & Felsefe</span>
-          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mythic-gold transition-all duration-300 group-hover:w-full"></span>
-        </a>
-        <a href="#yiki" class="hover:text-mythic-gold transition-colors py-2 relative group">
-          <span>04. Yiki</span>
-          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mythic-gold transition-all duration-300 group-hover:w-full"></span>
-        </a>
-        <a href="#merch" class="hover:text-mythic-gold transition-colors py-2 relative group">
-          <span>05. Mağaza</span>
-          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mythic-gold transition-all duration-300 group-hover:w-full"></span>
-        </a>
+        <a href="yiki.html" class="hover:text-mythic-gold transition-colors py-2">06. Yiki</a>
+        <a href="#merch" class="hover:text-mythic-gold transition-colors py-2">07. Mağaza</a>
       </nav>
 
-      <!-- Social Icons & Mobile Trigger -->
+      <!-- Social & CTA -->
       <div class="flex items-center gap-3">
         <a href="https://instagram.com/mitikhikayeler" target="_blank" rel="noopener noreferrer" 
-           class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-mythic-surface border border-mythic-border hover:border-pink-500 hover:text-pink-400 flex items-center justify-center text-slate-300 transition-all" title="Instagram">
+           class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 border border-slate-300 hover:border-pink-500 hover:text-pink-600 flex items-center justify-center text-slate-600 transition-all" title="Instagram">
           <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
         </a>
         <a href="https://tiktok.com/@mitikhikayeler" target="_blank" rel="noopener noreferrer" 
-           class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-mythic-surface border border-mythic-border hover:border-cyan-400 hover:text-cyan-300 flex items-center justify-center text-slate-300 transition-all" title="TikTok">
+           class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 border border-slate-300 hover:border-cyan-500 hover:text-cyan-600 flex items-center justify-center text-slate-600 transition-all" title="TikTok">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
         <a href="https://www.youtube.com/@MitikHikayeler?sub_confirmation=1" target="_blank" rel="noopener noreferrer" 
-           class="flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-mythic-crimson hover:bg-red-600 text-white text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-all crimson-glow">
+           class="flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-mythic-crimson hover:bg-red-700 text-white text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-md">
           <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg>
           <span class="hidden sm:inline">Abone Ol</span>
         </a>
-        <button onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 rounded-full bg-mythic-surface border border-mythic-border flex items-center justify-center text-slate-300">
+        <button onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
         </button>
       </div>
+
     </div>
   </header>
 
   <!-- Mobile Drawer -->
-  <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-50 hidden flex flex-col justify-between p-8 backdrop-blur-2xl">
-    <div class="flex items-center justify-between border-b border-mythic-border pb-6">
-      <span class="font-cinzel text-lg font-bold text-mythic-gold">MİTİK HİKAYELER</span>
-      <button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-full bg-mythic-surface flex items-center justify-center text-slate-300">
+  <div id="mobile-menu" class="fixed inset-0 bg-white/95 z-50 hidden flex flex-col justify-between p-8 backdrop-blur-2xl">
+    <div class="flex items-center justify-between border-b border-slate-200 pb-6">
+      <span class="font-cinzel text-lg font-bold text-slate-900">MİTİK HİKAYELER</span>
+      <button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-700">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
       </button>
     </div>
-    <div class="flex flex-col gap-6 text-xl font-cinzel font-bold text-slate-200">
-      <a href="#stage-elma" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">01. Altın Elma</a>
-      <a href="#bolumler" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">02. Bölüm Arşivi</a>
+    <div class="flex flex-col gap-6 text-xl font-cinzel font-bold text-slate-800">
+      <a href="#vitrin" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">01. Canlı Vitrin</a>
+      <a href="#stage-elma" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">02. Altın Elma</a>
       <a href="#stage-ikarus" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">03. İkarus & Aforizmalar</a>
       <a href="#anket" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">04. Mitik vs Bitik</a>
-      <a href="#yiki" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">05. Yiki Kimdir?</a>
-      <a href="#merch" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">06. Mitik Atelier</a>
+      <a href="bolumler.html" class="text-mythic-gold font-bold">05. Tüm Bölümler (8 Video) →</a>
+      <a href="yiki.html" class="hover:text-mythic-gold">06. Yiki Karakter Biblesi →</a>
+      <a href="#merch" onclick="toggleMobileMenu()" class="hover:text-mythic-gold">07. Mitik Atelier</a>
     </div>
-    <div class="pt-6 border-t border-mythic-border text-center text-xs font-mono text-slate-400">
-      © 2026 Mitik Hikayeler
+    <div class="pt-6 border-t border-slate-200 text-center text-xs font-mono text-slate-500">
+      © 2026 Mitik Hikayeler · Helenistik Mermer Sürümü
     </div>
   </div>
 
-  <!-- HERO SECTION -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-6 z-10 bg-noise">
+  <!-- ACT I: MONUMENTAL HERO -->
+  <section id="hero" class="relative min-h-[90vh] flex items-center justify-center pt-32 pb-16 px-6 z-10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
       <div class="lg:col-span-8 space-y-8 text-center lg:text-left">
-        <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-mythic-surface border border-mythic-gold/30 text-mythic-gold text-xs font-mono uppercase tracking-[0.25em]">
+        <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white border border-slate-300 text-mythic-gold text-xs font-mono uppercase tracking-[0.25em] shadow-sm font-semibold">
           <span class="w-2 h-2 rounded-full bg-mythic-gold animate-ping"></span>
           <span>Kozmik Simülasyonun Trajikomik Günlükleri</span>
         </div>
 
         <div class="space-y-4">
-          <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] text-slate-100 text-glow">
+          <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] text-slate-900">
             KUSURSUZ ZAFERLER <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-gold via-amber-200 to-mythic-gold">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-700 via-mythic-gold to-amber-600">
               DEĞİL, EPİK REZALETLER
             </span>
           </h1>
-          <p class="text-lg sm:text-xl text-slate-400 max-w-2xl font-light leading-relaxed pt-2">
+          <p class="text-lg sm:text-xl text-slate-600 max-w-2xl font-light leading-relaxed pt-2">
             Uykuda kafa kesip kahraman olanlar, egosu yüzünden 10 yıl denizde sürüklenenler ve bir nifak elmasıyla patlayan antik egolar...
           </p>
         </div>
 
         <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
-          <button onclick="scrollToSection('#stage-elma')" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-gradient-to-r from-mythic-gold to-amber-500 hover:from-mythic-goldHover hover:to-amber-400 text-black font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all gold-glow group">
-            <span>Tapınağa Giriş Yap</span>
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          <button onclick="scrollToSection('#vitrin')" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all shadow-xl group">
+            <span>En Son Yayını İzle</span>
+            <svg class="w-4 h-4 text-mythic-gold group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
           </button>
-          <button onclick="scrollToSection('#bolumler')" class="w-full sm:w-auto px-8 py-5 rounded-2xl bg-mythic-surface hover:bg-mythic-card border border-mythic-border text-slate-300 font-semibold text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 transition-all">
+          <a href="bolumler.html" class="w-full sm:w-auto px-8 py-5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-semibold text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 transition-all shadow-sm">
             <svg class="w-4 h-4 text-mythic-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <span>Bölüm Arşivi</span>
-          </button>
+            <span>Tüm Bölüm Arşivi (8)</span>
+          </a>
         </div>
       </div>
 
       <!-- Character Stage -->
       <div class="lg:col-span-4 flex justify-center">
-        <div class="temple-box relative w-72 h-96 sm:w-80 sm:h-[430px] rounded-3xl p-6 flex flex-col items-center justify-between shadow-2xl overflow-hidden group">
+        <div class="sculpture-card relative w-72 h-96 sm:w-80 sm:h-[430px] rounded-3xl p-6 flex flex-col items-center justify-between overflow-hidden group">
           <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="corner-bracket-bl"></div><div class="corner-bracket-br"></div>
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
+          <div class="bracket-bl"></div><div class="bracket-br"></div>
           
-          <div class="w-full flex items-center justify-between text-[11px] font-mono text-mythic-gold/80">
+          <div class="w-full flex items-center justify-between text-[11px] font-mono text-mythic-gold font-bold">
             <span>AKTÖR: YİKİ</span>
-            <span>PANTHEON NO. 00</span>
+            <span>HELENİSTİK NO. 00</span>
           </div>
           <div class="relative z-10 w-full h-64 flex items-center justify-center">
-            <img src="düz-sarkastik-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH'" alt="Profesör Yiki" class="max-h-full object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.9)] group-hover:scale-105 transition-transform duration-500">
+            <img src="düz-kendindenemin-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4'" alt="Profesör Yiki" class="max-h-full object-contain drop-shadow-[0_15px_20px_rgba(15,23,42,0.15)] group-hover:scale-105 transition-transform duration-500">
           </div>
           <div class="w-full text-center">
-            <h3 class="font-cinzel text-lg font-bold text-slate-100">PROFESÖR YİKİ</h3>
-            <span class="text-[10px] font-mono text-slate-400">Akdeniz'in Tozlu Arşivcisi</span>
+            <h3 class="font-cinzel text-lg font-bold text-slate-900">PROFESÖR YİKİ</h3>
+            <span class="text-[10px] font-mono text-slate-500">Akdeniz'in Tozlu Arşivcisi</span>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ==================== ACT II: PEAR.NO STYLE PINNED STAGE 1 (ALTIN ELMA & TRUVA) ==================== -->
-  <section id="stage-elma" class="relative py-28 px-6 bg-gradient-to-b from-mythic-darker via-mythic-surface to-mythic-darker border-t border-mythic-border/50 z-10">
+  <!-- ==================== EN ÜST CANLI VİTRİN ==================== -->
+  <section id="vitrin" class="py-20 px-6 relative z-10 bg-white border-t border-b border-slate-200 shadow-sm">
     <div class="max-w-7xl mx-auto space-y-12">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-mythic-border pb-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8">
         <div class="space-y-3">
-          <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.3em]">CH. 01 — NİFAK VE ELMA</span>
-          <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-100">"EN GÜZELE..." — TRUVA'YI PATLATAN ELMA</h2>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-mythic-goldBg text-mythic-gold text-xs font-mono font-bold uppercase tracking-wider">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>En Son Yayın ve Canlı Oynatıcı</span>
+          </div>
+          <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-slate-900">Canlı Yayın Vitrini</h2>
         </div>
-        <p class="text-xs sm:text-sm text-slate-400 max-w-md font-light leading-relaxed">
+        <a href="bolumler.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-mono font-bold uppercase text-white transition-all shadow-md">
+          <span>8 Bölümlük Arşivi Aç</span>
+          <svg class="w-4 h-4 text-mythic-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+
+      <!-- 2-Column Split: Latest Release & Live Playlist Player -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Latest Episode Featured Player -->
+        <div class="lg:col-span-7 sculpture-card p-6 rounded-3xl space-y-4">
+          <div class="flex items-center justify-between text-xs font-mono text-slate-500">
+            <span class="text-mythic-crimson font-bold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-mythic-crimson animate-pulse"></span>
+              EN SON ÇIKAN BÖLÜM (BÖLÜM 7)
+            </span>
+            <span class="text-slate-400">Antik Mısır Serisi</span>
+          </div>
+          <div class="video-responsive">
+            <iframe src="https://www.youtube-nocookie.com/embed/Ga6ujxOWLp4?rel=0" title="7. Bölüm: Güneş Tanrısı Ra & Apophis" allowfullscreen></iframe>
+          </div>
+          <div class="space-y-1 pt-2">
+            <h3 class="font-cinzel font-bold text-base text-slate-900">Güneş Tanrısı Ra & Yılan Apophis</h3>
+            <p class="text-xs text-slate-500 font-light leading-relaxed">
+              Mısır mitolojisinin kozmik yeraltı savaşı ve Ra'nın bitmek bilmeyen gece nöbeti.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Official Playlist Embed Player -->
+        <div class="lg:col-span-5 sculpture-card p-6 rounded-3xl space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-500">
+              <span class="text-mythic-gold font-bold flex items-center gap-1.5">
+                <i data-lucide="list-video" class="w-4 h-4"></i>
+                RESMİ OYNATMA LİSTESİ
+              </span>
+              <span class="text-slate-400">Sıralı Arşiv</span>
+            </div>
+            <div class="video-responsive">
+              <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1" title="Mitik Hikayeler Tüm Bölümler Oynatma Listesi" allowfullscreen></iframe>
+            </div>
+            <div class="space-y-1">
+              <h3 class="font-cinzel font-bold text-sm text-slate-900">Theogonia ve Mitik Seriler</h3>
+              <p class="text-xs text-slate-500 font-light">Tüm bölümleri kesintisiz ve sıralı olarak izleyin.</p>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-slate-200 flex items-center justify-between">
+            <a href="https://www.youtube.com/playlist?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1" target="_blank" class="text-xs font-mono text-mythic-gold font-bold hover:underline flex items-center gap-1">
+              <span>YouTube'da Dinle</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg>
+            </a>
+            <a href="bolumler.html" class="text-xs font-mono text-slate-700 font-bold hover:text-slate-900">
+              Tüm Kartlar →
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== ACT II: PEAR.NO STYLE STAGE 1 (ALTIN ELMA) ==================== -->
+  <section id="stage-elma" class="py-28 px-6 relative z-10">
+    <div class="max-w-7xl mx-auto space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-300/80 pb-8">
+        <div class="space-y-3">
+          <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.3em] font-bold">CH. 01 — NİFAK VE ELMA</span>
+          <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-900">"EN GÜZELE..." — TRUVA'YI PATLATAN ELMA</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 max-w-md font-light leading-relaxed">
           Nifak tanrıçası Eris masaya altın bir elma bıraktı. Üç tanrıça birbirine girdi, fatura koskoca Truva uygarlığına kesildi.
         </p>
       </div>
 
-      <!-- Pear.no Style 3 Staggered Architectural Roman Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <div class="temple-box p-8 rounded-3xl space-y-5 flex flex-col justify-between">
+        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between">
           <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div class="space-y-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-mythic-gold/15 text-mythic-gold text-[10px] font-mono uppercase tracking-widest">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-mythic-goldBg text-mythic-gold text-[10px] font-mono uppercase tracking-widest font-bold">
               01. KALLİSTİ
             </div>
-            <h3 class="font-cinzel text-xl font-bold text-slate-100">Nifak Masaya Düştü</h3>
-            <p class="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+            <h3 class="font-cinzel text-xl font-bold text-slate-900">Nifak Masaya Düştü</h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
               Düğüne davet edilmeyen Eris, üzerinde "En Güzele" yazan altın elmayı fırlattı. Hera, Athena ve Afrodit kavgaya tutuştu.
             </p>
           </div>
-          <div class="pt-4 border-t border-mythic-border text-[11px] font-mono text-mythic-gold">
+          <div class="pt-4 border-t border-slate-200 text-[11px] font-mono text-mythic-gold font-bold">
             Ego Patlaması No. 1
           </div>
         </div>
 
-        <div class="temple-box p-8 rounded-3xl space-y-5 flex flex-col justify-between border-amber-500/40">
+        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-amber-400/50">
           <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div class="space-y-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-amber-500/15 text-amber-400 text-[10px] font-mono uppercase tracking-widest">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-amber-50 text-amber-800 text-[10px] font-mono uppercase tracking-widest font-bold">
               02. RÜŞVET
             </div>
-            <h3 class="font-cinzel text-xl font-bold text-slate-100">Paris'in Seçimi</h3>
-            <p class="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+            <h3 class="font-cinzel text-xl font-bold text-slate-900">Paris'in Seçimi</h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
               Hera krallık, Athena bilgelik vaat etti. Paris ise Afrodit'in "Helena'yı sana ayarlarım" rüşvetini seçti. Antik çağın en pahalı rüşveti!
             </p>
           </div>
-          <div class="pt-4 border-t border-mythic-border text-[11px] font-mono text-amber-400">
+          <div class="pt-4 border-t border-slate-200 text-[11px] font-mono text-amber-700 font-bold">
             Trajik Tercih
           </div>
         </div>
 
-        <div class="temple-box p-8 rounded-3xl space-y-5 flex flex-col justify-between border-mythic-crimson/40">
+        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-red-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div class="space-y-3">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-mythic-crimson/15 text-mythic-crimson text-[10px] font-mono uppercase tracking-widest">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-red-50 text-mythic-crimson text-[10px] font-mono uppercase tracking-widest font-bold">
               03. FATURA
             </div>
-            <h3 class="font-cinzel text-xl font-bold text-slate-100">GÜÜÜÜM! Kaos Patladı</h3>
-            <p class="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+            <h3 class="font-cinzel text-xl font-bold text-slate-900">GÜÜÜÜM! Kaos Patladı</h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
               10 yıllık savaş, binlerce gemi, tahta bir at ve yanan bir medeniyet... Faturayı yine sarayda oturanlar değil, halk ödedi.
             </p>
           </div>
-          <div class="pt-4 border-t border-mythic-border text-[11px] font-mono text-mythic-crimson">
+          <div class="pt-4 border-t border-slate-200 text-[11px] font-mono text-mythic-crimson font-bold">
             10 Yıllık Yıkım
           </div>
         </div>
@@ -492,206 +484,52 @@
     </div>
   </section>
 
-  <!-- ==================== ACT III: YOUTUBE EPISODES & ARCHIVE ==================== -->
-  <section id="bolumler" class="py-32 px-6 relative z-10 bg-mythic-darker border-t border-mythic-border/50">
-    <div class="max-w-7xl mx-auto space-y-16">
-      
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-mythic-border pb-8">
-        <div class="space-y-3">
-          <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.3em]">CH. 02 — ARŞİV</span>
-          <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-100">Bölümler ve Çizgi Anlatımlar</h2>
-        </div>
-        <a href="https://www.youtube.com/playlist?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1" target="_blank" rel="noopener noreferrer" 
-           class="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-mythic-surface hover:bg-mythic-card border border-mythic-gold/40 text-xs font-mono uppercase tracking-wider text-mythic-gold transition-all">
-          <span>Tüm Oynatma Listesini Aç</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </a>
-      </div>
-
-      <!-- Main Live Playlist Embed Player -->
-      <div class="temple-box gold-glow p-4 sm:p-6 rounded-[22px]">
-        <div class="pillar-left"></div><div class="pillar-right"></div>
-        <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-        <div class="corner-bracket-bl"></div><div class="corner-bracket-br"></div>
-
-        <div class="space-y-4">
-          <div class="flex items-center justify-between text-xs font-mono text-slate-300">
-            <span class="flex items-center gap-2 text-mythic-gold font-bold"><i data-lucide="play-circle" class="w-4 h-4"></i> CANLI SIRALI OYNATMA LİSTESİ</span>
-            <span class="text-slate-400">Sezon 1</span>
-          </div>
-          <div class="video-responsive border border-mythic-border shadow-2xl">
-            <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1" title="Mitik Hikayeler Tüm Bölümler Oynatma Listesi" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>
-      </div>
-
-      <!-- Episode Grid (Instant 0ms Load Video Facades) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- Ep 0 -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, 'uU3Naevannk')">
-            <img src="https://i.ytimg.com/vi/uU3Naevannk/hqdefault.jpg" alt="Fragman" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">BÖLÜM 0</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Kanal Fragmanı: Bu Bir Başarı Hikayesi Değil!</h3>
-            <p class="text-xs text-slate-400 font-light">Kozmik yolculuğun trajikomik başlangıcı.</p>
-          </div>
-        </div>
-
-        <!-- Ep 1 -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, 'BGpE7mOXedA')">
-            <img src="https://i.ytimg.com/vi/BGpE7mOXedA/hqdefault.jpg" alt="Perseus" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">1. BÖLÜM</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Medusa'nın Katili Perseus</h3>
-            <p class="text-xs text-slate-400 font-light">Uykuda kafa kesip kahraman olmak?</p>
-          </div>
-        </div>
-
-        <!-- Ep 2: Theogonia (Doğru Link: 25ChPSpvz8o) -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, '25ChPSpvz8o')">
-            <img src="https://i.ytimg.com/vi/25ChPSpvz8o/hqdefault.jpg" alt="Theogonia" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">2. BÖLÜM</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Theogonia: Tanrıların Doğuşu ve Kaos</h3>
-            <p class="text-xs text-slate-400 font-light">Hesiodos'un kozmik aile faciası.</p>
-          </div>
-        </div>
-
-        <!-- Ep 3: Odysseus -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, 'c4XiHgEK1FQ')">
-            <img src="https://i.ytimg.com/vi/c4XiHgEK1FQ/hqdefault.jpg" alt="Odysseus" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">3. BÖLÜM</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Odysseia Destanı Özeti</h3>
-            <p class="text-xs text-slate-400 font-light">Nolan’ın filminden önce izleyin!</p>
-          </div>
-        </div>
-
-        <!-- Ep 4: Pandora -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, 'C0f9E12BMNk')">
-            <img src="https://i.ytimg.com/vi/C0f9E12BMNk/hqdefault.jpg" alt="Pandora" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">4. BÖLÜM</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Pandora ve Prometheus</h3>
-            <p class="text-xs text-slate-400 font-light">İlk kadın ve dünyayı patlatan kutu.</p>
-          </div>
-        </div>
-
-        <!-- Ep 5: Pygmalion -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, '6Ag0cyzLFa0')">
-            <img src="https://i.ytimg.com/vi/6Ag0cyzLFa0/hqdefault.jpg" alt="Pygmalion" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">5. BÖLÜM</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Pygmalion ve Galatea</h3>
-            <p class="text-xs text-slate-400 font-light">Yaptığı heykele aşık olan heykeltıraş.</p>
-          </div>
-        </div>
-
-        <!-- Ep 6: Pegasus -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, 'i_Y3yq7b7eY')">
-            <img src="https://i.ytimg.com/vi/i_Y3yq7b7eY/hqdefault.jpg" alt="Pegasus" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">6. BÖLÜM</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Pegasus ve Bellerophon</h3>
-            <p class="text-xs text-slate-400 font-light">Kanatlı at, Chimera ve sert düşüş.</p>
-          </div>
-        </div>
-
-        <!-- Ep 7: Ra -->
-        <div class="temple-box rounded-2xl overflow-hidden p-4 space-y-4 group">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-          <div class="video-facade" onclick="loadIframe(this, 'Ga6ujxOWLp4')">
-            <img src="https://i.ytimg.com/vi/Ga6ujxOWLp4/hqdefault.jpg" alt="Ra" loading="lazy">
-            <div class="video-play-btn"><svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-          <div class="space-y-1">
-            <span class="text-[10px] font-mono text-mythic-gold">7. BÖLÜM</span>
-            <h3 class="font-cinzel font-bold text-sm text-slate-100">Güneş Tanrısı Ra & Apophis</h3>
-            <p class="text-xs text-slate-400 font-light">Antik Mısır yeraltı yolculuğu.</p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== ACT IV: PEAR.NO STYLE PINNED STAGE 2 (İKARUS & AFORİZMALAR) ==================== -->
-  <section id="stage-ikarus" class="py-28 px-6 relative z-10 bg-gradient-to-b from-mythic-darker via-mythic-surface to-mythic-darker border-t border-mythic-border/50">
+  <!-- ==================== ACT III: PEAR.NO STYLE STAGE 2 (İKARUS & AFORİZMALAR) ==================== -->
+  <section id="stage-ikarus" class="py-28 px-6 relative z-10 bg-slate-100/70 border-t border-slate-300/80">
     <div class="max-w-7xl mx-auto space-y-12">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-mythic-border pb-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-300/80 pb-8">
         <div class="space-y-3">
-          <span class="text-xs font-mono text-amber-400 uppercase tracking-[0.3em]">CH. 03 — KİBİR VE DÜŞÜŞ</span>
-          <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-100">İKARUS'UN SERBEST DÜŞÜŞÜ</h2>
+          <span class="text-xs font-mono text-amber-700 uppercase tracking-[0.3em] font-bold">CH. 02 — KİBİR VE DÜŞÜŞ</span>
+          <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-900">İKARUS'UN SERBEST DÜŞÜŞÜ</h2>
         </div>
-        <p class="text-xs sm:text-sm text-slate-400 max-w-md font-light leading-relaxed">
+        <p class="text-xs sm:text-sm text-slate-600 max-w-md font-light leading-relaxed">
           Güneşe fazla yaklaşınca balmumu eridi, tüyler saçıldı. Antik çağın en epik kibir dersi: Yerçekimi asla kaybetmez.
         </p>
       </div>
 
-      <!-- 3 Staggered Roman Temple Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <div class="temple-box p-8 rounded-3xl space-y-5 flex flex-col justify-between">
+        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between">
           <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div class="space-y-3">
-            <div class="text-xs font-mono text-mythic-gold">HERMES TRİSMEGİSTUS</div>
-            <p class="font-cinzel text-base sm:text-lg font-bold text-slate-100 leading-snug">
+            <div class="text-xs font-mono text-mythic-gold font-bold">HERMES TRİSMEGİSTUS</div>
+            <p class="font-cinzel text-base sm:text-lg font-bold text-slate-900 leading-snug">
               “İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insandır.”
             </p>
           </div>
           <span class="text-[10px] font-mono text-slate-500 block">Zümrüt Tablet Arşivi</span>
         </div>
 
-        <div class="temple-box p-8 rounded-3xl space-y-5 flex flex-col justify-between border-amber-500/40">
+        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-amber-400/50">
           <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div class="space-y-3">
-            <div class="text-xs font-mono text-amber-400">PROFESÖR YİKİ (KURAL #1)</div>
-            <p class="font-cinzel text-base sm:text-lg font-bold text-slate-100 leading-snug">
+            <div class="text-xs font-mono text-amber-700 font-bold">PROFESÖR YİKİ (KURAL #1)</div>
+            <p class="font-cinzel text-base sm:text-lg font-bold text-slate-900 leading-snug">
               “Biri sana 'Güneşe yaklaşma' veya 'Kutuyu sakın açma' diyorsa, hemen ters yöne koş!”
             </p>
           </div>
           <span class="text-[10px] font-mono text-slate-500 block">Hayatta Kalma 101</span>
         </div>
 
-        <div class="temple-box p-8 rounded-3xl space-y-5 flex flex-col justify-between border-mythic-crimson/40">
+        <div class="sculpture-card p-8 rounded-3xl space-y-5 flex flex-col justify-between border-red-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div class="space-y-3">
-            <div class="text-xs font-mono text-mythic-crimson">ODYSSEUS HUBRİS DERSİ</div>
-            <p class="font-cinzel text-base sm:text-lg font-bold text-slate-100 leading-snug">
+            <div class="text-xs font-mono text-mythic-crimson font-bold">ODYSSEUS HUBRİS DERSİ</div>
+            <p class="font-cinzel text-base sm:text-lg font-bold text-slate-900 leading-snug">
               “Devin gözünü kör edip kaçtıysan arkana dönüp adını bağırma. Poseidon unutmaz.”
             </p>
           </div>
@@ -703,19 +541,19 @@
     </div>
   </section>
 
-  <!-- ==================== ACT V: HALK ARENASI (MİTİK Mİ, BİTİK Mİ?) ==================== -->
-  <section id="anket" class="py-32 px-6 relative z-10 bg-mythic-darker border-t border-mythic-border/50">
+  <!-- ==================== ACT IV: HALK ARENASI ==================== -->
+  <section id="anket" class="py-28 px-6 relative z-10 bg-white border-t border-slate-200">
     <div class="max-w-5xl mx-auto space-y-16 text-center">
       
       <div class="space-y-4">
-        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-[0.25em] font-mono">
+        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-mythic-goldBg border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-[0.25em] font-mono font-bold">
           <i data-lucide="scale" class="w-3.5 h-3.5"></i>
           <span>Halk Jürisi Karar Veriyor</span>
         </div>
-        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-100">
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-900">
           MİTİK Mİ, <span class="text-mythic-crimson">BİTİK Mİ?</span>
         </h2>
-        <p class="text-slate-400 text-sm max-w-xl mx-auto font-light">
+        <p class="text-slate-600 text-sm max-w-xl mx-auto font-light">
           Sence antik çağın kahramanları gerçekten efsanevi miydi, yoksa sadece iyi pazarlanmış birer fiyasko mu?
         </p>
       </div>
@@ -723,26 +561,26 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
         
         <!-- Perseus Card -->
-        <div class="temple-box p-6 rounded-3xl flex flex-col justify-between space-y-6">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+        <div class="sculpture-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono text-mythic-gold">#01 PERSEUS</span>
+              <span class="text-xs font-mono text-mythic-gold font-bold">#01 PERSEUS</span>
               <i data-lucide="sword" class="w-4 h-4 text-slate-400"></i>
             </div>
-            <h3 class="font-cinzel text-lg font-bold text-slate-100 mt-2">Uykuda Medusa Avı</h3>
-            <p class="text-xs text-slate-400 mt-2 font-light">Tanrıların eşyalarıyla uyuyan kadını kesmek?</p>
+            <h3 class="font-cinzel text-lg font-bold text-slate-900 mt-2">Uykuda Medusa Avı</h3>
+            <p class="text-xs text-slate-600 mt-2 font-light">Tanrıların eşyalarıyla uyuyan kadını kesmek?</p>
           </div>
           <div class="space-y-3">
             <div class="flex gap-2">
-              <button onclick="voteHero('perseus', 'mitik')" class="flex-1 py-2.5 rounded-xl bg-mythic-surface hover:bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold text-center transition-all">MİTİK</button>
-              <button onclick="voteHero('perseus', 'bitik')" class="flex-1 py-2.5 rounded-xl bg-mythic-surface hover:bg-rose-950/60 border border-rose-500/40 text-rose-400 text-xs font-mono font-bold text-center transition-all">BİTİK</button>
+              <button onclick="voteHero('perseus', 'mitik')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-emerald-100 border border-emerald-500/40 text-emerald-800 text-xs font-mono font-bold text-center transition-all">MİTİK</button>
+              <button onclick="voteHero('perseus', 'bitik')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-100 border border-rose-500/40 text-rose-800 text-xs font-mono font-bold text-center transition-all">BİTİK</button>
             </div>
-            <div class="w-full bg-mythic-dark h-2 rounded-full overflow-hidden flex">
-              <div id="bar-perseus-mitik" class="bg-emerald-500 h-full w-[25%] transition-all duration-500"></div>
-              <div id="bar-perseus-bitik" class="bg-rose-500 h-full w-[75%] transition-all duration-500"></div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden flex">
+              <div id="bar-perseus-mitik" class="bg-emerald-600 h-full w-[25%] transition-all duration-500"></div>
+              <div id="bar-perseus-bitik" class="bg-rose-600 h-full w-[75%] transition-all duration-500"></div>
             </div>
-            <div class="flex justify-between text-[11px] font-mono text-slate-400">
+            <div class="flex justify-between text-[11px] font-mono text-slate-500">
               <span id="txt-perseus-mitik">%25 Mitik</span>
               <span id="txt-perseus-bitik">%75 Bitik</span>
             </div>
@@ -750,26 +588,26 @@
         </div>
 
         <!-- Odysseus Card -->
-        <div class="temple-box p-6 rounded-3xl flex flex-col justify-between space-y-6">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+        <div class="sculpture-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono text-mythic-gold">#03 ODYSSEUS</span>
+              <span class="text-xs font-mono text-mythic-gold font-bold">#03 ODYSSEUS</span>
               <i data-lucide="anchor" class="w-4 h-4 text-slate-400"></i>
             </div>
-            <h3 class="font-cinzel text-lg font-bold text-slate-100 mt-2">Ego Yüzünden 10 Yıl</h3>
-            <p class="text-xs text-slate-400 mt-2 font-light">Kaçarken arkaya dönüp adını bağırmak?</p>
+            <h3 class="font-cinzel text-lg font-bold text-slate-900 mt-2">Ego Yüzünden 10 Yıl</h3>
+            <p class="text-xs text-slate-600 mt-2 font-light">Kaçarken arkaya dönüp adını bağırmak?</p>
           </div>
           <div class="space-y-3">
             <div class="flex gap-2">
-              <button onclick="voteHero('odysseus', 'mitik')" class="flex-1 py-2.5 rounded-xl bg-mythic-surface hover:bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold text-center transition-all">MİTİK</button>
-              <button onclick="voteHero('odysseus', 'bitik')" class="flex-1 py-2.5 rounded-xl bg-mythic-surface hover:bg-rose-950/60 border border-rose-500/40 text-rose-400 text-xs font-mono font-bold text-center transition-all">BİTİK</button>
+              <button onclick="voteHero('odysseus', 'mitik')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-emerald-100 border border-emerald-500/40 text-emerald-800 text-xs font-mono font-bold text-center transition-all">MİTİK</button>
+              <button onclick="voteHero('odysseus', 'bitik')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-100 border border-rose-500/40 text-rose-800 text-xs font-mono font-bold text-center transition-all">BİTİK</button>
             </div>
-            <div class="w-full bg-mythic-dark h-2 rounded-full overflow-hidden flex">
-              <div id="bar-odysseus-mitik" class="bg-emerald-500 h-full w-[18%] transition-all duration-500"></div>
-              <div id="bar-odysseus-bitik" class="bg-rose-500 h-full w-[82%] transition-all duration-500"></div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden flex">
+              <div id="bar-odysseus-mitik" class="bg-emerald-600 h-full w-[18%] transition-all duration-500"></div>
+              <div id="bar-odysseus-bitik" class="bg-rose-600 h-full w-[82%] transition-all duration-500"></div>
             </div>
-            <div class="flex justify-between text-[11px] font-mono text-slate-400">
+            <div class="flex justify-between text-[11px] font-mono text-slate-500">
               <span id="txt-odysseus-mitik">%18 Mitik</span>
               <span id="txt-odysseus-bitik">%82 Bitik</span>
             </div>
@@ -777,26 +615,26 @@
         </div>
 
         <!-- Pandora Card -->
-        <div class="temple-box p-6 rounded-3xl flex flex-col justify-between space-y-6">
-          <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
+        <div class="sculpture-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs font-mono text-mythic-gold">#04 PANDORA</span>
+              <span class="text-xs font-mono text-mythic-gold font-bold">#04 PANDORA</span>
               <i data-lucide="package-open" class="w-4 h-4 text-slate-400"></i>
             </div>
-            <h3 class="font-cinzel text-lg font-bold text-slate-100 mt-2">Kutuyu Açmak</h3>
-            <p class="text-xs text-slate-400 mt-2 font-light">Açma denilen kutuyu merak edip açmak?</p>
+            <h3 class="font-cinzel text-lg font-bold text-slate-900 mt-2">Kutuyu Açmak</h3>
+            <p class="text-xs text-slate-600 mt-2 font-light">Açma denilen kutuyu merak edip açmak?</p>
           </div>
           <div class="space-y-3">
             <div class="flex gap-2">
-              <button onclick="voteHero('pandora', 'mitik')" class="flex-1 py-2.5 rounded-xl bg-mythic-surface hover:bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold text-center transition-all">MİTİK</button>
-              <button onclick="voteHero('pandora', 'bitik')" class="flex-1 py-2.5 rounded-xl bg-mythic-surface hover:bg-rose-950/60 border border-rose-500/40 text-rose-400 text-xs font-mono font-bold text-center transition-all">BİTİK</button>
+              <button onclick="voteHero('pandora', 'mitik')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-emerald-100 border border-emerald-500/40 text-emerald-800 text-xs font-mono font-bold text-center transition-all">MİTİK</button>
+              <button onclick="voteHero('pandora', 'bitik')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-100 border border-rose-500/40 text-rose-800 text-xs font-mono font-bold text-center transition-all">BİTİK</button>
             </div>
-            <div class="w-full bg-mythic-dark h-2 rounded-full overflow-hidden flex">
-              <div id="bar-pandora-mitik" class="bg-emerald-500 h-full w-[35%] transition-all duration-500"></div>
-              <div id="bar-pandora-bitik" class="bg-rose-500 h-full w-[65%] transition-all duration-500"></div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden flex">
+              <div id="bar-pandora-mitik" class="bg-emerald-600 h-full w-[35%] transition-all duration-500"></div>
+              <div id="bar-pandora-bitik" class="bg-rose-600 h-full w-[65%] transition-all duration-500"></div>
             </div>
-            <div class="flex justify-between text-[11px] font-mono text-slate-400">
+            <div class="flex justify-between text-[11px] font-mono text-slate-500">
               <span id="txt-pandora-mitik">%35 Mitik</span>
               <span id="txt-pandora-bitik">%65 Bitik</span>
             </div>
@@ -808,121 +646,45 @@
     </div>
   </section>
 
-  <!-- ==================== ACT VI: THE ORACLE / PROFESSOR YIKI ==================== -->
-  <section id="yiki" class="py-32 px-6 relative z-10 bg-gradient-to-b from-mythic-darker via-mythic-surface to-mythic-darker border-t border-mythic-border/50">
-    <div class="max-w-7xl mx-auto space-y-16">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="temple-box p-8 rounded-3xl text-center space-y-6 w-full max-w-sm">
-            <div class="pillar-left"></div><div class="pillar-right"></div>
-            <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-            <div class="corner-bracket-bl"></div><div class="corner-bracket-br"></div>
-
-            <div class="w-52 h-64 mx-auto rounded-2xl bg-gradient-to-br from-mythic-gold/15 via-mythic-crimson/10 to-mythic-surface border border-mythic-gold/40 flex items-center justify-center relative overflow-hidden shadow-2xl p-3">
-              <img id="yiki-main-pose" src="düz-kendindenemin-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4'" alt="Yiki Kendinden Emin" class="w-full h-full object-contain">
-            </div>
-            <div>
-              <h3 class="font-cinzel text-2xl font-bold text-slate-100">PROFESÖR YİKİ</h3>
-              <span class="text-xs text-mythic-gold font-mono uppercase tracking-widest">Kırmızı Tanuki / Rakun</span>
-            </div>
-            <p class="text-xs text-slate-400 italic font-light">
-              "Akdeniz’in tozlu arşivlerinden sokak edebiyatına... Herkesin bir hikayesi vardır ama benim derdim mitik mi bitik mi olduğunu sorgulamak."
-            </p>
-          </div>
-        </div>
-
-        <div class="lg:col-span-7 space-y-8">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs font-mono uppercase tracking-widest">
-            Kanalın Anlatıcısı
-          </div>
-          <h2 class="font-cinzel text-3xl sm:text-5xl font-bold leading-tight text-slate-100">
-            SARKASTİK BİR PROFESÖR İLE <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-gold to-amber-300">
-              KOZMİK GERÇEKLİKLER
-            </span>
-          </h2>
-          <p class="text-slate-300 leading-relaxed text-sm sm:text-base font-light">
-            Yiki; kırmızı esprili profesör gözlükleri, keskin dili ve trajikomik gerçeklikle antik tabletlerin tozunu alan çizgi karakterimiz. Kahraman masallarını bir kenara bırakıp işin mutfağındaki rezaletleri ortaya döküyor.
-          </p>
-          
-          <div class="grid grid-cols-3 gap-4 pt-2">
-            <div class="p-4 rounded-2xl bg-mythic-surface border border-mythic-border text-center">
-              <span class="block text-[10px] font-mono text-mythic-gold uppercase">TARZ</span>
-              <span class="text-xs font-bold text-slate-200 mt-1 block">Sarkastik & Filtresiz</span>
-            </div>
-            <div class="p-4 rounded-2xl bg-mythic-surface border border-mythic-border text-center">
-              <span class="block text-[10px] font-mono text-mythic-gold uppercase">KÖKEN</span>
-              <span class="text-xs font-bold text-slate-200 mt-1 block">Akdeniz Arşivleri</span>
-            </div>
-            <div class="p-4 rounded-2xl bg-mythic-surface border border-mythic-border text-center">
-              <span class="block text-[10px] font-mono text-mythic-gold uppercase">GÖREV</span>
-              <span class="text-xs font-bold text-slate-200 mt-1 block">Mitik vs Bitik</span>
-            </div>
-          </div>
+  <!-- ==================== ACT V: YİKİ KARAKTER ÖZETİ ==================== -->
+  <section id="yiki" class="py-24 px-6 relative z-10 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto sculpture-card p-8 sm:p-12 rounded-3xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-4 flex justify-center">
+        <div class="w-52 h-64 rounded-2xl bg-white border border-slate-300 flex items-center justify-center p-3 shadow-md">
+          <img src="düz-kendindenemin-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1vG2BKk7VKlZ-dnwiDp3OXFNNbUQ_DWZ4'" alt="Yiki" class="max-h-full object-contain">
         </div>
       </div>
-
-      <!-- Pose Switcher -->
-      <div class="pt-12 border-t border-mythic-border/50">
-        <div class="text-center space-y-2 mb-8">
-          <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.25em]">MİMİK VE JEST ARŞİVİ</span>
-          <h3 class="font-cinzel text-xl font-bold text-slate-200">Yiki'nin Tepkilerini Değiştirin</h3>
+      <div class="md:col-span-8 space-y-5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-mythic-goldBg text-mythic-gold text-xs font-mono font-bold uppercase">
+          Karakter Biblesi
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
-          <div class="temple-box p-4 rounded-2xl text-center space-y-3 group cursor-pointer" onclick="changeYikiPose('düz-sarkastik-kitapli.png', 'https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH')">
-            <div class="h-28 flex items-center justify-center">
-              <img src="düz-sarkastik-kitapli.png" onerror="this.src='https://lh3.googleusercontent.com/d/1t3f0Io43RSg8hKm70EL7OHHG4QxTCLHH'" alt="Kitaplı" class="h-full object-contain group-hover:scale-110 transition-transform">
-            </div>
-            <span class="text-[11px] font-mono text-slate-300 block">Sarkastik & Kitaplı</span>
-          </div>
-
-          <div class="temple-box p-4 rounded-2xl text-center space-y-3 group cursor-pointer" onclick="changeYikiPose('düz-gülüyor-keyifli.png', 'https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf')">
-            <div class="h-28 flex items-center justify-center">
-              <img src="düz-gülüyor-keyifli.png" onerror="this.src='https://lh3.googleusercontent.com/d/15heeIOFLZKHLJ0L21qLLlD1GxUN9xegf'" alt="Gülüyor" class="h-full object-contain group-hover:scale-110 transition-transform">
-            </div>
-            <span class="text-[11px] font-mono text-slate-300 block">Keyifli & Gülüyor</span>
-          </div>
-
-          <div class="temple-box p-4 rounded-2xl text-center space-y-3 group cursor-pointer" onclick="changeYikiPose('düz-sasirmiş-endişeli-kitapli-kitabıişaretediyor.png', 'https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b')">
-            <div class="h-28 flex items-center justify-center">
-              <img src="düz-sasirmiş-endişeli-kitapli-kitabıişaretediyor.png" onerror="this.src='https://lh3.googleusercontent.com/d/1IrX72PASb44Ocv9QnDdBUO7gIbsbhN4b'" alt="Şaşırmış" class="h-full object-contain group-hover:scale-110 transition-transform">
-            </div>
-            <span class="text-[11px] font-mono text-slate-300 block">Şaşırmış & Endişeli</span>
-          </div>
-
-          <div class="temple-box p-4 rounded-2xl text-center space-y-3 group cursor-pointer" onclick="changeYikiPose('düz-reverans-ellerminnettar.png', 'https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI')">
-            <div class="h-28 flex items-center justify-center">
-              <img src="düz-reverans-ellerminnettar.png" onerror="this.src='https://lh3.googleusercontent.com/d/1Ocbo-bGrtOccS5BjDr6cqCJnE6cexwUI'" alt="Reverans" class="h-full object-contain group-hover:scale-110 transition-transform">
-            </div>
-            <span class="text-[11px] font-mono text-slate-300 block">Reverans & Minnet</span>
-          </div>
-
-          <div class="temple-box p-4 rounded-2xl text-center space-y-3 group cursor-pointer" onclick="changeYikiPose('düz-sarkastik-ellerbelde.png', 'https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT')">
-            <div class="h-28 flex items-center justify-center">
-              <img src="düz-sarkastik-ellerbelde.png" onerror="this.src='https://lh3.googleusercontent.com/d/1PwLj2fUAYAJvRuoz6XpOcDnwszp7uMJT'" alt="Eller Belde" class="h-full object-contain group-hover:scale-110 transition-transform">
-            </div>
-            <span class="text-[11px] font-mono text-slate-300 block">Eller Belde & Trip</span>
-          </div>
+        <h3 class="font-cinzel text-3xl font-extrabold text-slate-900">Profesör Yiki Kimdir?</h3>
+        <p class="text-sm text-slate-600 leading-relaxed font-light">
+          Kırmızı profesör gözlükleri, keskin dili ve trajikomik gerçekliğiyle antik tabletlerin tozunu alan anlatıcımız. Yiki'nin tüm mimik ve jest arşivini, 5 farklı tepkisini ayrı karakter sayfasında inceleyebilirsiniz.
+        </p>
+        <div class="pt-2">
+          <a href="yiki.html" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-md">
+            <span>Yiki'nin Karakter Biblesini Aç</span>
+            <svg class="w-4 h-4 text-mythic-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+          </a>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- ==================== ACT VII: MITIK MERCH ATELIER ==================== -->
-  <section id="merch" class="py-32 px-6 relative z-10 bg-mythic-darker border-t border-mythic-border/50">
+  <!-- ==================== ACT VI: MITIK MERCH ATELIER ==================== -->
+  <section id="merch" class="py-28 px-6 relative z-10 bg-white border-t border-slate-200">
     <div class="max-w-7xl mx-auto space-y-16">
       
       <div class="text-center space-y-4 max-w-3xl mx-auto">
-        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-mythic-gold/10 border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-[0.25em] font-mono">
+        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-mythic-goldBg border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-[0.25em] font-mono font-bold">
           <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
           <span>Resmi Mitik Koleksiyonu</span>
         </div>
-        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-100">
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold text-slate-900">
           MİTİK <span class="text-mythic-gold">ATELIER & STORE</span>
         </h2>
-        <p class="text-sm text-slate-400 font-light">
+        <p class="text-sm text-slate-600 font-light">
           Ölümlüler kulübüne özel sınırlı sayıda üretilen sarkastik koleksiyon ürünleri.
         </p>
       </div>
@@ -931,307 +693,271 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <!-- Product 1 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-amber-500/10 flex items-center justify-center text-mythic-gold group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center text-mythic-gold group-hover:scale-110 transition-transform">
                 <i data-lucide="shirt" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-mythic-gold/20 text-mythic-gold text-[9px] font-mono font-bold uppercase tracking-wider">Heavyweight</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-mythic-goldBg text-mythic-gold text-[9px] font-mono font-bold uppercase tracking-wider">Heavyweight</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Giyim</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">Yiki "Kallisti" Oversize T-Shirt</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">Nifak elması ve antik harf işlemeli %100 pamuk tişört.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Giyim</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">Yiki "Kallisti" Oversize T-Shirt</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">Nifak elması ve antik harf işlemeli %100 pamuk tişört.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">490 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
         <!-- Product 2 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center text-mythic-crimson group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center text-mythic-crimson group-hover:scale-110 transition-transform">
                 <i data-lucide="coffee" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-mythic-crimson/20 text-mythic-crimson text-[9px] font-mono font-bold uppercase tracking-wider">Seramik</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-red-50 text-mythic-crimson text-[9px] font-mono font-bold uppercase tracking-wider">Seramik</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Kupa</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">"Uykuda Kafa Kesmek?" Kupa</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">Sıcak kahve koyunca Medusa yılanları beliren sihirli kupa.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Kupa</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">"Uykuda Kafa Kesmek?" Kupa</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">Sıcak kahve koyunca Medusa yılanları beliren sihirli kupa.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">240 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
         <!-- Product 3 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-blue-500/10 flex items-center justify-center text-mythic-accent group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
                 <i data-lucide="flame" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-mythic-accent/20 text-mythic-accent text-[9px] font-mono font-bold uppercase tracking-wider">Premium</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[9px] font-mono font-bold uppercase tracking-wider">Premium</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Giyim</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">"Poseidon Haklı" Hoodie</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">İthaka sürgünü temalı sırt baskılı kozmik lacivert kapüşonlu.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Giyim</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">"Poseidon Haklı" Hoodie</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">İthaka sürgünü temalı sırt baskılı kozmik lacivert kapüşonlu.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">850 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
         <!-- Product 4 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform">
                 <i data-lucide="sparkles" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[9px] font-mono font-bold uppercase tracking-wider">Holografik</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[9px] font-mono font-bold uppercase tracking-wider">Holografik</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Aksesuar</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">Yiki Mimik Sticker Paketi</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">Laptop ve telefonlar için 12 adet su geçirmez etiket seti.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Aksesuar</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">Yiki Mimik Sticker Paketi</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">Laptop ve telefonlar için 12 adet su geçirmez etiket seti.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">120 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
         <!-- Product 5 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-amber-500/10 flex items-center justify-center text-mythic-gold group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center text-mythic-gold group-hover:scale-110 transition-transform">
                 <i data-lucide="award" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-mythic-gold/20 text-mythic-gold text-[9px] font-mono font-bold uppercase tracking-wider">Emaye Pin</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-mythic-goldBg text-mythic-gold text-[9px] font-mono font-bold uppercase tracking-wider">Emaye Pin</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Koleksiyon</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">"Kallisti" Altın Varaklı Rozet</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">Koleksiyonluk metal üzeri altın kaplama nifak elması pini.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Koleksiyon</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">"Kallisti" Altın Varaklı Rozet</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">Koleksiyonluk metal üzeri altın kaplama nifak elması pini.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">180 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
         <!-- Product 6 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 group-hover:scale-110 transition-transform">
                 <i data-lucide="scroll" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[9px] font-mono font-bold uppercase tracking-wider">Sanat Baskısı</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[9px] font-mono font-bold uppercase tracking-wider">Sanat Baskısı</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Poster</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">"Kozmik Fatura" Parşömen Poster</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">50x70 cm asitsiz özel dokulu antik arşiv posteri.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Poster</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">"Kozmik Fatura" Parşömen Poster</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">50x70 cm asitsiz özel dokulu antik arşiv posteri.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">320 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
         <!-- Product 7 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center text-rose-700 group-hover:scale-110 transition-transform">
                 <i data-lucide="shopping-bag" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 text-[9px] font-mono font-bold uppercase tracking-wider">Kanvas</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-800 text-[9px] font-mono font-bold uppercase tracking-wider">Kanvas</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Çanta</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">"Güneşe Yaklaşma" Bez Çanta</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">Ağır kanvas kumaş üzeri Daedalus & İkarus baskılı tote bag.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Çanta</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">"Güneşe Yaklaşma" Bez Çanta</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">Ağır kanvas kumaş üzeri Daedalus & İkarus baskılı tote bag.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">260 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
         <!-- Product 8 -->
-        <div class="temple-box rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="sculpture-card rounded-3xl p-5 space-y-4 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
           <div class="pillar-left"></div><div class="pillar-right"></div>
           <div class="space-y-3">
-            <div class="h-48 rounded-2xl bg-mythic-surface border border-mythic-border flex items-center justify-center relative overflow-hidden">
-              <div class="w-20 h-20 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-400 group-hover:scale-110 transition-transform">
+            <div class="h-48 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+              <div class="w-20 h-20 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-700 group-hover:scale-110 transition-transform">
                 <i data-lucide="package" class="w-10 h-10"></i>
               </div>
-              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[9px] font-mono font-bold uppercase tracking-wider">Özel Kutu</span>
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-yellow-50 text-yellow-800 text-[9px] font-mono font-bold uppercase tracking-wider">Özel Kutu</span>
             </div>
             <div>
-              <span class="text-[9px] font-mono text-slate-500 uppercase">Koleksiyon</span>
-              <h4 class="font-cinzel font-bold text-sm text-slate-100 mt-0.5">"Sakın Açma" Pandora Metal Kutu</h4>
-              <p class="text-[11px] text-slate-400 mt-1 font-light">Kabartmalı antika görünümlü hatıra saklama kutusu.</p>
+              <span class="text-[9px] font-mono text-slate-400 uppercase">Koleksiyon</span>
+              <h4 class="font-cinzel font-bold text-sm text-slate-900 mt-0.5">"Sakın Açma" Pandora Metal Kutu</h4>
+              <p class="text-[11px] text-slate-500 mt-1 font-light">Kabartmalı antika görünümlü hatıra saklama kutusu.</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-mythic-border flex items-center justify-between">
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
             <span class="font-mono font-bold text-mythic-gold text-xs">390 ₺</span>
-            <button class="px-3.5 py-1.5 rounded-xl bg-mythic-surface hover:bg-mythic-gold hover:text-black border border-mythic-gold/40 text-[11px] font-mono font-semibold text-slate-200 transition-all">Yakında</button>
+            <button class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white border border-slate-300 text-[11px] font-mono font-semibold text-slate-700 transition-all">Yakında</button>
           </div>
         </div>
 
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== ACT VIII: EPILOGUE (JOIN SIMULATION & CTA) ==================== -->
-  <section class="py-32 px-6 relative z-10 bg-gradient-to-t from-black via-mythic-surface to-mythic-darker border-t border-mythic-border/50">
-    <div class="max-w-4xl mx-auto text-center space-y-10">
-      
-      <div class="w-24 h-24 mx-auto rounded-full bg-mythic-crimson/20 border border-mythic-crimson/50 flex items-center justify-center text-mythic-crimson crimson-glow animate-pulse">
-        <svg class="w-12 h-12 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg>
-      </div>
-
-      <div class="space-y-4">
-        <h2 class="font-cinzel text-3xl sm:text-6xl font-extrabold text-slate-100">
-          KOZMİK SİMÜLASYONA <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-mythic-crimson via-amber-300 to-mythic-gold">
-            SEN DE KATIL
-          </span>
-        </h2>
-        <p class="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed font-light">
-          Evrenin faturasını ödeyen sıradan ölümlüler kulübüne katılmak ve yeni mitik rezaletleri kaçırmamak için kanala abone ol.
-        </p>
-      </div>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
-        <a href="https://www.youtube.com/@MitikHikayeler?sub_confirmation=1" target="_blank" rel="noopener noreferrer" 
-           class="w-full sm:w-auto px-12 py-5 rounded-2xl bg-mythic-crimson hover:bg-red-600 text-white font-mono font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all crimson-glow">
-          <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg>
-          <span>YouTube Kanalına Abone Ol</span>
-        </a>
-        <a href="https://instagram.com/mitikhikayeler" target="_blank" rel="noopener noreferrer" 
-           class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-mythic-surface hover:bg-mythic-card border border-pink-500/40 text-pink-300 font-mono font-semibold text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-          <span>Instagram'da Takip Et</span>
-        </a>
       </div>
 
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="relative py-20 px-6 bg-black border-t border-mythic-border/50 z-10 overflow-hidden">
+  <footer class="relative py-20 px-6 bg-slate-900 text-slate-100 border-t border-slate-800 z-10 overflow-hidden">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
       
       <div class="flex items-center gap-4 text-center md:text-left">
-        <div class="w-14 h-14 rounded-full bg-mythic-gold/10 border border-mythic-gold/40 flex items-center justify-center overflow-hidden shrink-0 shadow-2xl mx-auto md:mx-0">
+        <div class="w-14 h-14 rounded-full bg-mythic-goldBg border border-mythic-gold/40 flex items-center justify-center overflow-hidden shrink-0 shadow-2xl mx-auto md:mx-0">
           <img src="logo.png" onerror="this.src='https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm'" alt="Mitik Hikayeler Logo" class="w-full h-full object-cover">
         </div>
         <div>
-          <h3 class="font-cinzel font-bold text-xl tracking-wider text-slate-100">MİTİK HİKAYELER</h3>
+          <h3 class="font-cinzel font-bold text-xl tracking-wider text-white">MİTİK HİKAYELER</h3>
           <p class="text-xs text-slate-400 font-light mt-1">“İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insandır.” — Hermes Trismegistus</p>
         </div>
       </div>
 
       <div class="flex items-center gap-4">
         <a href="https://www.youtube.com/@MitikHikayeler" target="_blank" rel="noopener noreferrer"
-           class="w-11 h-11 rounded-full bg-mythic-surface border border-mythic-border hover:border-mythic-crimson text-slate-300 hover:text-mythic-crimson flex items-center justify-center transition-all shadow-xl" title="YouTube">
+           class="w-11 h-11 rounded-full bg-slate-800 border border-slate-700 hover:border-red-500 text-slate-300 hover:text-red-400 flex items-center justify-center transition-all shadow-xl" title="YouTube">
           <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg>
         </a>
         <a href="https://instagram.com/mitikhikayeler" target="_blank" rel="noopener noreferrer"
-           class="w-11 h-11 rounded-full bg-mythic-surface border border-mythic-border hover:border-pink-500 text-slate-300 hover:text-pink-400 flex items-center justify-center transition-all shadow-xl" title="Instagram">
+           class="w-11 h-11 rounded-full bg-slate-800 border border-slate-700 hover:border-pink-500 text-slate-300 hover:text-pink-400 flex items-center justify-center transition-all shadow-xl" title="Instagram">
           <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
         </a>
         <a href="https://tiktok.com/@mitikhikayeler" target="_blank" rel="noopener noreferrer"
-           class="w-11 h-11 rounded-full bg-mythic-surface border border-mythic-border hover:border-cyan-400 text-slate-300 hover:text-cyan-300 flex items-center justify-center transition-all shadow-xl" title="TikTok">
+           class="w-11 h-11 rounded-full bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 flex items-center justify-center transition-all shadow-xl" title="TikTok">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
       </div>
 
     </div>
     
-    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-mythic-border/30 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-slate-500">
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-slate-400">
       <span>© 2026 Mitik Hikayeler. Tüm hakları saklıdır.</span>
-      <a href="https://www.youtube.com/playlist?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1" target="_blank" class="mt-2 sm:mt-0 text-mythic-gold hover:underline">
-        Resmi YouTube Oynatma Listesi
-      </a>
+      <div class="flex gap-6 mt-3 sm:mt-0">
+        <a href="bolumler.html" class="text-mythic-gold hover:underline">Bölümler Arşivi</a>
+        <a href="yiki.html" class="text-mythic-gold hover:underline">Yiki Biblesi</a>
+      </div>
     </div>
   </footer>
 
   <!-- BİZE ULAŞIN MODAL -->
-  <div id="contact-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-6 backdrop-blur-xl">
-    <div class="temple-box rounded-3xl max-w-lg w-full p-8 sm:p-10 space-y-6 relative border-mythic-gold/40 shadow-2xl">
-      <div class="corner-bracket-tl"></div><div class="corner-bracket-tr"></div>
-      <div class="corner-bracket-bl"></div><div class="corner-bracket-br"></div>
+  <div id="contact-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-6 backdrop-blur-md">
+    <div class="sculpture-card rounded-3xl max-w-lg w-full p-8 sm:p-10 space-y-6 relative border-mythic-gold/40 shadow-2xl bg-white">
+      <div class="bracket-tl"></div><div class="bracket-tr"></div>
+      <div class="bracket-bl"></div><div class="bracket-br"></div>
 
-      <button onclick="closeContactModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-mythic-surface flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+      <button onclick="closeContactModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-900 transition-colors">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
       </button>
 
       <div class="space-y-2">
-        <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.25em]">İLETİŞİM & İŞBİRLİĞİ</span>
-        <h3 class="font-cinzel text-2xl font-bold text-slate-100">Kozmik İletişim Hattı</h3>
-        <p class="text-xs text-slate-400 font-light">Proje işbirlikleri, sponsorluk ve fikirleriniz için bize ulaşın.</p>
+        <span class="text-xs font-mono text-mythic-gold uppercase tracking-[0.25em] font-bold">İLETİŞİM & İŞBİRLİĞİ</span>
+        <h3 class="font-cinzel text-2xl font-bold text-slate-900">Kozmik İletişim Hattı</h3>
+        <p class="text-xs text-slate-600 font-light">Proje işbirlikleri, sponsorluk ve fikirleriniz için bize ulaşın.</p>
       </div>
 
       <div class="space-y-4 pt-2">
-        <a href="mailto:komikinternet@gmail.com" class="flex items-center gap-4 p-4 rounded-2xl bg-mythic-surface border border-mythic-border hover:border-mythic-gold/50 transition-all group">
-          <div class="w-10 h-10 rounded-xl bg-mythic-gold/15 flex items-center justify-center text-mythic-gold">
+        <a href="mailto:komikinternet@gmail.com" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-mythic-gold/50 transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-mythic-goldBg flex items-center justify-center text-mythic-gold">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
           </div>
           <div>
-            <span class="text-[10px] font-mono text-slate-500 block">E-POSTA</span>
-            <span class="text-xs font-mono font-bold text-slate-200 group-hover:text-mythic-gold transition-colors">komikinternet@gmail.com</span>
+            <span class="text-[10px] font-mono text-slate-400 block">E-POSTA</span>
+            <span class="text-xs font-mono font-bold text-slate-800 group-hover:text-mythic-gold transition-colors">komikinternet@gmail.com</span>
           </div>
         </a>
 
-        <a href="https://instagram.com/mitikhikayeler" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-mythic-surface border border-mythic-border hover:border-pink-500/50 transition-all group">
-          <div class="w-10 h-10 rounded-xl bg-pink-500/15 flex items-center justify-center text-pink-400">
+        <a href="https://instagram.com/mitikhikayeler" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-pink-500/50 transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center text-pink-600">
             <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
           </div>
           <div>
-            <span class="text-[10px] font-mono text-slate-500 block">INSTAGRAM DM</span>
-            <span class="text-xs font-mono font-bold text-slate-200 group-hover:text-pink-400 transition-colors">@mitikhikayeler</span>
+            <span class="text-[10px] font-mono text-slate-400 block">INSTAGRAM DM</span>
+            <span class="text-xs font-mono font-bold text-slate-800 group-hover:text-pink-600 transition-colors">@mitikhikayeler</span>
           </div>
         </a>
       </div>
-
     </div>
   </div>
 
-  <!-- ==================== JAVASCRIPT & ENGINE ==================== -->
+  <!-- JAVASCRIPT ENGINE -->
   <script>
     lucide.createIcons();
 
-    // 1. LENIS FLUID MOMENTUM SCROLL (Zero Lag, 120 FPS Easing)
+    // 1. LENIS MOMENTUM SCROLL (60/120 FPS)
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1251,12 +977,7 @@
       lenis.scrollTo(selector, { offset: -20, duration: 1.2 });
     }
 
-    // 2. ON-DEMAND LIGHTWEIGHT YOUTUBE IFRAME INJECTION
-    function loadIframe(element, videoId) {
-      element.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-    }
-
-    // 3. AWWWARDS DUAL-RING DYNAMIC CURSOR
+    // 2. CURSOR LOGIC
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     let mouseX = 0, mouseY = 0;
@@ -1282,39 +1003,26 @@
     }
     requestAnimationFrame(renderCursorRing);
 
-    document.querySelectorAll('a, button, .temple-box, .video-facade').forEach(el => {
+    document.querySelectorAll('a, button, .sculpture-card').forEach(el => {
       el.addEventListener('mouseenter', () => {
         if (cursorRing) {
-          cursorRing.style.width = '56px';
-          cursorRing.style.height = '56px';
-          cursorRing.style.borderColor = '#E5C158';
-          cursorRing.style.backgroundColor = 'rgba(229, 193, 88, 0.08)';
+          cursorRing.style.width = '52px';
+          cursorRing.style.height = '52px';
+          cursorRing.style.borderColor = '#B38A22';
+          cursorRing.style.backgroundColor = 'rgba(179, 138, 34, 0.08)';
         }
       });
       el.addEventListener('mouseleave', () => {
         if (cursorRing) {
           cursorRing.style.width = '36px';
           cursorRing.style.height = '36px';
-          cursorRing.style.borderColor = 'rgba(229, 193, 88, 0.45)';
+          cursorRing.style.borderColor = 'rgba(179, 138, 34, 0.5)';
           cursorRing.style.backgroundColor = 'transparent';
         }
       });
     });
 
-    // 4. POSE SWITCHER
-    function changeYikiPose(localUrl, fallbackUrl) {
-      const mainPose = document.getElementById('yiki-main-pose');
-      if (mainPose) {
-        mainPose.style.opacity = '0';
-        setTimeout(() => {
-          mainPose.src = localUrl;
-          mainPose.onerror = () => { mainPose.src = fallbackUrl; };
-          mainPose.style.opacity = '1';
-        }, 150);
-      }
-    }
-
-    // 5. MOBILE MENU & CONTACT MODAL
+    // 3. MODAL & DRAWER
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       if (menu) menu.classList.toggle('hidden');
@@ -1332,58 +1040,22 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // 6. HIGH-PERFORMANCE ACTIVE SECTION TRACKING (Zero Layout Thrashing)
-    const sideTrackerFill = document.getElementById('side-tracker-fill');
-    ScrollTrigger.create({
-      trigger: document.body,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => {
-        if (sideTrackerFill) sideTrackerFill.style.height = `${self.progress * 100}%`;
-      }
-    });
-
-    const trackSections = [
-      { id: '#hero', dot: '#dot-hero' },
-      { id: '#stage-elma', dot: '#dot-elma' },
-      { id: '#bolumler', dot: '#dot-bolumler' },
-      { id: '#stage-ikarus', dot: '#dot-ikarus' },
-      { id: '#anket', dot: '#dot-anket' },
-      { id: '#yiki', dot: '#dot-yiki' },
-      { id: '#merch', dot: '#dot-merch' }
-    ];
-
-    trackSections.forEach(item => {
-      ScrollTrigger.create({
-        trigger: item.id,
-        start: "top 60%",
-        end: "bottom 40%",
-        onToggle: (self) => {
-          const dot = document.querySelector(item.dot);
-          if (dot) {
-            if (self.isActive) dot.classList.add('active');
-            else dot.classList.remove('active');
-          }
-        }
-      });
-    });
-
-    // 7. EDITORIAL STAGGERED REVEALS (Pear.no Style)
-    gsap.utils.toArray('.temple-box').forEach((box) => {
+    // 4. GSAP REVEALS
+    gsap.utils.toArray('.sculpture-card').forEach((box) => {
       gsap.from(box, {
         scrollTrigger: {
           trigger: box,
           start: 'top 88%',
           toggleActions: 'play none none reverse'
         },
-        y: 40,
+        y: 35,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.7,
         ease: 'power2.out'
       });
     });
 
-    // 8. PARALLAX DRIFT ON GREEK GLYPHS
+    // 5. PARALLAX DRIFT ON GREEK GLYPHS
     gsap.utils.toArray('.glyph-float').forEach((glyph, i) => {
       gsap.to(glyph, {
         scrollTrigger: {
@@ -1398,52 +1070,7 @@
       });
     });
 
-    // 9. AMBIENT GOLD PARTICLES CANVAS (Zero CPU Drag)
-    const canvas = document.getElementById('mythic-canvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-
-      for (let i = 0; i < 30; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 1.5 + 0.3,
-          dx: (Math.random() - 0.5) * 0.2,
-          dy: (Math.random() - 0.5) * 0.2,
-          alpha: Math.random() * 0.4 + 0.2
-        });
-      }
-
-      function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(229, 193, 88, ${p.alpha})`;
-          ctx.fill();
-
-          p.x += p.dx;
-          p.y += p.dy;
-
-          if (p.x < 0) p.x = canvas.width;
-          if (p.x > canvas.width) p.x = 0;
-          if (p.y < 0) p.y = canvas.height;
-          if (p.y > canvas.height) p.y = 0;
-        });
-        requestAnimationFrame(animateParticles);
-      }
-      animateParticles();
-    }
-
-    // 10. VOTING STATE
+    // 6. VOTING STATE
     const voteData = {
       perseus: { mitik: 12, bitik: 36 },
       odysseus: { mitik: 8, bitik: 42 },
