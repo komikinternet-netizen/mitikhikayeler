@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mitik Hikayeler — Antik Çağın Epik Rezaletleri</title>
-  <meta name="description" content="Kusursuz zaferler değil, epik rezaletler. Yiki'nin anlatımıyla altın sarısından beyaz mermere uzanan sanatsal editoryal scrollytelling deneyimi.">
+  <meta name="description" content="Kusursuz zaferler değil, epik rezaletler. Yiki'nin anlatımıyla 250 karelik kesintisiz scrollytelling ve Helenistik editoryal deneyim.">
 
   <!-- Google Fonts: Cinzel, Plus Jakarta Sans & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,8 +76,8 @@
       transition: transform 0.05s ease-out;
     }
 
-    /* Pinned WebP Canvas Stages (Hardware Accelerated 60/120 FPS) */
-    .scrolly-canvas {
+    /* Pinned 250-Frame Master Canvas */
+    .master-scrolly-canvas {
       position: absolute;
       top: 0;
       left: 0;
@@ -88,20 +88,39 @@
       will-change: transform;
     }
 
-    /* Transition Layer: Altın Sarısından Beyaz Gökyüzüne Geçiş */
-    .golden-to-white-stage {
-      background: linear-gradient(180deg, #181104 0%, #2A1D07 30%, #5E430B 55%, #E9D299 75%, #FAFBFD 100%);
+    /* Subtle Cinematic Vignette Overlay (Leaves Center Clear) */
+    .canvas-overlay-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.55) 100%);
+      z-index: 2;
+      pointer-events: none;
     }
 
-    /* Pear.no Style Floating Editorial Typography */
+    /* Floating Unboxed Monumental Typography */
     .editorial-glow-dark {
-      text-shadow: 0 2px 25px rgba(0, 0, 0, 0.85), 0 0 40px rgba(229, 169, 26, 0.4);
+      text-shadow: 0 2px 25px rgba(0, 0, 0, 0.9), 0 0 40px rgba(229, 169, 26, 0.45);
     }
     .editorial-glow-light {
       text-shadow: 0 2px 20px rgba(255, 255, 255, 0.95), 0 0 35px rgba(255, 255, 255, 0.85);
     }
 
-    /* Frosted Marble Glass Panels */
+    /* Ultra-Refined Floating Side Cards (Leaves Center Clear) */
+    .side-floating-card {
+      background: rgba(15, 18, 27, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(229, 169, 26, 0.35);
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .side-floating-card:hover {
+      border-color: rgba(229, 169, 26, 0.75);
+      transform: translateY(-2px);
+    }
+
+    /* Light Theme Frosted Marble Glass Panels */
     .sculpture-card {
       background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(20px);
@@ -115,21 +134,7 @@
       box-shadow: 0 30px 60px -15px rgba(179, 138, 34, 0.15), 0 0 0 1px rgba(255, 255, 255, 1) inset;
     }
 
-    /* Darker Sculpture Card for Golden Stages */
-    .sculpture-card-dark {
-      background: rgba(15, 18, 27, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(229, 169, 26, 0.35);
-      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.8);
-      transition: border-color 0.3s ease, transform 0.3s ease;
-    }
-    .sculpture-card-dark:hover {
-      border-color: rgba(229, 169, 26, 0.7);
-      box-shadow: 0 30px 60px -15px rgba(229, 169, 26, 0.2);
-    }
-
-    /* Ionic Pillars */
+    /* Ionic Gold Pillars */
     .pillar-gold { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: linear-gradient(to bottom, #E5A91A, transparent 20%, transparent 80%, #E5A91A); border-radius: 3px; }
     .pillar-right-gold { position: absolute; top: 0; bottom: 0; right: 0; width: 3px; background: linear-gradient(to bottom, #E5A91A, transparent 20%, transparent 80%, #E5A91A); border-radius: 3px; }
 
@@ -153,7 +158,7 @@
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      border-radius: 0.85rem;
+      border-radius: 1rem;
       box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.12);
     }
     .video-responsive iframe {
@@ -200,15 +205,17 @@
 
       <!-- Pear.no Center Sticky Pill Chapter Menu -->
       <div class="hidden md:flex items-center gap-6 px-5 py-1.5 rounded-full bg-white/90 border border-slate-200 shadow-sm text-xs font-mono tracking-wider uppercase font-semibold">
-        <a href="#stage-elma" class="chapter-pill-link active">Ch. 1 Elma</a>
+        <a href="#stage-master" class="chapter-pill-link active" onclick="scrubToProgress(0)">Ch. 1 Elma</a>
         <span class="text-slate-300">·</span>
-        <a href="#stage-ikarus" class="chapter-pill-link">Ch. 2 İkarus</a>
+        <a href="#stage-master" class="chapter-pill-link" onclick="scrubToProgress(0.35)">Ch. 2 İkarus</a>
         <span class="text-slate-300">·</span>
-        <a href="#vitrin" class="chapter-pill-link">Ch. 3 Arşiv</a>
+        <a href="#stage-master" class="chapter-pill-link" onclick="scrubToProgress(0.72)">Ch. 3 Akdeniz</a>
         <span class="text-slate-300">·</span>
-        <a href="#anket" class="chapter-pill-link">Ch. 4 Arena</a>
+        <a href="#vitrin" class="chapter-pill-link">Ch. 4 Arşiv</a>
         <span class="text-slate-300">·</span>
-        <a href="#merch" class="chapter-pill-link">Ch. 5 Atelier</a>
+        <a href="#anket" class="chapter-pill-link">Ch. 5 Arena</a>
+        <span class="text-slate-300">·</span>
+        <a href="#merch" class="chapter-pill-link">Ch. 6 Atelier</a>
       </div>
 
       <!-- Right Action CTA -->
@@ -238,199 +245,144 @@
       </button>
     </div>
     <div class="flex flex-col gap-5 text-lg font-cinzel font-bold text-slate-800">
-      <a href="#stage-elma" onclick="toggleMobileMenu()">Ch. 1 Altın Elma</a>
-      <a href="#stage-ikarus" onclick="toggleMobileMenu()">Ch. 2 İkarus & Düşüş</a>
-      <a href="#vitrin" onclick="toggleMobileMenu()">Ch. 3 Canlı Arşiv</a>
-      <a href="#anket" onclick="toggleMobileMenu()">Ch. 4 Mitik mi, Bitik mi?</a>
-      <a href="#merch" onclick="toggleMobileMenu()">Ch. 5 Mitik Atelier</a>
+      <a href="#stage-master" onclick="toggleMobileMenu(); scrubToProgress(0);">Ch. 1 Altın Elma</a>
+      <a href="#stage-master" onclick="toggleMobileMenu(); scrubToProgress(0.35);">Ch. 2 İkarus & Düşüş</a>
+      <a href="#stage-master" onclick="toggleMobileMenu(); scrubToProgress(0.72);">Ch. 3 Akdeniz & Yiki</a>
+      <a href="#vitrin" onclick="toggleMobileMenu()">Ch. 4 Canlı Arşiv</a>
+      <a href="#anket" onclick="toggleMobileMenu()">Ch. 5 Mitik mi, Bitik mi?</a>
+      <a href="#merch" onclick="toggleMobileMenu()">Ch. 6 Mitik Atelier</a>
       <a href="bolumler.html" class="text-mythic-gold font-bold">Tüm 8 Bölüm Arşivi →</a>
       <a href="yiki.html" class="text-slate-600">Yiki Karakter Biblesi →</a>
     </div>
     <div class="pt-4 border-t border-slate-200 text-center text-xs font-mono text-slate-500">
-      © 2026 Mitik Hikayeler · Pear Edition
+      © 2026 Mitik Hikayeler · 250-Frame Master
     </div>
   </div>
 
-  <!-- ==================== ACT I: PROLOGUE HERO ==================== -->
-  <section id="hero" class="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 px-6 z-10 bg-gradient-to-b from-[#120D04] via-[#1F1506] to-[#2E2009] text-white">
-    <div class="max-w-5xl mx-auto text-center space-y-7">
-      
-      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs font-mono uppercase tracking-[0.25em] shadow-sm font-semibold">
-        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-        <span>Kusursuz Zaferler Değil, Epik Rezaletler</span>
-      </div>
-
-      <!-- Pear.no 3-Line Monumental Statement -->
-      <div class="space-y-2">
-        <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-slate-100 editorial-glow-dark">
-          Kafayı kestik. <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-mythic-goldAmber to-amber-200">
-            Kutuyu açtık.
-          </span> <br>
-          Faturayı ödedik.
-        </h1>
-      </div>
-
-      <p class="text-base sm:text-lg text-amber-100/80 max-w-2xl mx-auto font-light leading-relaxed pt-2">
-        Uykuda kafa kesip kahraman olanlar, egosu yüzünden 10 yıl denizde sürüklenenler ve bir nifak elmasıyla patlayan antik egolar...
-      </p>
-
-      <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <button onclick="scrollToSection('#stage-elma')" class="w-full sm:w-auto px-9 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 transition-all shadow-xl group">
-          <span>Hikayeyi Başlat</span>
-          <svg class="w-4 h-4 text-slate-950 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"/></svg>
-        </button>
-        <a href="bolumler.html" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-amber-400/40 text-amber-200 font-semibold text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-2 transition-all shadow-sm">
-          <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <span>Bölüm Arşivi (8)</span>
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== PERDE 1: ALTIN ELMA PINNED CANVAS ==================== -->
-  <section id="stage-elma" class="relative bg-[#1A1205] border-t border-amber-900/50" style="height: 330vh;">
+  <!-- ==================== 250-FRAME PINNED UNIFIED MASTER SCROLLYTELLING STAGE ==================== -->
+  <section id="stage-master" class="relative bg-[#0E0B04]" style="height: 700vh;">
     <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
       
-      <!-- 60/120 FPS High-Speed Canvas -->
-      <canvas id="apple-canvas" class="scrolly-canvas"></canvas>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/80 z-10 pointer-events-none"></div>
+      <!-- 250-FRAME MASTER CANVAS (animated/ezgif-frame-001.webp ... 250.webp) -->
+      <canvas id="master-canvas" class="master-scrolly-canvas"></canvas>
+      <div class="canvas-overlay-vignette"></div>
 
-      <!-- Pear.no Style Floating Editorial Narrative -->
-      <div class="relative z-20 max-w-6xl mx-auto px-6 w-full h-full flex flex-col justify-between py-20 pointer-events-none">
+      <!-- FLOATING NARRATIVE STAGE OVERLAYS (Choreographed to Leave Center Clear) -->
+      <div class="relative z-20 max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-between py-20 pointer-events-none">
         
-        <div class="flex items-center justify-between border-b border-amber-500/30 pb-3 text-amber-200">
-          <span class="text-xs font-mono text-amber-400 uppercase tracking-[0.3em] font-bold">CH. 01 · NİFAK VE ELMA</span>
-          <span class="text-xs font-mono text-amber-200/70">KALLİSTİ PROTOKOLÜ</span>
+        <!-- Top Status Bar -->
+        <div class="flex items-center justify-between border-b border-white/20 pb-3 text-white text-xs font-mono">
+          <div class="flex items-center gap-3">
+            <span id="scene-tag" class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest">
+              PROLOGUE
+            </span>
+            <span id="scene-title" class="text-slate-300 tracking-wider">Kusursuz Zaferler Değil, Epik Rezaletler</span>
+          </div>
+          <span id="frame-counter" class="text-amber-400 font-bold">KARE: 001 / 250</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center my-auto pointer-events-auto">
+        <!-- DYNAMIC CHOREOGRAPHED EDITORIAL PANELS -->
+        <div class="relative w-full my-auto pointer-events-auto min-h-[380px] flex items-center">
           
-          <div id="elma-box-left" class="sculpture-card-dark p-7 sm:p-9 rounded-3xl space-y-4 text-white relative">
-            <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
-            <div class="bracket-tl"></div><div class="bracket-tr"></div>
-            
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono uppercase tracking-widest font-bold">
-              KALLİSTİ: EN GÜZELE
+          <!-- STAGE 0: PROLOGUE HERO (Frames 001 - 020) -->
+          <div id="panel-hero" class="w-full text-center space-y-4 max-w-3xl mx-auto absolute inset-0 flex flex-col items-center justify-center">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-mono uppercase tracking-[0.25em] font-semibold">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+              <span>Kozmik Simülasyonun Trajikomik Günlükleri</span>
             </div>
-            <h2 class="font-cinzel text-2xl sm:text-4xl font-extrabold text-amber-100 leading-tight">
+            <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-white editorial-glow-dark">
+              Kafayı kestik. <br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-mythic-goldAmber to-amber-200">
+                Kutuyu açtık.
+              </span> <br>
+              Faturayı ödedik.
+            </h1>
+            <p class="text-sm sm:text-base text-amber-100/80 max-w-xl mx-auto font-light leading-relaxed">
+              Uykuda kafa kesip kahraman olanlar, egosu yüzünden 10 yıl denizde sürüklenenler ve bir nifak elmasıyla patlayan antik egolar...
+            </p>
+          </div>
+
+          <!-- STAGE 1: ALTIN ELMA / KALLİSTİ (Frames 020 - 065) — LEFT & RIGHT (Center Clear) -->
+          <div id="panel-elma-left" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute left-0 opacity-0">
+            <div class="pillar-gold"></div><div class="bracket-tl"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold">CH. 01 · KALLİSTİ</div>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-extrabold text-amber-100 leading-tight">
               Bir Elma, <br>
               Üç Kibirli Tanrıça.
             </h2>
-            <p class="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+            <p class="text-xs text-slate-300 font-light leading-relaxed">
               Yiki altın elmayı uzatıyor. Düğüne çağrılmayan Eris ortaya bıraktı; Hera krallık, Athena bilgelik vaat etti. Paris ise dünyanın en güzel kadınını seçti.
             </p>
           </div>
 
-          <div id="elma-box-right" class="sculpture-card-dark p-7 sm:p-9 rounded-3xl space-y-4 text-white relative border-amber-500/50">
-            <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
-            <div class="bracket-tl"></div><div class="bracket-tr"></div>
-            
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono uppercase tracking-widest font-bold">
-              KOZMİK FATURA
-            </div>
-            <h3 class="font-cinzel text-2xl sm:text-3xl font-extrabold text-amber-100">
+          <div id="panel-elma-right" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute right-0 opacity-0 border-amber-500/50">
+            <div class="pillar-right-gold"></div><div class="bracket-tr"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold">KOZMİK FATURA</div>
+            <h3 class="font-cinzel text-xl sm:text-2xl font-extrabold text-amber-100 leading-tight">
               Işık Parladığında <br>
               Gölgeler Uzar.
             </h3>
-            <p class="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+            <p class="text-xs text-slate-300 font-light leading-relaxed">
               Bir nifak tohumu atıldı ve 10 yıllık savaşın faturasını binlerce yıl boyunca sadece masum ölümlüler ödedi.
             </p>
           </div>
 
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] font-mono text-amber-300/80 border-t border-amber-500/30 pt-3">
-          <span>AŞAĞI KAYDIRIN → GÖKYÜZÜNE YÜKSELİŞ</span>
-          <div class="w-32 h-1 bg-amber-950 rounded-full overflow-hidden">
-            <div id="elma-stage-bar" class="w-0 h-full bg-amber-400 transition-all duration-75"></div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== SARIDAN BEYAZA GEÇİŞ KÖPRÜSÜ ==================== -->
-  <section class="relative py-24 px-6 golden-to-white-stage text-center z-10 flex items-center justify-center">
-    <div class="max-w-4xl mx-auto space-y-4">
-      <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-amber-300/60 mx-auto flex items-center justify-center text-amber-300 shadow-xl animate-bounce">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"/></svg>
-      </div>
-      <h3 class="font-cinzel text-2xl sm:text-4xl font-extrabold text-slate-900">
-        ALTIN ALEVLERDEN <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-700 to-sky-700">
-          EGE'NİN BEYAZ GÖKLERİNE
-        </span>
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-700 font-light max-w-lg mx-auto">
-        Kibir yükseldikçe gökyüzü berraklaşır; ancak güneşe fazla yaklaşanların kanatları balmumuyla erir.
-      </p>
-    </div>
-  </section>
-
-  <!-- ==================== PERDE 2: İKARUS PINNED CANVAS ==================== -->
-  <section id="stage-ikarus" class="relative bg-slate-900 border-t border-slate-200" style="height: 330vh;">
-    <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-      
-      <!-- 60/120 FPS High-Speed Canvas -->
-      <canvas id="icarus-canvas" class="scrolly-canvas"></canvas>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/80 z-10 pointer-events-none"></div>
-
-      <div class="relative z-20 max-w-6xl mx-auto px-6 w-full h-full flex flex-col justify-between py-20 pointer-events-none">
-        
-        <div class="flex items-center justify-between border-b border-slate-600/60 pb-3 text-slate-200">
-          <span class="text-xs font-mono text-amber-400 uppercase tracking-[0.3em] font-bold">CH. 02 · KİBİR & YERÇEKİMİ</span>
-          <span class="text-xs font-mono text-slate-300">İKARUS'UN SERBEST DÜŞÜŞÜ</span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center my-auto pointer-events-auto">
-          
-          <div id="ikarus-card-1" class="sculpture-card p-6 sm:p-8 rounded-3xl space-y-3 shadow-2xl relative border-amber-400/60">
-            <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
-            <div class="bracket-tl"></div><div class="bracket-tr"></div>
-
-            <div class="text-xs font-mono text-amber-700 font-bold uppercase">KARE 01–16: YÜKSELİŞ</div>
-            <h3 class="font-cinzel text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
-              Maceraya Hazır Mısın?
-            </h3>
-            <p class="text-xs text-slate-600 font-light leading-relaxed">
+          <!-- STAGE 2: İKARUS & MACERA (Frames 075 - 160) — LEFT & RIGHT (Center Clear for Icarus & Feathers) -->
+          <div id="panel-ikarus-left" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute left-0 opacity-0 border-amber-400/60">
+            <div class="pillar-gold"></div><div class="bracket-tl"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold">CH. 02 · KARE 01–16</div>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-extrabold text-white leading-snug">
+              Maceraya <br>Hazır Mısın?
+            </h2>
+            <p class="text-xs text-slate-300 font-light leading-relaxed">
               Güneşe fazla yaklaşma dediler... Ama uçmanın sarhoşluğu yerçekimini unutturur.
             </p>
           </div>
 
-          <div id="ikarus-card-2" class="sculpture-card p-6 sm:p-8 rounded-3xl space-y-3 shadow-2xl relative">
-            <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
-            <div class="bracket-tl"></div><div class="bracket-tr"></div>
-
-            <div class="text-xs font-mono text-mythic-gold font-bold uppercase">HERMES TRİSMEGİSTUS</div>
-            <p class="font-cinzel text-base font-bold text-slate-900 leading-snug">
-              “İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insan.”
+          <div id="panel-ikarus-right" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute right-0 opacity-0 border-red-500/50">
+            <div class="pillar-right-gold"></div><div class="bracket-tr"></div>
+            <div class="text-[10px] font-mono text-mythic-crimson uppercase tracking-widest font-bold">YERÇEKİMİ</div>
+            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-slate-100 leading-snug">
+              Balmumu Eridiğinde:
+            </h3>
+            <p class="text-xs text-slate-300 font-light leading-relaxed">
+              “İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insan.” Tüyler döküldü, Ege Denizi bekliyor.
             </p>
-            <span class="text-[10px] font-mono text-slate-500 block">Zümrüt Tablet Arşivi</span>
           </div>
 
-          <div id="ikarus-card-3" class="sculpture-card p-6 sm:p-8 rounded-3xl space-y-3 shadow-2xl relative border-red-300">
-            <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
-            <div class="bracket-tl"></div><div class="bracket-tr"></div>
-
-            <div class="text-xs font-mono text-mythic-crimson font-bold uppercase">BALMUMU ERİDİĞİNDE</div>
-            <h4 class="font-cinzel text-base font-bold text-slate-900 leading-snug">
-              Yerçekimi Asla Kaybetmez.
-            </h4>
-            <p class="text-xs text-slate-600 font-light leading-relaxed">
-              Tüyler dağıldı, Ege Denizi bekliyor. Fatura yine kibrine yenik düşen insana kesildi.
+          <!-- STAGE 3: AKDENİZ TERASI & PARŞÖMENLER (Frames 175 - 250) — LEFT & RIGHT -->
+          <div id="panel-yiki-left" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute left-0 opacity-0 border-amber-400/60">
+            <div class="pillar-gold"></div><div class="bracket-tl"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold">CH. 03 · AKDENİZ TERASI</div>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-extrabold text-amber-100 leading-tight">
+              Tozlu Arşivler & <br>
+              Son Selam.
+            </h2>
+            <p class="text-xs text-slate-300 font-light leading-relaxed">
+              Yiki parşömeni bağlar, gün batımında son selamını verir. Her rezaletin bir faturası, her faturanın bir hikayesi vardır.
             </p>
+          </div>
+
+          <div id="panel-yiki-right" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-4 text-white absolute right-0 opacity-0">
+            <div class="pillar-right-gold"></div><div class="bracket-tr"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold">PERDE KAPANDI</div>
+            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-white">
+              Şimdi Gerçeklere <br>Adım At.
+            </h3>
+            <div class="pt-1">
+              <button onclick="scrollToSection('#vitrin')" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-mono font-bold uppercase transition-all shadow-md">
+                Bölümleri İzle →
+              </button>
+            </div>
           </div>
 
         </div>
 
-        <div class="flex items-center justify-between text-[11px] font-mono text-slate-200 border-t border-slate-600/60 pt-3">
-          <span>KAYDIRMAYA DEVAM EDİN → ARŞİV VE HALK ARENASI</span>
-          <div class="w-32 h-1 bg-slate-700 rounded-full overflow-hidden">
-            <div id="ikarus-stage-bar" class="w-0 h-full bg-amber-400 transition-all duration-75"></div>
+        <!-- Bottom Progress Indicator -->
+        <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-white/20 pt-3">
+          <span>KAYDIRMAYA DEVAM EDİN</span>
+          <div class="w-36 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div id="master-stage-bar" class="w-0 h-full bg-amber-400 transition-all duration-75"></div>
           </div>
         </div>
 
@@ -439,8 +391,8 @@
     </div>
   </section>
 
-  <!-- ==================== CH. 3: VİDEOLARI İZLEMEYE TEŞVİK & CANLI VİTRİN ==================== -->
-  <section id="vitrin" class="py-24 px-6 relative z-10 bg-white/95 border-t border-b border-slate-200 shadow-sm">
+  <!-- ==================== CH. 4: CANLI VİTRİN & PLAYLIST ==================== -->
+  <section id="vitrin" class="py-24 px-6 relative z-10 bg-white border-t border-b border-slate-200 shadow-sm">
     <div class="max-w-7xl mx-auto space-y-12">
       
       <div class="space-y-4 text-center max-w-3xl mx-auto">
@@ -458,7 +410,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Latest Release (7. Bölüm: Ra & Apophis) -->
+        <!-- Latest Episode (7. Bölüm: Ra & Apophis) -->
         <div class="lg:col-span-7 sculpture-card p-6 rounded-3xl space-y-4">
           <div class="flex items-center justify-between text-xs font-mono text-slate-500">
             <span class="text-mythic-crimson font-bold flex items-center gap-1.5">
@@ -510,7 +462,7 @@
     </div>
   </section>
 
-  <!-- ==================== CH. 4: HALK ARENASI ==================== -->
+  <!-- ==================== CH. 5: HALK ARENASI (MİTİK Mİ, BİTİK Mİ?) ==================== -->
   <section id="anket" class="py-24 px-6 relative z-10 bg-slate-50/90 border-t border-slate-200">
     <div class="max-w-5xl mx-auto space-y-12 text-center">
       
@@ -615,7 +567,7 @@
     </div>
   </section>
 
-  <!-- ==================== CH. 5: MITIK ATELIER ==================== -->
+  <!-- ==================== CH. 6: MITIK ATELIER ==================== -->
   <section id="merch" class="py-24 px-6 relative z-10 bg-white">
     <div class="max-w-7xl mx-auto space-y-12">
       
@@ -806,11 +758,11 @@
     </div>
   </div>
 
-  <!-- ==================== JAVASCRIPT & PROGRESSIVE CANVAS ENGINE ==================== -->
+  <!-- ==================== JAVASCRIPT & 250-FRAME PROGRESSIVE SEQUENCER ==================== -->
   <script>
     lucide.createIcons();
 
-    // 1. NATIVE 0ms INSTANT SMOOTH SCROLL (0ms Latency)
+    // 1. NATIVE 0ms INSTANT SMOOTH SCROLL
     function scrollToSection(selector) {
       const target = document.querySelector(selector);
       if (target) {
@@ -818,174 +770,159 @@
       }
     }
 
-    // 2. PROGRESSIVE & STAGGERED WEBP CANVAS SEQUENCER
-    function setupWebpCanvas(canvasId, folderPath, prefix, totalFrames) {
-      const canvas = document.getElementById(canvasId);
-      if (!canvas) return null;
-
-      const ctx = canvas.getContext('2d');
-      const images = new Array(totalFrames);
-      let currentProgress = 0;
-
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        drawFrame(currentProgress);
+    function scrubToProgress(p) {
+      const stage = document.getElementById('stage-master');
+      if (stage) {
+        const top = stage.offsetTop + p * (stage.offsetHeight - window.innerHeight);
+        window.scrollTo({ top, behavior: 'smooth' });
       }
-      resize();
-      window.addEventListener('resize', resize);
-
-      // Frame 1 is loaded immediately
-      const firstImg = new Image();
-      firstImg.src = `${folderPath}/${prefix}-001.webp`;
-      firstImg.onload = () => {
-        images[0] = firstImg;
-        drawFrame(0);
-      };
-
-      // Remaining frames loaded progressively in background
-      let loadIdx = 2;
-      function loadNextBatch() {
-        if (loadIdx > totalFrames) return;
-        const end = Math.min(totalFrames, loadIdx + 4);
-        for (let i = loadIdx; i <= end; i++) {
-          const img = new Image();
-          const num = String(i).padStart(3, '0');
-          img.src = `${folderPath}/${prefix}-${num}.webp`;
-          const frameIndex = i - 1;
-          img.onload = () => {
-            images[frameIndex] = img;
-          };
-        }
-        loadIdx = end + 1;
-        if (loadIdx <= totalFrames) {
-          setTimeout(loadNextBatch, 30);
-        }
-      }
-      setTimeout(loadNextBatch, 100);
-
-      function drawFrame(progress) {
-        currentProgress = progress;
-        const targetIdx = Math.min(totalFrames - 1, Math.max(0, Math.floor(progress * (totalFrames - 1))));
-        
-        let img = images[targetIdx];
-        if (!img || !img.complete || img.naturalWidth === 0) {
-          for (let offset = 1; offset < totalFrames; offset++) {
-            if (targetIdx - offset >= 0 && images[targetIdx - offset]?.complete) {
-              img = images[targetIdx - offset];
-              break;
-            }
-            if (targetIdx + offset < totalFrames && images[targetIdx + offset]?.complete) {
-              img = images[targetIdx + offset];
-              break;
-            }
-          }
-        }
-
-        if (img && img.complete && img.naturalWidth > 0) {
-          const hRatio = canvas.width / img.width;
-          const vRatio = canvas.height / img.height;
-          const ratio = Math.max(hRatio, vRatio);
-          const cx = (canvas.width - img.width * ratio) / 2;
-          const cy = (canvas.height - img.height * ratio) / 2;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, img.width * ratio, img.height * ratio);
-        }
-      }
-
-      return { drawFrame };
     }
 
-    const appleCanvasSeq = setupWebpCanvas('apple-canvas', 'elma_frames', 'ezgif-frame', 120);
-    const icarusCanvasSeq = setupWebpCanvas('icarus-canvas', 'ikarus_frames', 'ezgif-frame', 100);
+    // 2. PROGRESSIVE 250-FRAME WEBP CANVAS ENGINE
+    const TOTAL_FRAMES = 250;
+    const canvas = document.getElementById('master-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    const frames = new Array(TOTAL_FRAMES);
+    let currentProgress = 0;
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawCanvasFrame(currentProgress);
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Frame 1 is loaded immediately
+    const firstFrame = new Image();
+    firstFrame.src = 'animated/ezgif-frame-001.webp';
+    firstFrame.onload = () => {
+      frames[0] = firstFrame;
+      drawCanvasFrame(0);
+    };
+
+    // Remaining 249 frames load progressively in small background batches
+    let loadIndex = 2;
+    function loadNextBatch() {
+      if (loadIndex > TOTAL_FRAMES) return;
+      const batchEnd = Math.min(TOTAL_FRAMES, loadIndex + 5);
+      for (let i = loadIndex; i <= batchEnd; i++) {
+        const img = new Image();
+        const num = String(i).padStart(3, '0');
+        img.src = `animated/ezgif-frame-${num}.webp`;
+        const idx = i - 1;
+        img.onload = () => { frames[idx] = img; };
+      }
+      loadIndex = batchEnd + 1;
+      if (loadIndex <= TOTAL_FRAMES) {
+        setTimeout(loadNextBatch, 20);
+      }
+    }
+    setTimeout(loadNextBatch, 80);
+
+    function drawCanvasFrame(progress) {
+      currentProgress = progress;
+      if (!ctx || !canvas) return;
+
+      const targetIdx = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.floor(progress * (TOTAL_FRAMES - 1))));
+      
+      // Nearest-neighbor fallback if frame is still buffering
+      let img = frames[targetIdx];
+      if (!img || !img.complete || img.naturalWidth === 0) {
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          if (targetIdx - offset >= 0 && frames[targetIdx - offset]?.complete) {
+            img = frames[targetIdx - offset];
+            break;
+          }
+          if (targetIdx + offset < TOTAL_FRAMES && frames[targetIdx + offset]?.complete) {
+            img = frames[targetIdx + offset];
+            break;
+          }
+        }
+      }
+
+      if (img && img.complete && img.naturalWidth > 0) {
+        const hRatio = canvas.width / img.width;
+        const vRatio = canvas.height / img.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const cx = (canvas.width - img.width * ratio) / 2;
+        const cy = (canvas.height - img.height * ratio) / 2;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, img.width * ratio, img.height * ratio);
+      }
+
+      // Update Frame Counter and Top Tag
+      const counterEl = document.getElementById('frame-counter');
+      const tagEl = document.getElementById('scene-tag');
+      const titleEl = document.getElementById('scene-title');
+
+      const currentNum = String(targetIdx + 1).padStart(3, '0');
+      if (counterEl) counterEl.innerText = `KARE: ${currentNum} / 250`;
+
+      if (tagEl && titleEl) {
+        if (targetIdx < 20) {
+          tagEl.innerText = 'PROLOGUE';
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = 'Kusursuz Zaferler Değil, Epik Rezaletler';
+        } else if (targetIdx < 65) {
+          tagEl.innerText = 'CH. 01 · ELMA';
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = 'Kallisti: En Güzele... Truva Faciası';
+        } else if (targetIdx < 160) {
+          tagEl.innerText = 'CH. 02 · İKARUS';
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = 'Maceraya Hazır Mısın? Kibir & Düşüş';
+        } else {
+          tagEl.innerText = 'CH. 03 · AKDENİZ';
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = 'Yiki’nin Masası & Parşömenler';
+        }
+      }
+    }
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // 3. PINNED TIMELINE: ALTIN ELMA (SARI / KEHRİBAR EVRE)
-    const elmaTl = gsap.timeline({
+    // 3. MASTER GSAP SCROLLTRIGGER CHOREOGRAPHY (250 Frames & Floating Cards)
+    const masterTl = gsap.timeline({
       scrollTrigger: {
-        trigger: "#stage-elma",
+        trigger: "#stage-master",
         start: "top top",
         end: "bottom bottom",
         scrub: 0.5,
         onUpdate: (self) => {
           const p = self.progress;
-          if (appleCanvasSeq) appleCanvasSeq.drawFrame(p);
-          const bar = document.getElementById('elma-stage-bar');
+          drawCanvasFrame(p);
+          const bar = document.getElementById('master-stage-bar');
           if (bar) bar.style.width = `${p * 100}%`;
         }
       }
     });
 
-    elmaTl
-      .fromTo("#elma-box-left", 
-        { x: -80, opacity: 0, scale: 0.95 },
-        { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }
-      )
-      .fromTo("#elma-box-right",
-        { x: 80, opacity: 0, scale: 0.95 },
-        { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" },
-        "+=0.4"
-      )
-      .to(["#elma-box-left", "#elma-box-right"], { y: -25, opacity: 0.35, duration: 0.8 }, "+=0.6");
+    // Choreographing side panels so center stays clear and texts gracefully exit
+    masterTl
+      // 0. Hero Fades out
+      .to("#panel-hero", { opacity: 0, scale: 0.9, y: -40, duration: 1 })
+      
+      // 1. Altın Elma Cards Enter (Left & Right)
+      .fromTo("#panel-elma-left", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "+=0.2")
+      .fromTo("#panel-elma-right", { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "<")
+      
+      // Altın Elma Cards Exit (Clearing center for explosion)
+      .to(["#panel-elma-left", "#panel-elma-right"], { opacity: 0, y: -30, duration: 1 }, "+=1.5")
+      
+      // 2. İkarus Cards Enter (Left: Maceraya Hazır Mısın? & Right: Hermes)
+      .fromTo("#panel-ikarus-left", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "+=0.3")
+      .fromTo("#panel-ikarus-right", { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "<")
+      
+      // İkarus Cards Exit (Clearing center for sea & terrace transition)
+      .to(["#panel-ikarus-left", "#panel-ikarus-right"], { opacity: 0, y: -30, duration: 1 }, "+=1.5")
+      
+      // 3. Yiki Akdeniz Masası Cards Enter (Left & Right)
+      .fromTo("#panel-yiki-left", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "+=0.3")
+      .fromTo("#panel-yiki-right", { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "<");
 
-    // 4. PINNED TIMELINE: İKARUS (BEYAZ MERMER / GÖKYÜZÜ EVRE - KARE 1-16 VE DEVAMI)
-    const ikarusTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#stage-ikarus",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.5,
-        onUpdate: (self) => {
-          const p = self.progress;
-          if (icarusCanvasSeq) icarusCanvasSeq.drawFrame(p);
-          const bar = document.getElementById('ikarus-stage-bar');
-          if (bar) bar.style.width = `${p * 100}%`;
-        }
-      }
-    });
-
-    ikarusTl
-      .fromTo("#ikarus-card-1",
-        { y: 50, opacity: 0, scale: 0.95 },
-        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" }
-      )
-      .fromTo("#ikarus-card-2",
-        { y: 50, opacity: 0, scale: 0.95 },
-        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
-        "+=0.3"
-      )
-      .fromTo("#ikarus-card-3",
-        { y: 50, opacity: 0, scale: 0.95 },
-        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
-        "+=0.3"
-      );
-
-    // 5. PEAR.NO STICKY PILL & CHAPTER HIGHLIGHT ENGINE
-    const chapterMap = [
-      { id: '#stage-elma', linkSelector: 'a[href="#stage-elma"]' },
-      { id: '#stage-ikarus', linkSelector: 'a[href="#stage-ikarus"]' },
-      { id: '#vitrin', linkSelector: 'a[href="#vitrin"]' },
-      { id: '#anket', linkSelector: 'a[href="#anket"]' },
-      { id: '#merch', linkSelector: 'a[href="#merch"]' }
-    ];
-
-    chapterMap.forEach(item => {
-      ScrollTrigger.create({
-        trigger: item.id,
-        start: "top 50%",
-        end: "bottom 50%",
-        onToggle: (self) => {
-          if (self.isActive) {
-            document.querySelectorAll('.chapter-pill-link').forEach(el => el.classList.remove('active'));
-            const activeLink = document.querySelector(`.chapter-pill-link${item.linkSelector}`);
-            if (activeLink) activeLink.classList.add('active');
-          }
-        }
-      });
-    });
-
-    // 6. CURSOR LOGIC
+    // 4. CURSOR ENGINE
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     let mouseX = 0, mouseY = 0;
@@ -1011,7 +948,7 @@
     }
     requestAnimationFrame(renderCursorRing);
 
-    document.querySelectorAll('a, button, .sculpture-card, .sculpture-card-dark').forEach(el => {
+    document.querySelectorAll('a, button, .side-floating-card, .sculpture-card').forEach(el => {
       el.addEventListener('mouseenter', () => {
         if (cursorRing) {
           cursorRing.style.width = '48px';
@@ -1030,7 +967,7 @@
       });
     });
 
-    // 7. MODAL & DRAWER
+    // 5. MODAL & DRAWER
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       if (menu) menu.classList.toggle('hidden');
@@ -1046,7 +983,7 @@
       if (modal) modal.classList.remove('is-open');
     }
 
-    // 8. GSAP STAGGER REVEALS
+    // 6. GSAP STAGGER REVEALS FOR CARDS
     gsap.utils.toArray('.sculpture-card').forEach((box) => {
       gsap.from(box, {
         scrollTrigger: {
@@ -1061,7 +998,7 @@
       });
     });
 
-    // 9. VOTING STATE
+    // 7. VOTING STATE
     const voteData = {
       perseus: { mitik: 12, bitik: 36 },
       odysseus: { mitik: 8, bitik: 42 },
