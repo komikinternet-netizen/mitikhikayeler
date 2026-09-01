@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tüm Bölümler — Mitik Hikayeler Çizgi Arşivi</title>
+  <meta name="description" content="Mitik Hikayeler tüm video bölümleri ve sıralı oynatma listesi.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
+          },
+          colors: {
+            mythic: {
+              gold: '#B38A22',
+              goldBg: '#FBF5E6',
+              crimson: '#D90429',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .bg-marble { background-color: #F8F9FC; }
+    .sculpture-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(203, 213, 225, 0.8);
+      box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.08);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .sculpture-card:hover {
+      border-color: #B38A22;
+      transform: translateY(-4px);
+    }
+    .video-facade {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 0.85rem;
+      background-color: #0F121B;
+      cursor: pointer;
+    }
+    .video-facade img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .video-facade:hover img { transform: scale(1.04); }
+    .video-facade iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(217, 4, 41, 0.9);
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: transform 0.2s ease;
+      z-index: 2;
+    }
+    .video-facade:hover .video-play-btn { transform: translate(-50%, -50%) scale(1.12); }
+  </style>
+</head>
+<body class="bg-marble text-slate-800 antialiased selection:bg-mythic-gold selection:text-white">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-mythic-goldBg border border-mythic-gold/40 flex items-center justify-center overflow-hidden">
+          <img src="logo.png" onerror="this.src='https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm'" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <span class="font-cinzel font-bold text-base tracking-widest text-slate-900">MİTİK HİKAYELER</span>
+      </a>
+      <a href="index.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-slate-700 hover:text-mythic-gold transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+        <span>Ana Sayfaya Dön</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto space-y-16">
+    
+    <div class="text-center space-y-4 max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mythic-goldBg text-mythic-gold text-xs font-mono font-bold uppercase">
+        <i data-lucide="play" class="w-3.5 h-3.5"></i>
+        <span>Eksiksiz Çizgi Arşivi</span>
+      </div>
+      <h1 class="font-cinzel text-4xl sm:text-5xl font-extrabold text-slate-900">Tüm Bölümler & Çizgi Anlatımlar</h1>
+      <p class="text-sm text-slate-600 font-light">
+        Antik çağın tüm trajikomik hikayeleri, kahraman rezaletleri ve kozmik faturaları.
+      </p>
+    </div>
+
+    <!-- 8 Video Grid with Instant Facade -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Ep 0 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, 'uU3Naevannk')">
+          <img src="https://i.ytimg.com/vi/uU3Naevannk/hqdefault.jpg" alt="Fragman">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">BÖLÜM 0</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Kanal Fragmanı: Bu Bir Başarı Hikayesi Değil!</h3>
+          <p class="text-xs text-slate-500">Kozmik yolculuğun başlangıcı.</p>
+        </div>
+      </div>
+
+      <!-- Ep 1 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, 'BGpE7mOXedA')">
+          <img src="https://i.ytimg.com/vi/BGpE7mOXedA/hqdefault.jpg" alt="Perseus">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">1. BÖLÜM</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Medusa'nın Katili Perseus</h3>
+          <p class="text-xs text-slate-500">Uykuda kafa kesip kahraman olmak?</p>
+        </div>
+      </div>
+
+      <!-- Ep 2 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, '25ChPSpvz8o')">
+          <img src="https://i.ytimg.com/vi/25ChPSpvz8o/hqdefault.jpg" alt="Theogonia">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">2. BÖLÜM</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Theogonia: Tanrıların Doğuşu ve Kaos</h3>
+          <p class="text-xs text-slate-500">Hesiodos'un kozmik aile faciası.</p>
+        </div>
+      </div>
+
+      <!-- Ep 3 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, 'c4XiHgEK1FQ')">
+          <img src="https://i.ytimg.com/vi/c4XiHgEK1FQ/hqdefault.jpg" alt="Odysseus">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">3. BÖLÜM</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Odysseia Destanı Özeti</h3>
+          <p class="text-xs text-slate-500">Nolan’ın filminden önce izleyin!</p>
+        </div>
+      </div>
+
+      <!-- Ep 4 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, 'C0f9E12BMNk')">
+          <img src="https://i.ytimg.com/vi/C0f9E12BMNk/hqdefault.jpg" alt="Pandora">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">4. BÖLÜM</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Pandora ve Prometheus</h3>
+          <p class="text-xs text-slate-500">İlk kadın ve dünyayı patlatan kutu.</p>
+        </div>
+      </div>
+
+      <!-- Ep 5 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, '6Ag0cyzLFa0')">
+          <img src="https://i.ytimg.com/vi/6Ag0cyzLFa0/hqdefault.jpg" alt="Pygmalion">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">5. BÖLÜM</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Pygmalion ve Galatea</h3>
+          <p class="text-xs text-slate-500">Yaptığı heykele aşık olan heykeltıraş.</p>
+        </div>
+      </div>
+
+      <!-- Ep 6 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, 'i_Y3yq7b7eY')">
+          <img src="https://i.ytimg.com/vi/i_Y3yq7b7eY/hqdefault.jpg" alt="Pegasus">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">6. BÖLÜM</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Pegasus ve Bellerophon</h3>
+          <p class="text-xs text-slate-500">Kanatlı at, Chimera ve sert düşüş.</p>
+        </div>
+      </div>
+
+      <!-- Ep 7 -->
+      <div class="sculpture-card rounded-2xl overflow-hidden p-5 space-y-4">
+        <div class="video-facade" onclick="loadIframe(this, 'Ga6ujxOWLp4')">
+          <img src="https://i.ytimg.com/vi/Ga6ujxOWLp4/hqdefault.jpg" alt="Ra">
+          <div class="video-play-btn"><svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono text-mythic-gold font-bold">7. BÖLÜM</span>
+          <h3 class="font-cinzel font-bold text-base text-slate-900">Güneş Tanrısı Ra & Apophis</h3>
+          <p class="text-xs text-slate-500">Antik Mısır yeraltı yolculuğu.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+    function loadIframe(element, videoId) {
+      element.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    }
+  </script>
+</body>
+</html>
