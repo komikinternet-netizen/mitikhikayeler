@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="doc_title">Mitik Hikayeler — Antik Çağın Epik Rezaletleri</title>
+  <meta name="description" content="Kusursuz zaferler değil, epik rezaletler. 250 karelik kesintisiz scrollytelling, dinamik tema değiştirici ve mitik video döngüsü.">
+
+  <!-- Google Fonts: Cinzel, Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
+          },
+          colors: {
+            mythic: {
+              gold: '#B38A22',
+              goldLight: '#FDF3D8',
+              goldAmber: '#E5A91A',
+              crimson: '#D90429',
+              darkBg: '#090B10',
+              marbleBg: '#FAFBFD'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* Custom Luxury Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #B38A22; }
+
+    /* Custom Interactive Cursor */
+    .custom-cursor {
+      pointer-events: none;
+      position: fixed;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s cubic-bezier(0.25, 1, 0.5, 1), height 0.15s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease, border-color 0.2s ease;
+    }
+    #cursor-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #B38A22;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(179, 138, 34, 0.8);
+    }
+    #cursor-ring {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(179, 138, 34, 0.6);
+      border-radius: 50%;
+      transition: transform 0.05s ease-out;
+    }
+
+    /* Pinned 250-Frame Master Canvas */
+    .master-scrolly-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      will-change: transform;
+    }
+
+    /* Fixed Seamless Looping Video Background for Ending Sections */
+    #end-loop-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      will-change: opacity;
+    }
+
+    /* Vignette */
+    .canvas-overlay-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.6) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Floating Unboxed Monumental Typography */
+    .editorial-glow-dark {
+      text-shadow: 0 2px 25px rgba(0, 0, 0, 0.9), 0 0 40px rgba(229, 169, 26, 0.45);
+    }
+    .editorial-glow-light {
+      text-shadow: 0 2px 20px rgba(255, 255, 255, 0.95), 0 0 35px rgba(255, 255, 255, 0.85);
+    }
+
+    /* Dark Mode Theme Classes */
+    html.dark body {
+      background-color: #080A0F;
+      color: #F1F5F9;
+    }
+    html.dark .sculpture-card {
+      background: rgba(15, 23, 42, 0.78) !important;
+      border-color: rgba(51, 65, 85, 0.8) !important;
+      color: #F8FAFC !important;
+    }
+    html.dark .sculpture-card h2, 
+    html.dark .sculpture-card h3, 
+    html.dark .sculpture-card h4 {
+      color: #F8FAFC !important;
+    }
+    html.dark .sculpture-card p {
+      color: #94A3B8 !important;
+    }
+    html.dark .bg-theme-section {
+      background: rgba(8, 10, 15, 0.85) !important;
+    }
+    html.dark header {
+      background: rgba(8, 10, 15, 0.85) !important;
+      border-color: rgba(30, 41, 59, 0.8) !important;
+    }
+    html.dark .chapter-pill-container {
+      background: rgba(15, 23, 42, 0.9) !important;
+      border-color: rgba(51, 65, 85, 0.8) !important;
+    }
+
+    /* Light Mode Theme Classes */
+    html.light body {
+      background-color: #FAFBFD;
+      color: #0F172A;
+    }
+    html.light .sculpture-card {
+      background: rgba(255, 255, 255, 0.82) !important;
+      border-color: rgba(226, 232, 240, 0.9) !important;
+      color: #0F172A !important;
+    }
+    html.light .bg-theme-section {
+      background: rgba(250, 251, 253, 0.85) !important;
+    }
+    html.light header {
+      background: rgba(255, 255, 255, 0.88) !important;
+      border-color: rgba(226, 232, 240, 0.9) !important;
+    }
+    html.light .chapter-pill-container {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-color: rgba(226, 232, 240, 0.9) !important;
+    }
+
+    /* Ultra-Refined Floating Side Cards */
+    .side-floating-card {
+      background: rgba(15, 18, 27, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(229, 169, 26, 0.35);
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .side-floating-card:hover {
+      border-color: rgba(229, 169, 26, 0.75);
+      transform: translateY(-2px);
+    }
+
+    /* Frosted Marble Glass Panels */
+    .sculpture-card {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 1.5rem;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .sculpture-card:hover {
+      border-color: rgba(179, 138, 34, 0.6) !important;
+      box-shadow: 0 30px 60px -15px rgba(179, 138, 34, 0.15);
+    }
+
+    /* Ionic Gold Pillars */
+    .pillar-gold { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: linear-gradient(to bottom, #E5A91A, transparent 20%, transparent 80%, #E5A91A); border-radius: 3px; }
+    .pillar-right-gold { position: absolute; top: 0; bottom: 0; right: 0; width: 3px; background: linear-gradient(to bottom, #E5A91A, transparent 20%, transparent 80%, #E5A91A); border-radius: 3px; }
+
+    /* Brackets */
+    .bracket-tl { position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid #E5A91A; border-left: 2px solid #E5A91A; }
+    .bracket-tr { position: absolute; top: -1px; right: -1px; width: 10px; height: 10px; border-top: 2px solid #E5A91A; border-right: 2px solid #E5A91A; }
+
+    /* Center Pill Menu */
+    .chapter-pill-link {
+      transition: all 0.25s ease;
+      color: #64748B;
+    }
+    .chapter-pill-link.active, .chapter-pill-link:hover {
+      color: #B38A22 !important;
+      font-weight: 700;
+    }
+
+    /* Video Container */
+    .video-responsive {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.12);
+    }
+    .video-responsive iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Modal Animation */
+    .modal-backdrop { opacity: 0; pointer-events: none; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    .modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+  </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-mythic-gold selection:text-white transition-colors duration-300">
+
+  <!-- AWWWARDS CUSTOM CURSOR -->
+  <div id="cursor-dot" class="custom-cursor hidden md:block"></div>
+  <div id="cursor-ring" class="custom-cursor hidden md:block"></div>
+
+  <!-- FIXED LOOPING ENDING VIDEO (mitik-logo-son.mp4) -->
+  <video id="end-loop-video" autoplay muted loop playsinline preload="auto">
+    <source src="mitik-logo-son.mp4" type="video/mp4">
+  </video>
+
+  <!-- FLOATING BİZE ULAŞIN BUTTON -->
+  <div class="fixed left-5 bottom-5 z-50">
+    <button onclick="openContactModal()" class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white/95 hover:bg-white border border-mythic-gold/40 text-mythic-gold text-[11px] font-mono font-bold uppercase tracking-wider shadow-2xl backdrop-blur-md transition-all hover:scale-105 group">
+      <svg class="w-3.5 h-3.5 text-mythic-gold group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+      <span class="hidden sm:inline" data-i18n="btn_contact">Bize Ulaşın</span>
+    </button>
+  </div>
+
+  <!-- HEADER & TEMA / DİL SEÇİCİ -->
+  <header class="fixed top-0 left-0 w-full z-40 backdrop-blur-md border-b transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-5 h-14 sm:h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-mythic-goldBg border border-mythic-gold/40 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform shadow-sm">
+          <img src="logo.png" onerror="this.src='https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm'" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-cinzel font-bold text-sm sm:text-base tracking-[0.18em] transition-colors" data-i18n="brand_title">MİTİK HİKAYELER</span>
+          <span class="text-[8px] tracking-[0.25em] text-mythic-gold uppercase font-mono font-semibold" data-i18n="brand_subtitle">Antik Rezaletler</span>
+        </div>
+      </a>
+
+      <!-- Center Sticky Pill Chapter Menu -->
+      <div class="hidden md:flex items-center gap-6 px-5 py-1.5 rounded-full chapter-pill-container shadow-sm text-xs font-mono tracking-wider uppercase font-semibold border">
+        <a href="#stage-master" class="chapter-pill-link active" onclick="scrubToProgress(0)" data-i18n="nav_ch1">Ch. 1 Elma</a>
+        <span class="text-slate-400">·</span>
+        <a href="#stage-master" class="chapter-pill-link" onclick="scrubToProgress(0.35)" data-i18n="nav_ch2">Ch. 2 İkarus</a>
+        <span class="text-slate-400">·</span>
+        <a href="#stage-master" class="chapter-pill-link" onclick="scrubToProgress(0.70)" data-i18n="nav_ch3">Ch. 3 Akdeniz</a>
+        <span class="text-slate-400">·</span>
+        <a href="#vitrin" class="chapter-pill-link" data-i18n="nav_ch4">Ch. 4 Arşiv</a>
+        <span class="text-slate-400">·</span>
+        <a href="#anket" class="chapter-pill-link" data-i18n="nav_ch5">Ch. 5 Arena</a>
+        <span class="text-slate-400">·</span>
+        <a href="#merch" class="chapter-pill-link" data-i18n="nav_ch6">Ch. 6 Atelier</a>
+      </div>
+
+      <!-- Right Controls: Language Selector, Theme Switcher & CTA -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        
+        <!-- LANGUAGE SELECTOR PILL -->
+        <div class="flex items-center p-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px] font-mono font-bold">
+          <button onclick="setLanguage('tr')" id="lang-btn-tr" class="px-2 py-0.5 rounded-full transition-colors text-mythic-gold bg-white dark:bg-slate-700 shadow-xs">TR</button>
+          <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2 py-0.5 rounded-full transition-colors text-slate-500 hover:text-slate-900 dark:hover:text-white">EN</button>
+          <button onclick="setLanguage('de')" id="lang-btn-de" class="px-2 py-0.5 rounded-full transition-colors text-slate-500 hover:text-slate-900 dark:hover:text-white">DE</button>
+        </div>
+
+        <!-- THEME TOGGLE (Güneş ☀️ / Ay 🌙) -->
+        <button id="theme-toggle-btn" onclick="toggleTheme()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-amber-500 hover:scale-105 transition-all shadow-sm" title="Tema Değiştir">
+          <svg id="moon-icon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998z"/></svg>
+          <svg id="sun-icon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z"/></svg>
+        </button>
+
+        <a href="https://www.youtube.com/@MitikHikayeler?sub_confirmation=1" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-mythic-crimson hover:bg-red-700 text-white text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-sm">
+          <span data-i18n="btn_subscribe">Abone Ol →</span>
+        </a>
+        <button onclick="toggleMobileMenu()" class="md:hidden w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="fixed inset-0 bg-white/95 dark:bg-slate-900/95 z-50 hidden flex flex-col justify-between p-6 backdrop-blur-2xl">
+    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+      <span class="font-cinzel text-base font-bold" data-i18n="brand_title">MİTİK HİKAYELER</span>
+      <button onclick="toggleMobileMenu()" class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile Language Picker -->
+    <div class="flex items-center justify-center gap-3 py-2 border-b border-slate-200 dark:border-slate-800 font-mono text-sm">
+      <button onclick="setLanguage('tr')" class="px-3 py-1 rounded-full border border-mythic-gold/40 text-mythic-gold font-bold">Türkçe</button>
+      <button onclick="setLanguage('en')" class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700 text-slate-500">English</button>
+      <button onclick="setLanguage('de')" class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700 text-slate-500">Deutsch</button>
+    </div>
+
+    <div class="flex flex-col gap-5 text-lg font-cinzel font-bold">
+      <a href="#stage-master" onclick="toggleMobileMenu(); scrubToProgress(0);" data-i18n="mobile_ch1">Ch. 1 Altın Elma</a>
+      <a href="#stage-master" onclick="toggleMobileMenu(); scrubToProgress(0.35);" data-i18n="mobile_ch2">Ch. 2 İkarus & Düşüş</a>
+      <a href="#stage-master" onclick="toggleMobileMenu(); scrubToProgress(0.70);" data-i18n="mobile_ch3">Ch. 3 Akdeniz & Yiki</a>
+      <a href="#vitrin" onclick="toggleMobileMenu()" data-i18n="mobile_ch4">Ch. 4 Canlı Arşiv</a>
+      <a href="#anket" onclick="toggleMobileMenu()" data-i18n="mobile_ch5">Ch. 5 Mitik mi, Bitik mi?</a>
+      <a href="#merch" onclick="toggleMobileMenu()" data-i18n="mobile_ch6">Ch. 6 Mitik Atelier</a>
+      <a href="bolumler.html" class="text-mythic-gold font-bold" data-i18n="mobile_all_episodes">Tüm 8 Bölüm Arşivi →</a>
+      <a href="yiki.html" class="text-slate-500" data-i18n="mobile_yiki_bible">Yiki Karakter Biblesi →</a>
+    </div>
+    <div class="pt-4 border-t border-slate-200 dark:border-slate-800 text-center text-xs font-mono text-slate-500" data-i18n="mobile_footer">
+      © 2026 Mitik Hikayeler · Master Edition
+    </div>
+  </div>
+
+  <!-- ==================== 250-FRAME PINNED UNIFIED MASTER STAGE ==================== -->
+  <section id="stage-master" class="relative bg-[#0E0B04]" style="height: 750vh;">
+    <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      
+      <!-- 250-FRAME CANVAS -->
+      <canvas id="master-canvas" class="master-scrolly-canvas"></canvas>
+      <div class="canvas-overlay-vignette"></div>
+
+      <!-- FLOATING NARRATIVE STAGE OVERLAYS -->
+      <div class="relative z-20 max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-between py-20 pointer-events-none">
+        
+        <!-- Clean Status Bar -->
+        <div class="flex items-center justify-between border-b border-white/20 pb-3 text-white text-xs font-mono">
+          <div class="flex items-center gap-3">
+            <span id="scene-tag" class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest">
+              PROLOGUE
+            </span>
+            <span id="scene-title" class="text-slate-300 tracking-wider">Kusursuz Zaferler Değil, Epik Rezaletler</span>
+          </div>
+          <span class="text-amber-400/80 font-bold tracking-widest uppercase" data-i18n="stage_top_brand">MİTİK SCROLLYTELLING</span>
+        </div>
+
+        <!-- DYNAMIC CHOREOGRAPHED EDITORIAL PANELS -->
+        <div class="relative w-full my-auto pointer-events-auto min-h-[380px] flex items-center">
+          
+          <!-- STAGE 0: PROLOGUE HERO (Frames 001 - 020) -->
+          <div id="panel-hero" class="w-full text-center space-y-4 max-w-3xl mx-auto absolute inset-0 flex flex-col items-center justify-center">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-mono uppercase tracking-[0.25em] font-semibold">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+              <span data-i18n="hero_tag">Kozmik Simülasyonun Trajikomik Günlükleri</span>
+            </div>
+            <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-white editorial-glow-dark" data-i18n-html="hero_title">
+              Kafayı kestik. <br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-mythic-goldAmber to-amber-200">
+                Kutuyu açtık.
+              </span> <br>
+              Faturayı ödedik.
+            </h1>
+            <p class="text-sm sm:text-base text-amber-100/80 max-w-xl mx-auto font-light leading-relaxed" data-i18n="hero_desc">
+              Uykuda kafa kesip kahraman olanlar, egosu yüzünden 10 yıl denizde sürüklenenler ve bir nifak elmasıyla patlayan antik egolar...
+            </p>
+          </div>
+
+          <!-- STAGE 1: ALTIN ELMA / KALLİSTİ (Frames 020 - 065) -->
+          <div id="panel-elma-left" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute left-0 opacity-0">
+            <div class="pillar-gold"></div><div class="bracket-tl"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold" data-i18n="elma_l_tag">CH. 01 · KALLİSTİ</div>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-extrabold text-amber-100 leading-tight" data-i18n-html="elma_l_title">
+              Bir Elma, <br>
+              Üç Kibirli Tanrıça.
+            </h2>
+            <p class="text-xs text-slate-300 font-light leading-relaxed" data-i18n="elma_l_desc">
+              Yiki altın elmayı uzatıyor. Düğüne çağrılmayan Eris ortaya bıraktı; Hera krallık, Athena bilgelik vaat etti. Paris ise dünyanın en güzel kadınını seçti.
+            </p>
+          </div>
+
+          <div id="panel-elma-right" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute right-0 opacity-0 border-amber-500/50">
+            <div class="pillar-right-gold"></div><div class="bracket-tr"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold" data-i18n="elma_r_tag">KOZMİK FATURA</div>
+            <h3 class="font-cinzel text-xl sm:text-2xl font-extrabold text-amber-100 leading-tight" data-i18n-html="elma_r_title">
+              Işık Parladığında <br>
+              Gölgeler Uzar.
+            </h3>
+            <p class="text-xs text-slate-300 font-light leading-relaxed" data-i18n="elma_r_desc">
+              Bir nifak tohumu atıldı ve 10 yıllık savaşın faturasını binlerce yıl boyunca sadece masum ölümlüler ödedi.
+            </p>
+          </div>
+
+          <!-- STAGE 2: İKARUS & MACERA (Frames 075 - 160) -->
+          <div id="panel-ikarus-left" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute left-0 opacity-0 border-amber-400/60">
+            <div class="pillar-gold"></div><div class="bracket-tl"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold" data-i18n="ikarus_l_tag">CH. 02 · KARE 01–16</div>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-extrabold text-white leading-snug" data-i18n-html="ikarus_l_title">
+              Maceraya <br>Hazır Mısın?
+            </h2>
+            <p class="text-xs text-slate-300 font-light leading-relaxed" data-i18n="ikarus_l_desc">
+              Güneşe fazla yaklaşma dediler... Ama uçmanın sarhoşluğu yerçekimini unutturur.
+            </p>
+          </div>
+
+          <div id="panel-ikarus-right" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute right-0 opacity-0 border-red-500/50">
+            <div class="pillar-right-gold"></div><div class="bracket-tr"></div>
+            <div class="text-[10px] font-mono text-mythic-crimson uppercase tracking-widest font-bold" data-i18n="ikarus_r_tag">YERÇEKİMİ</div>
+            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-slate-100 leading-snug" data-i18n="ikarus_r_title">
+              Balmumu Eridiğinde:
+            </h3>
+            <p class="text-xs text-slate-300 font-light leading-relaxed" data-i18n="ikarus_r_desc">
+              “İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insan.” Tüyler döküldü, Ege Denizi bekliyor.
+            </p>
+          </div>
+
+          <!-- STAGE 3: AKDENİZ TERASI & KARE 250 (Frames 175 - 250) -->
+          <div id="panel-yiki-left" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-3 text-white absolute left-0 opacity-0 border-amber-400/60">
+            <div class="pillar-gold"></div><div class="bracket-tl"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold" data-i18n="yiki_l_tag">CH. 03 · AKDENİZ TERASI</div>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-extrabold text-amber-100 leading-tight" data-i18n-html="yiki_l_title">
+              Tozlu Arşivler & <br>
+              Son Selam.
+            </h2>
+            <p class="text-xs text-slate-300 font-light leading-relaxed" data-i18n="yiki_l_desc">
+              Yiki parşömeni bağlar, gün batımında son selamını verir. Her rezaletin bir faturası, her faturanın bir hikayesi vardır.
+            </p>
+          </div>
+
+          <div id="panel-yiki-right" class="side-floating-card p-6 sm:p-8 max-w-sm space-y-4 text-white absolute right-0 opacity-0">
+            <div class="pillar-right-gold"></div><div class="bracket-tr"></div>
+            <div class="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-bold" data-i18n="yiki_r_tag">PERDE KAPANDI</div>
+            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-white" data-i18n-html="yiki_r_title">
+              Şimdi Gerçeklere <br>Adım At.
+            </h3>
+            <div class="pt-1">
+              <button onclick="scrollToSection('#vitrin')" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-mono font-bold uppercase transition-all shadow-md" data-i18n="yiki_r_btn">
+                Bölümleri İzle →
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Progress Indicator -->
+        <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-white/20 pt-3">
+          <span data-i18n="scroll_continue">KAYDIRMAYA DEVAM EDİN</span>
+          <div class="w-36 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div id="master-stage-bar" class="w-0 h-full bg-amber-400 transition-all duration-75"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CH. 4: CANLI VİTRİN & PLAYLIST ==================== -->
+  <section id="vitrin" class="py-24 px-6 relative z-10 bg-theme-section border-t border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+    <div class="max-w-7xl mx-auto space-y-12">
+      
+      <div class="space-y-4 text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mythic-goldBg text-mythic-gold text-xs font-mono font-bold uppercase tracking-wider">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span data-i18n="vitrin_tag">Perde Kapandı, Gerçekler Başlıyor</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold editorial-glow-light" data-i18n="vitrin_title">
+          Tüm Rezaletleri İzlemeye Hazır Mısın?
+        </h2>
+        <p class="text-sm font-light leading-relaxed opacity-80" data-i18n="vitrin_desc">
+          Kozmik simülasyonun arka bahçesinde dönen tüm dolaplar ve epik fiyaskolar Yiki'nin anlatımıyla YouTube arşivinde.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Latest Episode (7. Bölüm: Ra & Apophis) -->
+        <div class="lg:col-span-7 sculpture-card p-6 space-y-4 border">
+          <div class="flex items-center justify-between text-xs font-mono opacity-75">
+            <span class="text-mythic-crimson font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-mythic-crimson animate-pulse"></span>
+              <span data-i18n="ep7_badge">EN SON ÇIKAN BÖLÜM (BÖLÜM 7)</span>
+            </span>
+            <span data-i18n="ep7_cat">Antik Mısır</span>
+          </div>
+          <div class="video-responsive">
+            <iframe src="https://www.youtube-nocookie.com/embed/Ga6ujxOWLp4?rel=0" title="7. Bölüm: Güneş Tanrısı Ra & Apophis" allowfullscreen></iframe>
+          </div>
+          <div class="space-y-1 pt-1">
+            <h3 class="font-cinzel font-bold text-lg" data-i18n="ep7_title">Güneş Tanrısı Ra & Yılan Apophis</h3>
+            <p class="text-xs font-light leading-relaxed opacity-80" data-i18n="ep7_desc">
+              Mısır mitolojisinin kozmik yeraltı savaşı ve Ra'nın bitmek bilmeyen gece nöbeti.
+            </p>
+          </div>
+        </div>
+
+        <!-- Official Playlist Player -->
+        <div class="lg:col-span-5 sculpture-card p-6 space-y-4 flex flex-col justify-between border">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono opacity-75">
+              <span class="text-mythic-gold font-bold flex items-center gap-1.5">
+                <i data-lucide="list-video" class="w-4 h-4"></i>
+                <span data-i18n="pl_badge">RESMİ OYNATMA LİSTESİ</span>
+              </span>
+              <span data-i18n="pl_cat">Sıralı Arşiv</span>
+            </div>
+            <div class="video-responsive">
+              <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1" title="Mitik Hikayeler Tüm Bölümler Oynatma Listesi" allowfullscreen></iframe>
+            </div>
+            <div class="space-y-1">
+              <h3 class="font-cinzel font-bold text-sm" data-i18n="pl_title">Theogonia ve Mitik Seriler</h3>
+              <p class="text-xs font-light opacity-80" data-i18n="pl_desc">Tüm bölümleri kesintisiz ve sıralı olarak izleyin.</p>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <a href="https://www.youtube.com/playlist?list=PL4nIIOm91rYWNvuf6qbMePpvEcV-BiBy1" target="_blank" class="text-xs font-mono text-mythic-gold font-bold hover:underline flex items-center gap-1">
+              <span data-i18n="pl_yt_link">YouTube'da Aç</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg>
+            </a>
+            <a href="bolumler.html" class="text-xs font-mono font-bold hover:text-mythic-gold" data-i18n="pl_all_link">Tüm 8 Video Arşivi →</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CH. 5: HALK ARENASI (MİTİK Mİ, BİTİK Mİ?) ==================== -->
+  <section id="anket" class="py-24 px-6 relative z-10 bg-theme-section border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <div class="max-w-5xl mx-auto space-y-12 text-center">
+      
+      <div class="space-y-3">
+        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-mythic-goldBg border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-[0.25em] font-mono font-bold">
+          <i data-lucide="scale" class="w-3.5 h-3.5"></i>
+          <span data-i18n="arena_tag">Halk Jürisi Karar Veriyor</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold editorial-glow-light" data-i18n-html="arena_title">
+          MİTİK Mİ, <span class="text-mythic-crimson">BİTİK Mİ?</span>
+        </h2>
+        <p class="text-xs sm:text-sm max-w-xl mx-auto font-light leading-relaxed opacity-80" data-i18n="arena_desc">
+          Sence antik çağın kahramanları gerçekten efsanevi miydi, yoksa tarihin en büyük pazarlama fiyaskoları mı?
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+        
+        <!-- Perseus Card -->
+        <div class="sculpture-card p-6 flex flex-col justify-between space-y-5 border">
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-mythic-gold font-bold">#01 PERSEUS</span>
+              <i data-lucide="sword" class="w-4 h-4 opacity-50"></i>
+            </div>
+            <h3 class="font-cinzel text-base font-bold mt-2" data-i18n="hero_perseus_title">Uykuda Medusa Avı</h3>
+            <p class="text-xs mt-1 font-light opacity-80" data-i18n="hero_perseus_desc">Tanrıların eşyalarıyla uyuyan kadını kesmek?</p>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex gap-2">
+              <button onclick="voteHero('perseus', 'mitik')" class="flex-1 py-2 rounded-lg bg-white/90 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-[11px] font-mono font-bold text-center transition-all" data-i18n="btn_mythic">MİTİK</button>
+              <button onclick="voteHero('perseus', 'bitik')" class="flex-1 py-2 rounded-lg bg-white/90 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950 border border-rose-500/40 text-rose-700 dark:text-rose-300 text-[11px] font-mono font-bold text-center transition-all" data-i18n="btn_flop">BİTİK</button>
+            </div>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden flex">
+              <div id="bar-perseus-mitik" class="bg-emerald-600 h-full w-[25%] transition-all duration-500"></div>
+              <div id="bar-perseus-bitik" class="bg-rose-600 h-full w-[75%] transition-all duration-500"></div>
+            </div>
+            <div class="flex justify-between text-[10px] font-mono opacity-70">
+              <span id="txt-perseus-mitik">%25 Mitik</span>
+              <span id="txt-perseus-bitik">%75 Bitik</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Odysseus Card -->
+        <div class="sculpture-card p-6 flex flex-col justify-between space-y-5 border">
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-mythic-gold font-bold">#03 ODYSSEUS</span>
+              <i data-lucide="anchor" class="w-4 h-4 opacity-50"></i>
+            </div>
+            <h3 class="font-cinzel text-base font-bold mt-2" data-i18n="hero_odysseus_title">Ego Yüzünden 10 Yıl</h3>
+            <p class="text-xs mt-1 font-light opacity-80" data-i18n="hero_odysseus_desc">Kaçarken arkaya dönüp adını bağırmak?</p>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex gap-2">
+              <button onclick="voteHero('odysseus', 'mitik')" class="flex-1 py-2 rounded-lg bg-white/90 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-[11px] font-mono font-bold text-center transition-all" data-i18n="btn_mythic">MİTİK</button>
+              <button onclick="voteHero('odysseus', 'bitik')" class="flex-1 py-2 rounded-lg bg-white/90 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950 border border-rose-500/40 text-rose-700 dark:text-rose-300 text-[11px] font-mono font-bold text-center transition-all" data-i18n="btn_flop">BİTİK</button>
+            </div>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden flex">
+              <div id="bar-odysseus-mitik" class="bg-emerald-600 h-full w-[18%] transition-all duration-500"></div>
+              <div id="bar-odysseus-bitik" class="bg-rose-600 h-full w-[82%] transition-all duration-500"></div>
+            </div>
+            <div class="flex justify-between text-[10px] font-mono opacity-70">
+              <span id="txt-odysseus-mitik">%18 Mitik</span>
+              <span id="txt-odysseus-bitik">%82 Bitik</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pandora Card -->
+        <div class="sculpture-card p-6 flex flex-col justify-between space-y-5 border">
+          <div class="bracket-tl"></div><div class="bracket-tr"></div>
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-mythic-gold font-bold">#04 PANDORA</span>
+              <i data-lucide="package-open" class="w-4 h-4 opacity-50"></i>
+            </div>
+            <h3 class="font-cinzel text-base font-bold mt-2" data-i18n="hero_pandora_title">Kutuyu Açmak</h3>
+            <p class="text-xs mt-1 font-light opacity-80" data-i18n="hero_pandora_desc">Açma denilen kutuyu merak edip açmak?</p>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex gap-2">
+              <button onclick="voteHero('pandora', 'mitik')" class="flex-1 py-2 rounded-lg bg-white/90 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-[11px] font-mono font-bold text-center transition-all" data-i18n="btn_mythic">MİTİK</button>
+              <button onclick="voteHero('pandora', 'bitik')" class="flex-1 py-2 rounded-lg bg-white/90 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950 border border-rose-500/40 text-rose-700 dark:text-rose-300 text-[11px] font-mono font-bold text-center transition-all" data-i18n="btn_flop">BİTİK</button>
+            </div>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden flex">
+              <div id="bar-pandora-mitik" class="bg-emerald-600 h-full w-[35%] transition-all duration-500"></div>
+              <div id="bar-pandora-bitik" class="bg-rose-600 h-full w-[65%] transition-all duration-500"></div>
+            </div>
+            <div class="flex justify-between text-[10px] font-mono opacity-70">
+              <span id="txt-pandora-mitik">%35 Mitik</span>
+              <span id="txt-pandora-bitik">%65 Bitik</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CH. 6: MITIK ATELIER ==================== -->
+  <section id="merch" class="py-24 px-6 relative z-10 bg-theme-section border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto space-y-12">
+      
+      <div class="text-center space-y-3 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-mythic-goldBg border border-mythic-gold/30 text-mythic-gold text-xs uppercase tracking-[0.25em] font-mono font-bold">
+          <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+          <span data-i18n="store_tag">Sıradan Ölümlüler Kulübü</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-extrabold editorial-glow-light" data-i18n-html="store_title">
+          MİTİK <span class="text-mythic-gold">ATELIER & STORE</span>
+        </h2>
+        <p class="text-xs sm:text-sm font-light leading-relaxed opacity-80" data-i18n="store_desc">
+          Tarihin faturasını ödeyenler için özel üretilmiş sarkastik antik koleksiyon parçaları.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Product 1 -->
+        <div class="sculpture-card p-4 space-y-3 flex flex-col justify-between group hover:-translate-y-1.5 transition-transform duration-300 border">
+          <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
+          <div class="space-y-2.5">
+            <div class="h-40 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center relative border border-slate-200 dark:border-slate-700">
+              <div class="w-16 h-16 rounded-full bg-amber-50 dark:bg-amber-950 flex items-center justify-center text-mythic-gold group-hover:scale-110 transition-transform">
+                <i data-lucide="shirt" class="w-8 h-8"></i>
+              </div>
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-mythic-goldBg text-mythic-gold text-[8px] font-mono font-bold uppercase">Heavyweight</span>
+            </div>
+            <div>
+              <span class="text-[8px] font-mono uppercase opacity-60" data-i18n="prod_cat_clothing">Giyim</span>
+              <h4 class="font-cinzel font-bold text-xs mt-0.5">Yiki "Kallisti" Oversize T-Shirt</h4>
+              <p class="text-[10px] font-light opacity-75" data-i18n="prod1_desc">Nifak elması ve antik harf işlemeli %100 pamuk.</p>
+            </div>
+          </div>
+          <div class="pt-2.5 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <span class="font-mono font-bold text-mythic-gold text-xs">490 ₺</span>
+            <button class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-900 hover:text-white border border-slate-300 dark:border-slate-700 text-[10px] font-mono font-semibold transition-all" data-i18n="prod_soon">Yakında</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="sculpture-card p-4 space-y-3 flex flex-col justify-between group hover:-translate-y-1.5 transition-transform duration-300 border">
+          <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
+          <div class="space-y-2.5">
+            <div class="h-40 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center relative border border-slate-200 dark:border-slate-700">
+              <div class="w-16 h-16 rounded-full bg-red-50 dark:bg-red-950 flex items-center justify-center text-mythic-crimson group-hover:scale-110 transition-transform">
+                <i data-lucide="coffee" class="w-8 h-8"></i>
+              </div>
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-red-50 text-mythic-crimson text-[8px] font-mono font-bold uppercase" data-i18n="prod_badge_ceramic">Seramik</span>
+            </div>
+            <div>
+              <span class="text-[8px] font-mono uppercase opacity-60" data-i18n="prod_cat_mug">Kupa</span>
+              <h4 class="font-cinzel font-bold text-xs mt-0.5" data-i18n="prod2_title">"Uykuda Kafa Kesmek?" Kupa</h4>
+              <p class="text-[10px] font-light opacity-75" data-i18n="prod2_desc">Sıcak kahve koyunca yılanlar beliren kupa.</p>
+            </div>
+          </div>
+          <div class="pt-2.5 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <span class="font-mono font-bold text-mythic-gold text-xs">240 ₺</span>
+            <button class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-900 hover:text-white border border-slate-300 dark:border-slate-700 text-[10px] font-mono font-semibold transition-all" data-i18n="prod_soon">Yakında</button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="sculpture-card p-4 space-y-3 flex flex-col justify-between group hover:-translate-y-1.5 transition-transform duration-300 border">
+          <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
+          <div class="space-y-2.5">
+            <div class="h-40 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center relative border border-slate-200 dark:border-slate-700">
+              <div class="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-950 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                <i data-lucide="flame" class="w-8 h-8"></i>
+              </div>
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[8px] font-mono font-bold uppercase">Premium</span>
+            </div>
+            <div>
+              <span class="text-[8px] font-mono uppercase opacity-60" data-i18n="prod_cat_clothing">Giyim</span>
+              <h4 class="font-cinzel font-bold text-xs mt-0.5">"Poseidon Haklı" Hoodie</h4>
+              <p class="text-[10px] font-light opacity-75" data-i18n="prod3_desc">İthaka sürgünü temalı kapüşonlu.</p>
+            </div>
+          </div>
+          <div class="pt-2.5 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <span class="font-mono font-bold text-mythic-gold text-xs">850 ₺</span>
+            <button class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-900 hover:text-white border border-slate-300 dark:border-slate-700 text-[10px] font-mono font-semibold transition-all" data-i18n="prod_soon">Yakında</button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="sculpture-card p-4 space-y-3 flex flex-col justify-between group hover:-translate-y-1.5 transition-transform duration-300 border">
+          <div class="pillar-gold"></div><div class="pillar-right-gold"></div>
+          <div class="space-y-2.5">
+            <div class="h-40 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center relative border border-slate-200 dark:border-slate-700">
+              <div class="w-16 h-16 rounded-full bg-purple-50 dark:bg-purple-950 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform">
+                <i data-lucide="sparkles" class="w-8 h-8"></i>
+              </div>
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[8px] font-mono font-bold uppercase" data-i18n="prod_badge_holo">Holografik</span>
+            </div>
+            <div>
+              <span class="text-[8px] font-mono uppercase opacity-60" data-i18n="prod_cat_acc">Aksesuar</span>
+              <h4 class="font-cinzel font-bold text-xs mt-0.5" data-i18n="prod4_title">Yiki Mimik Sticker Paketi</h4>
+              <p class="text-[10px] font-light opacity-75" data-i18n="prod4_desc">Laptoplar için 12 adet su geçirmez sticker.</p>
+            </div>
+          </div>
+          <div class="pt-2.5 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <span class="font-mono font-bold text-mythic-gold text-xs">120 ₺</span>
+            <button class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-900 hover:text-white border border-slate-300 dark:border-slate-700 text-[10px] font-mono font-semibold transition-all" data-i18n="prod_soon">Yakında</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative py-16 px-6 bg-slate-950 text-slate-100 border-t border-slate-800 z-10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      
+      <div class="flex items-center gap-3.5 text-center md:text-left">
+        <div class="w-11 h-11 rounded-full bg-mythic-goldBg border border-mythic-gold/40 flex items-center justify-center overflow-hidden shrink-0 shadow-lg mx-auto md:mx-0">
+          <img src="logo.png" onerror="this.src='https://lh3.googleusercontent.com/d/1-hJuawTpOuK-N-DdrB6fDuuqIYdAFtnm'" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <h3 class="font-cinzel font-bold text-base tracking-wider text-white" data-i18n="brand_title">MİTİK HİKAYELER</h3>
+          <p class="text-[11px] text-slate-400 font-light" data-i18n="footer_quote">“İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insandır.” — Hermes</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3.5">
+        <a href="https://www.youtube.com/@MitikHikayeler" target="_blank" rel="noopener noreferrer"
+           class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 hover:border-red-500 text-slate-300 hover:text-red-400 flex items-center justify-center transition-all" title="YouTube">
+          <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9"/></svg>
+        </a>
+        <a href="https://instagram.com/mitikhikayeler" target="_blank" rel="noopener noreferrer"
+           class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 hover:border-pink-500 text-slate-300 hover:text-pink-400 flex items-center justify-center transition-all" title="Instagram">
+          <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+        <a href="https://tiktok.com/@mitikhikayeler" target="_blank" rel="noopener noreferrer"
+           class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 flex items-center justify-center transition-all" title="TikTok">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+
+    </div>
+    
+    <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-400">
+      <span data-i18n="footer_rights">© 2026 Mitik Hikayeler. Tüm hakları saklıdır.</span>
+      <div class="flex gap-5 mt-2 sm:mt-0">
+        <a href="bolumler.html" class="text-mythic-gold hover:underline" data-i18n="footer_link_episodes">Bölümler (8)</a>
+        <a href="yiki.html" class="text-mythic-gold hover:underline" data-i18n="footer_link_bible">Yiki Biblesi</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BİZE ULAŞIN MODAL -->
+  <div id="contact-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-6 backdrop-blur-md">
+    <div class="sculpture-card rounded-2xl max-w-md w-full p-6 sm:p-8 space-y-5 relative border-mythic-gold/40 shadow-2xl bg-white dark:bg-slate-900">
+      <div class="bracket-tl"></div><div class="bracket-tr"></div>
+
+      <button onclick="closeContactModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="space-y-1">
+        <span class="text-[10px] font-mono text-mythic-gold uppercase tracking-[0.25em] font-bold" data-i18n="modal_tag">İLETİŞİM & İŞBİRLİĞİ</span>
+        <h3 class="font-cinzel text-xl font-bold" data-i18n="modal_title">Kozmik İletişim Hattı</h3>
+        <p class="text-xs font-light opacity-80" data-i18n="modal_desc">Proje işbirlikleri ve sponsorluk için bize ulaşın.</p>
+      </div>
+
+      <div class="space-y-3 pt-1">
+        <a href="mailto:komikinternet@gmail.com" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-mythic-gold/50 transition-all group">
+          <div class="w-8 h-8 rounded-lg bg-mythic-goldBg flex items-center justify-center text-mythic-gold">
+            <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+          </div>
+          <div>
+            <span class="text-[9px] font-mono text-slate-400 block" data-i18n="modal_email_label">E-POSTA</span>
+            <span class="text-xs font-mono font-bold group-hover:text-mythic-gold transition-colors">komikinternet@gmail.com</span>
+          </div>
+        </a>
+
+        <a href="https://instagram.com/mitikhikayeler" target="_blank" class="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-pink-500/50 transition-all group">
+          <div class="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-950 flex items-center justify-center text-pink-600">
+            <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </div>
+          <div>
+            <span class="text-[9px] font-mono text-slate-400 block">INSTAGRAM DM</span>
+            <span class="text-xs font-mono font-bold group-hover:text-pink-600 transition-colors">@mitikhikayeler</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT: i18n & SCROLLYTELLING ==================== -->
+  <script>
+    // ================= DIL SOZLUGU (i18n) =================
+    const translations = {
+      tr: {
+        doc_title: "Mitik Hikayeler — Antik Çağın Epik Rezaletleri",
+        brand_title: "MİTİK HİKAYELER",
+        brand_subtitle: "Antik Rezaletler",
+        btn_contact: "Bize Ulaşın",
+        btn_subscribe: "Abone Ol →",
+        nav_ch1: "Ch. 1 Elma",
+        nav_ch2: "Ch. 2 İkarus",
+        nav_ch3: "Ch. 3 Akdeniz",
+        nav_ch4: "Ch. 4 Arşiv",
+        nav_ch5: "Ch. 5 Arena",
+        nav_ch6: "Ch. 6 Atelier",
+        mobile_ch1: "Ch. 1 Altın Elma",
+        mobile_ch2: "Ch. 2 İkarus & Düşüş",
+        mobile_ch3: "Ch. 3 Akdeniz & Yiki",
+        mobile_ch4: "Ch. 4 Canlı Arşiv",
+        mobile_ch5: "Ch. 5 Mitik mi, Bitik mi?",
+        mobile_ch6: "Ch. 6 Mitik Atelier",
+        mobile_all_episodes: "Tüm 8 Bölüm Arşivi →",
+        mobile_yiki_bible: "Yiki Karakter Biblesi →",
+        mobile_footer: "© 2026 Mitik Hikayeler · Master Edition",
+        stage_top_brand: "MİTİK SCROLLYTELLING",
+        stage_prologue_title: "Kusursuz Zaferler Değil, Epik Rezaletler",
+        stage_elma_title: "Kallisti: En Güzele... Truva Faciası",
+        stage_ikarus_title: "Maceraya Hazır Mısın? Kibir & Düşüş",
+        stage_yiki_title: "Yiki’nin Masası & Parşömenler",
+        hero_tag: "Kozmik Simülasyonun Trajikomik Günlükleri",
+        hero_title: "Kafayı kestik. <br><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-mythic-goldAmber to-amber-200\">Kutuyu açtık.</span> <br>Faturayı ödedik.",
+        hero_desc: "Uykuda kafa kesip kahraman olanlar, egosu yüzünden 10 yıl denizde sürüklenenler ve bir nifak elmasıyla patlayan antik egolar...",
+        elma_l_tag: "CH. 01 · KALLİSTİ",
+        elma_l_title: "Bir Elma, <br>Üç Kibirli Tanrıça.",
+        elma_l_desc: "Yiki altın elmayı uzatıyor. Düğüne çağrılmayan Eris ortaya bıraktı; Hera krallık, Athena bilgelik vaat etti. Paris ise dünyanın en güzel kadınını seçti.",
+        elma_r_tag: "KOZMİK FATURA",
+        elma_r_title: "Işık Parladığında <br>Gölgeler Uzar.",
+        elma_r_desc: "Bir nifak tohumu atıldı ve 10 yıllık savaşın faturasını binlerce yıl boyunca sadece masum ölümlüler ödedi.",
+        ikarus_l_tag: "CH. 02 · KARE 01–16",
+        ikarus_l_title: "Maceraya <br>Hazır Mısın?",
+        ikarus_l_desc: "Güneşe fazla yaklaşma dediler... Ama uçmanın sarhoşluğu yerçekimini unutturur.",
+        ikarus_r_tag: "YERÇEKİMİ",
+        ikarus_r_title: "Balmumu Eridiğinde:",
+        ikarus_r_desc: "“İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insan.” Tüyler döküldü, Ege Denizi bekliyor.",
+        yiki_l_tag: "CH. 03 · AKDENİZ TERASI",
+        yiki_l_title: "Tozlu Arşivler & <br>Son Selam.",
+        yiki_l_desc: "Yiki parşömeni bağlar, gün batımında son selamını verir. Her rezaletin bir faturası, her faturanın bir hikayesi vardır.",
+        yiki_r_tag: "PERDE KAPANDI",
+        yiki_r_title: "Şimdi Gerçeklere <br>Adım At.",
+        yiki_r_btn: "Bölümleri İzle →",
+        scroll_continue: "KAYDIRMAYA DEVAM EDİN",
+        vitrin_tag: "Perde Kapandı, Gerçekler Başlıyor",
+        vitrin_title: "Tüm Rezaletleri İzlemeye Hazır Mısın?",
+        vitrin_desc: "Kozmik simülasyonun arka bahçesinde dönen tüm dolaplar ve epik fiyaskolar Yiki'nin anlatımıyla YouTube arşivinde.",
+        ep7_badge: "EN SON ÇIKAN BÖLÜM (BÖLÜM 7)",
+        ep7_cat: "Antik Mısır",
+        ep7_title: "Güneş Tanrısı Ra & Yılan Apophis",
+        ep7_desc: "Mısır mitolojisinin kozmik yeraltı savaşı ve Ra'nın bitmek bilmeyen gece nöbeti.",
+        pl_badge: "RESMİ OYNATMA LİSTESİ",
+        pl_cat: "Sıralı Arşiv",
+        pl_title: "Theogonia ve Mitik Seriler",
+        pl_desc: "Tüm bölümleri kesintisiz ve sıralı olarak izleyin.",
+        pl_yt_link: "YouTube'da Aç",
+        pl_all_link: "Tüm 8 Video Arşivi →",
+        arena_tag: "Halk Jürisi Karar Veriyor",
+        arena_title: "MİTİK Mİ, <span class=\"text-mythic-crimson\">BİTİK Mİ?</span>",
+        arena_desc: "Sence antik çağın kahramanları gerçekten efsanevi miydi, yoksa tarihin en büyük pazarlama fiyaskoları mı?",
+        hero_perseus_title: "Uykuda Medusa Avı",
+        hero_perseus_desc: "Tanrıların eşyalarıyla uyuyan kadını kesmek?",
+        hero_odysseus_title: "Ego Yüzünden 10 Yıl",
+        hero_odysseus_desc: "Kaçarken arkaya dönüp adını bağırmak?",
+        hero_pandora_title: "Kutuyu Açmak",
+        hero_pandora_desc: "Açma denilen kutuyu merak edip açmak?",
+        btn_mythic: "MİTİK",
+        btn_flop: "BİTİK",
+        vote_mythic_label: "Mitik",
+        vote_flop_label: "Bitik",
+        store_tag: "Sıradan Ölümlüler Kulübü",
+        store_title: "MİTİK <span class=\"text-mythic-gold\">ATELIER & STORE</span>",
+        store_desc: "Tarihin faturasını ödeyenler için özel üretilmiş sarkastik antik koleksiyon parçaları.",
+        prod_cat_clothing: "Giyim",
+        prod_cat_mug: "Kupa",
+        prod_cat_acc: "Aksesuar",
+        prod_badge_ceramic: "Seramik",
+        prod_badge_holo: "Holografik",
+        prod_soon: "Yakında",
+        prod1_desc: "Nifak elması ve antik harf işlemeli %100 pamuk.",
+        prod2_title: "\"Uykuda Kafa Kesmek?\" Kupa",
+        prod2_desc: "Sıcak kahve koyunca yılanlar beliren kupa.",
+        prod3_desc: "İthaka sürgünü temalı kapüşonlu.",
+        prod4_title: "Yiki Mimik Sticker Paketi",
+        prod4_desc: "Laptoplar için 12 adet su geçirmez sticker.",
+        footer_quote: "“İnsan ölümlü bir tanrıdır, tanrı ise ölümsüz bir insandır.” — Hermes",
+        footer_rights: "© 2026 Mitik Hikayeler. Tüm hakları saklıdır.",
+        footer_link_episodes: "Bölümler (8)",
+        footer_link_bible: "Yiki Biblesi",
+        modal_tag: "İLETİŞİM & İŞBİRLİĞİ",
+        modal_title: "Kozmik İletişim Hattı",
+        modal_desc: "Proje işbirlikleri ve sponsorluk için bize ulaşın.",
+        modal_email_label: "E-POSTA"
+      },
+      en: {
+        doc_title: "Mythic Tales — Epic Disasters of Antiquity",
+        brand_title: "MYTHIC TALES",
+        brand_subtitle: "Ancient Disasters",
+        btn_contact: "Contact Us",
+        btn_subscribe: "Subscribe →",
+        nav_ch1: "Ch. 1 Apple",
+        nav_ch2: "Ch. 2 Icarus",
+        nav_ch3: "Ch. 3 Med Sea",
+        nav_ch4: "Ch. 4 Archive",
+        nav_ch5: "Ch. 5 Arena",
+        nav_ch6: "Ch. 6 Atelier",
+        mobile_ch1: "Ch. 1 Golden Apple",
+        mobile_ch2: "Ch. 2 Icarus & Fall",
+        mobile_ch3: "Ch. 3 Mediterranean & Yiki",
+        mobile_ch4: "Ch. 4 Live Archive",
+        mobile_ch5: "Ch. 5 Mythic or Flop?",
+        mobile_ch6: "Ch. 6 Mythic Atelier",
+        mobile_all_episodes: "All 8 Episodes Archive →",
+        mobile_yiki_bible: "Yiki Character Bible →",
+        mobile_footer: "© 2026 Mythic Tales · Master Edition",
+        stage_top_brand: "MYTHIC SCROLLYTELLING",
+        stage_prologue_title: "Not Flawless Victories, Epic Disasters",
+        stage_elma_title: "Kallisti: To the Fairest... Trojan Disaster",
+        stage_ikarus_title: "Ready for Adventure? Hubris & Fall",
+        stage_yiki_title: "Yiki's Desk & Ancient Scrolls",
+        hero_tag: "Tragicomical Chronicles of the Cosmic Simulation",
+        hero_title: "We cut the head. <br><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-mythic-goldAmber to-amber-200\">We opened the box.</span> <br>We paid the bill.",
+        hero_desc: "Those who became heroes by beheading asleep, those adrift for 10 years due to ego, and ancient egos exploding over an apple of discord...",
+        elma_l_tag: "CH. 01 · KALLISTI",
+        elma_l_title: "One Apple, <br>Three Arrogant Goddesses.",
+        elma_l_desc: "Yiki presents the golden apple. Thrown by uninvited Eris; Hera promised a kingdom, Athena wisdom. Paris chose the most beautiful woman on earth.",
+        elma_r_tag: "COSMIC INVOICE",
+        elma_r_title: "When Light Shines, <br>Shadows Lengthen.",
+        elma_r_desc: "A seed of discord was planted, and innocent mortals paid the price of a 10-year war for millennia.",
+        ikarus_l_tag: "CH. 02 · FRAMES 01–16",
+        ikarus_l_title: "Ready for <br>Adventure?",
+        ikarus_l_desc: "They said don't fly too close to the sun... But the intoxication of flight makes you forget gravity.",
+        ikarus_r_tag: "GRAVITY",
+        ikarus_r_title: "When the Wax Melts:",
+        ikarus_r_desc: "“Man is a mortal god, and god is an immortal man.” Feathers scattered, the Aegean Sea awaits.",
+        yiki_l_tag: "CH. 03 · MEDITERRANEAN TERRACE",
+        yiki_l_title: "Dusty Archives & <br>Final Bow.",
+        yiki_l_desc: "Yiki ties the scroll, giving a final salute at sunset. Every disaster has a price, and every bill tells a story.",
+        yiki_r_tag: "CURTAIN CLOSES",
+        yiki_r_title: "Now Step Into <br>Reality.",
+        yiki_r_btn: "Watch Episodes →",
+        scroll_continue: "KEEP SCROLLING",
+        vitrin_tag: "Curtains Closed, Reality Begins",
+        vitrin_title: "Ready to Witness Every Disaster?",
+        vitrin_desc: "All backroom plots and epic fiascos of the cosmic simulation, narrated by Yiki on YouTube.",
+        ep7_badge: "LATEST EPISODE (EPISODE 7)",
+        ep7_cat: "Ancient Egypt",
+        ep7_title: "Sun God Ra & Serpent Apophis",
+        ep7_desc: "Egyptian mythology's cosmic underworld war and Ra's endless nocturnal vigil.",
+        pl_badge: "OFFICIAL PLAYLIST",
+        pl_cat: "Ordered Archive",
+        pl_title: "Theogony & Mythic Series",
+        pl_desc: "Watch all episodes uninterrupted and in sequence.",
+        pl_yt_link: "Open on YouTube",
+        pl_all_link: "All 8 Videos Archive →",
+        arena_tag: "The Public Jury Decides",
+        arena_title: "MYTHIC OR <span class=\"text-mythic-crimson\">FLOP?</span>",
+        arena_desc: "Were ancient heroes truly legendary, or history's greatest marketing fiascos?",
+        hero_perseus_title: "Hunting Medusa Asleep",
+        hero_perseus_desc: "Beheading a sleeping woman using gods' items?",
+        hero_odysseus_title: "10 Years for Pure Ego",
+        hero_odysseus_desc: "Shouting your name back while escaping?",
+        hero_pandora_title: "Opening the Box",
+        hero_pandora_desc: "Opening the forbidden box purely out of curiosity?",
+        btn_mythic: "MYTHIC",
+        btn_flop: "FLOP",
+        vote_mythic_label: "Mythic",
+        vote_flop_label: "Flop",
+        store_tag: "Ordinary Mortals Club",
+        store_title: "MYTHIC <span class=\"text-mythic-gold\">ATELIER & STORE</span>",
+        store_desc: "Sarcastic antique collectible pieces made especially for those paying history's bills.",
+        prod_cat_clothing: "Apparel",
+        prod_cat_mug: "Mug",
+        prod_cat_acc: "Accessory",
+        prod_badge_ceramic: "Ceramic",
+        prod_badge_holo: "Holographic",
+        prod_soon: "Coming Soon",
+        prod1_desc: "100% cotton with embroidered discord apple and ancient glyphs.",
+        prod2_title: "\"Beheading in Sleep?\" Mug",
+        prod2_desc: "Color-changing mug revealing serpents when hot coffee is poured.",
+        prod3_desc: "Ithaca exile themed oversized hoodie.",
+        prod4_title: "Yiki Expression Sticker Pack",
+        prod4_desc: "12 waterproof vinyl stickers for laptops.",
+        footer_quote: "“Man is a mortal god, and god is an immortal man.” — Hermes",
+        footer_rights: "© 2026 Mythic Tales. All rights reserved.",
+        footer_link_episodes: "Episodes (8)",
+        footer_link_bible: "Yiki Bible",
+        modal_tag: "CONTACT & INQUIRIES",
+        modal_title: "Cosmic Hotline",
+        modal_desc: "Get in touch for project collaborations and sponsorships.",
+        modal_email_label: "EMAIL"
+      },
+      de: {
+        doc_title: "Mythische Geschichten — Epische Katastrophen der Antike",
+        brand_title: "MYTHISCHE GESCHICHTEN",
+        brand_subtitle: "Antike Katastrophen",
+        btn_contact: "Kontakt",
+        btn_subscribe: "Abonnieren →",
+        nav_ch1: "Ch. 1 Apfel",
+        nav_ch2: "Ch. 2 Ikarus",
+        nav_ch3: "Ch. 3 Mittelmeer",
+        nav_ch4: "Ch. 4 Archiv",
+        nav_ch5: "Ch. 5 Arena",
+        nav_ch6: "Ch. 6 Atelier",
+        mobile_ch1: "Ch. 1 Goldener Apfel",
+        mobile_ch2: "Ch. 2 Ikarus & Sturz",
+        mobile_ch3: "Ch. 3 Mittelmeer & Yiki",
+        mobile_ch4: "Ch. 4 Live-Archiv",
+        mobile_ch5: "Ch. 5 Mythisch oder Flop?",
+        mobile_ch6: "Ch. 6 Mythisches Atelier",
+        mobile_all_episodes: "Alle 8 Episoden Archiv →",
+        mobile_yiki_bible: "Yiki Charakter-Bibel →",
+        mobile_footer: "© 2026 Mythische Geschichten · Master Edition",
+        stage_top_brand: "MYTHISCHES SCROLLYTELLING",
+        stage_prologue_title: "Keine makellosen Siege, epische Katastrophen",
+        stage_elma_title: "Kallisti: Der Schönsten... Trojanische Katastrophe",
+        stage_ikarus_title: "Bereit für das Abenteuer? Hybris & Sturz",
+        stage_yiki_title: "Yikis Tisch & Schriftrollen",
+        hero_tag: "Tragikomische Chroniken der kosmischen Simulation",
+        hero_title: "Kopf abgetrennt. <br><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-mythic-goldAmber to-amber-200\">Büchse geöffnet.</span> <br>Rechnung bezahlt.",
+        hero_desc: "Helden, die im Schlaf Köpfe abschlugen, 10 Jahre Irrfahrt wegen des Egos und antike Egos, die an einem Zankapfel explodierten...",
+        elma_l_tag: "CH. 01 · KALLISTI",
+        elma_l_title: "Ein Apfel, <br>Drei eitle Göttinnen.",
+        elma_l_desc: "Yiki reicht den goldenen Apfel. Von der uneingeladenen Eris geworfen; Hera versprach Macht, Athene Weisheit. Paris wählte die schönste Frau der Welt.",
+        elma_r_tag: "KOSMISCHE RECHNUNG",
+        elma_r_title: "Wo Licht erstrahlt, <br>wachsen die Schatten.",
+        elma_r_desc: "Ein Samen der Zwietracht wurde gesät, und unschuldige Sterbliche bezahlten den Preis eines 10-jährigen Krieges über Jahrtausende.",
+        ikarus_l_tag: "CH. 02 · BILD 01–16",
+        ikarus_l_title: "Bereit für <br>das Abenteuer?",
+        ikarus_l_desc: "Flieg nicht zu nah an die Sonne, sagten sie... Doch der Rausch des Fliegens lässt die Schwerkraft vergessen.",
+        ikarus_r_tag: "SCHWERKRAFT",
+        ikarus_r_title: "Wenn das Wachs schmilzt:",
+        ikarus_r_desc: "„Der Mensch ist ein sterblicher Gott, und Gott ist ein unsterblicher Mensch.“ Federn fallen, das Ägäische Meer wartet.",
+        yiki_l_tag: "CH. 03 · MITTELMEER-TERRASSE",
+        yiki_l_title: "Staubige Archive & <br>Letzter Gruß.",
+        yiki_l_desc: "Yiki bindet die Schriftrolle und grüßt ein letztes Mal im Sonnenuntergang. Jedes Desaster hat seinen Preis.",
+        yiki_r_tag: "VORHANG FÄLLT",
+        yiki_r_title: "Tritt ein in <br>die Realität.",
+        yiki_r_btn: "Episoden ansehen →",
+        scroll_continue: "WEITER SCROLLEN",
+        vitrin_tag: "Der Vorhang fällt, die Realität beginnt",
+        vitrin_title: "Bereit für all die Katastrophen?",
+        vitrin_desc: "Alle Machenschaften und epischen Misserfolge der kosmischen Simulation, erzählt von Yiki im YouTube-Archiv.",
+        ep7_badge: "NEUESTE FOLGE (FOLGE 7)",
+        ep7_cat: "Altes Ägypten",
+        ep7_title: "Sonnengott Ra & Schlange Apophis",
+        ep7_desc: "Der kosmische Unterweltkrieg der ägyptischen Mythologie und Ras endlose Nachtwache.",
+        pl_badge: "OFFIZIELLE PLAYLIST",
+        pl_cat: "Geordnetes Archiv",
+        pl_title: "Theogonie & Mythische Serien",
+        pl_desc: "Alle Episoden ohne Unterbrechung der Reihe nach ansehen.",
+        pl_yt_link: "Auf YouTube öffnen",
+        pl_all_link: "Alle 8 Videos Archiv →",
+        arena_tag: "Die Volksjury entscheidet",
+        arena_title: "MYTHISCH ODER <span class=\"text-mythic-crimson\">FLOP?</span>",
+        arena_desc: "Waren antike Helden wirklich legendär oder die größten Marketing-Fails der Geschichte?",
+        hero_perseus_title: "Medusa-Jagd im Schlaf",
+        hero_perseus_desc: "Eine schlafende Frau mit Götter-Artefakten enthaupten?",
+        hero_odysseus_title: "10 Jahre pures Ego",
+        hero_odysseus_desc: "Auf der Flucht zurückrufen und seinen Namen brüllen?",
+        hero_pandora_title: "Die Büchse öffnen",
+        hero_pandora_desc: "Die verbotene Büchse aus purer Neugier öffnen?",
+        btn_mythic: "MYTHISCH",
+        btn_flop: "FLOP",
+        vote_mythic_label: "Mythisch",
+        vote_flop_label: "Flop",
+        store_tag: "Klub der gewöhnlichen Sterblichen",
+        store_title: "MYTHISCHES <span class=\"text-mythic-gold\">ATELIER & STORE</span>",
+        store_desc: "Sarkastische antike Sammlerstücke für diejenigen, die die Rechnungen der Geschichte bezahlen.",
+        prod_cat_clothing: "Kleidung",
+        prod_cat_mug: "Tasse",
+        prod_cat_acc: "Accessoire",
+        prod_badge_ceramic: "Keramik",
+        prod_badge_holo: "Holographisch",
+        prod_soon: "Demnächst",
+        prod1_desc: "100% Baumwolle mit Zankapfel- und Glyphen-Stickerei.",
+        prod2_title: "\"Enthauptung im Schlaf?\" Tasse",
+        prod2_desc: "Farbwechsel-Tasse, die bei heißem Kaffee Schlangen enthüllt.",
+        prod3_desc: "Oversized Hoodie zum Thema Ithaka-Exil.",
+        prod4_title: "Yiki Mimik-Sticker-Paket",
+        prod4_desc: "12 wasserfeste Vinyl-Sticker für Laptops.",
+        footer_quote: "„Der Mensch ist ein sterblicher Gott, und Gott ist ein unsterblicher Mensch.“ — Hermes",
+        footer_rights: "© 2026 Mythische Geschichten. Alle Rechte vorbehalten.",
+        footer_link_episodes: "Episoden (8)",
+        footer_link_bible: "Yiki-Bibel",
+        modal_tag: "KONTAKT & ANFRAGEN",
+        modal_title: "Kosmische Hotline",
+        modal_desc: "Kontaktieren Sie uns für Projektkooperationen und Sponsoring.",
+        modal_email_label: "E-MAIL"
+      }
+    };
+
+    let currentLang = 'tr';
+
+    function setLanguage(lang) {
+      if (!translations[lang]) return;
+      currentLang = lang;
+      localStorage.setItem('mitik_lang', lang);
+      document.documentElement.lang = lang;
+
+      // Update Text Elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          if (el.tagName === 'TITLE') {
+            document.title = translations[lang][key];
+          } else {
+            el.innerText = translations[lang][key];
+          }
+        }
+      });
+
+      // Update HTML Elements with data-i18n-html
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Update UI active buttons
+      ['tr', 'en', 'de'].forEach(l => {
+        const btn = document.getElementById(`lang-btn-${l}`);
+        if (btn) {
+          if (l === lang) {
+            btn.className = 'px-2 py-0.5 rounded-full transition-colors text-mythic-gold bg-white dark:bg-slate-700 shadow-xs font-bold';
+          } else {
+            btn.className = 'px-2 py-0.5 rounded-full transition-colors text-slate-500 hover:text-slate-900 dark:hover:text-white';
+          }
+        }
+      });
+
+      // Refresh voting labels & canvas status tags
+      ['perseus', 'odysseus', 'pandora'].forEach(updateVoteUI);
+      drawCanvasFrame(currentProgress);
+    }
+
+    function initLanguage() {
+      const savedLang = localStorage.getItem('mitik_lang') || 'tr';
+      setLanguage(savedLang);
+    }
+
+    // 1. NATIVE INSTANT SMOOTH SCROLL
+    function scrollToSection(selector) {
+      const target = document.querySelector(selector);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function scrubToProgress(p) {
+      const stage = document.getElementById('stage-master');
+      if (stage) {
+        const top = stage.offsetTop + p * (stage.offsetHeight - window.innerHeight);
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+
+    // 2. THEME CONTROLLER
+    function initTheme() {
+      const savedTheme = localStorage.getItem('mitik_theme') || 'light';
+      applyTheme(savedTheme);
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const newTheme = isDark ? 'light' : 'dark';
+      applyTheme(newTheme);
+      localStorage.setItem('mitik_theme', newTheme);
+    }
+
+    function applyTheme(theme) {
+      const sunIcon = document.getElementById('sun-icon');
+      const moonIcon = document.getElementById('moon-icon');
+      if (theme === 'dark') {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        if (sunIcon) sunIcon.classList.remove('hidden');
+        if (moonIcon) moonIcon.classList.add('hidden');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        if (sunIcon) sunIcon.classList.add('hidden');
+        if (moonIcon) moonIcon.classList.remove('hidden');
+      }
+    }
+    initTheme();
+
+    // 3. PROGRESSIVE 250-FRAME WEBP CANVAS ENGINE
+    const TOTAL_FRAMES = 250;
+    const canvas = document.getElementById('master-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    const frames = new Array(TOTAL_FRAMES);
+    let currentProgress = 0;
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawCanvasFrame(currentProgress);
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Frame 1 is loaded immediately
+    const firstFrame = new Image();
+    firstFrame.src = 'animated/ezgif-frame-001.webp';
+    firstFrame.onload = () => {
+      frames[0] = firstFrame;
+      drawCanvasFrame(0);
+    };
+
+    // Remaining 249 frames load progressively in background batches
+    let loadIndex = 2;
+    function loadNextBatch() {
+      if (loadIndex > TOTAL_FRAMES) return;
+      const batchEnd = Math.min(TOTAL_FRAMES, loadIndex + 5);
+      for (let i = loadIndex; i <= batchEnd; i++) {
+        const img = new Image();
+        const num = String(i).padStart(3, '0');
+        img.src = `animated/ezgif-frame-${num}.webp`;
+        const idx = i - 1;
+        img.onload = () => { frames[idx] = img; };
+      }
+      loadIndex = batchEnd + 1;
+      if (loadIndex <= TOTAL_FRAMES) {
+        setTimeout(loadNextBatch, 20);
+      }
+    }
+    setTimeout(loadNextBatch, 80);
+
+    function drawCanvasFrame(progress) {
+      currentProgress = progress;
+      if (!ctx || !canvas) return;
+
+      const animProgress = Math.min(1, progress / 0.85);
+      const targetIdx = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.floor(animProgress * (TOTAL_FRAMES - 1))));
+      
+      let img = frames[targetIdx];
+      if (!img || !img.complete || img.naturalWidth === 0) {
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          if (targetIdx - offset >= 0 && frames[targetIdx - offset]?.complete) {
+            img = frames[targetIdx - offset];
+            break;
+          }
+          if (targetIdx + offset < TOTAL_FRAMES && frames[targetIdx + offset]?.complete) {
+            img = frames[targetIdx + offset];
+            break;
+          }
+        }
+      }
+
+      if (img && img.complete && img.naturalWidth > 0) {
+        const hRatio = canvas.width / img.width;
+        const vRatio = canvas.height / img.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const cx = (canvas.width - img.width * ratio) / 2;
+        const cy = (canvas.height - img.height * ratio) / 2;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, img.width * ratio, img.height * ratio);
+      }
+
+      // Update Top Scene Tag with Active Language
+      const tagEl = document.getElementById('scene-tag');
+      const titleEl = document.getElementById('scene-title');
+      const dict = translations[currentLang] || translations.tr;
+
+      if (tagEl && titleEl) {
+        if (targetIdx < 20) {
+          tagEl.innerText = 'PROLOGUE';
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = dict.stage_prologue_title;
+        } else if (targetIdx < 65) {
+          tagEl.innerText = currentLang === 'de' ? 'CH. 01 · APFEL' : (currentLang === 'en' ? 'CH. 01 · APPLE' : 'CH. 01 · ELMA');
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = dict.stage_elma_title;
+        } else if (targetIdx < 160) {
+          tagEl.innerText = 'CH. 02 · IKARUS';
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = dict.stage_ikarus_title;
+        } else {
+          tagEl.innerText = currentLang === 'de' ? 'CH. 03 · MITTELMEER' : (currentLang === 'en' ? 'CH. 03 · MED SEA' : 'CH. 03 · AKDENİZ');
+          tagEl.className = 'px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold uppercase tracking-widest';
+          titleEl.innerText = dict.stage_yiki_title;
+        }
+      }
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 4. MASTER GSAP SCROLLTRIGGER CHOREOGRAPHY
+    const masterTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#stage-master",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const p = self.progress;
+          drawCanvasFrame(p);
+          const bar = document.getElementById('master-stage-bar');
+          if (bar) bar.style.width = `${p * 100}%`;
+        }
+      }
+    });
+
+    masterTl
+      .to("#panel-hero", { opacity: 0, scale: 0.9, y: -40, duration: 1 })
+      .fromTo("#panel-elma-left", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "+=0.2")
+      .fromTo("#panel-elma-right", { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "<")
+      .to(["#panel-elma-left", "#panel-elma-right"], { opacity: 0, y: -30, duration: 1 }, "+=1.5")
+      .fromTo("#panel-ikarus-left", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "+=0.3")
+      .fromTo("#panel-ikarus-right", { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "<")
+      .to(["#panel-ikarus-left", "#panel-ikarus-right"], { opacity: 0, y: -30, duration: 1 }, "+=1.5")
+      .fromTo("#panel-yiki-left", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "+=0.3")
+      .fromTo("#panel-yiki-right", { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5 }, "<")
+      .to({}, { duration: 2.5 });
+
+    // 5. LOOPING VIDEO TRANSITION
+    const loopVideo = document.getElementById('end-loop-video');
+    ScrollTrigger.create({
+      trigger: "#vitrin",
+      start: "top 80%",
+      end: "bottom top",
+      onEnter: () => {
+        if (loopVideo) {
+          loopVideo.style.opacity = '0.45';
+          loopVideo.play();
+        }
+      },
+      onLeaveBack: () => {
+        if (loopVideo) {
+          loopVideo.style.opacity = '0';
+        }
+      }
+    });
+
+    // 6. CURSOR ENGINE
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (cursorDot) {
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+      }
+    });
+
+    function renderCursorRing() {
+      ringX += (mouseX - ringX) * 0.3;
+      ringY += (mouseY - ringY) * 0.3;
+      if (cursorRing) {
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+      }
+      requestAnimationFrame(renderCursorRing);
+    }
+    requestAnimationFrame(renderCursorRing);
+
+    document.querySelectorAll('a, button, .side-floating-card, .sculpture-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (cursorRing) {
+          cursorRing.style.width = '48px';
+          cursorRing.style.height = '48px';
+          cursorRing.style.borderColor = '#B38A22';
+          cursorRing.style.backgroundColor = 'rgba(179, 138, 34, 0.08)';
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        if (cursorRing) {
+          cursorRing.style.width = '32px';
+          cursorRing.style.height = '32px';
+          cursorRing.style.borderColor = 'rgba(179, 138, 34, 0.6)';
+          cursorRing.style.backgroundColor = 'transparent';
+        }
+      });
+    });
+
+    // 7. MODAL & DRAWER
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function openContactModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) modal.classList.add('is-open');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) modal.classList.remove('is-open');
+    }
+
+    // 8. GSAP STAGGER REVEALS
+    gsap.utils.toArray('.sculpture-card').forEach((box) => {
+      gsap.from(box, {
+        scrollTrigger: {
+          trigger: box,
+          start: 'top 88%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      });
+    });
+
+    // 9. VOTING STATE
+    const voteData = {
+      perseus: { mitik: 12, bitik: 36 },
+      odysseus: { mitik: 8, bitik: 42 },
+      pandora: { mitik: 14, bitik: 26 }
+    };
+
+    function voteHero(hero, choice) {
+      if (voteData[hero]) {
+        voteData[hero][choice]++;
+        updateVoteUI(hero);
+      }
+    }
+
+    function updateVoteUI(hero) {
+      const total = voteData[hero].mitik + voteData[hero].bitik;
+      const mitikPct = Math.round((voteData[hero].mitik / total) * 100);
+      const bitikPct = 100 - mitikPct;
+
+      const barMitik = document.getElementById(`bar-${hero}-mitik`);
+      const barBitik = document.getElementById(`bar-${hero}-bitik`);
+      const txtMitik = document.getElementById(`txt-${hero}-mitik`);
+      const txtBitik = document.getElementById(`txt-${hero}-bitik`);
+
+      const dict = translations[currentLang] || translations.tr;
+
+      if (barMitik && barBitik && txtMitik && txtBitik) {
+        barMitik.style.width = `${mitikPct}%`;
+        barBitik.style.width = `${bitikPct}%`;
+        txtMitik.innerText = `%${mitikPct} ${dict.vote_mythic_label}`;
+        txtBitik.innerText = `%${bitikPct} ${dict.vote_flop_label}`;
+      }
+    }
+
+    // Initialize Icons and Language
+    lucide.createIcons();
+    initLanguage();
+  </script>
+</body>
+</html>
